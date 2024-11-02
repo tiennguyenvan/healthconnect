@@ -13,109 +13,114 @@
         android:id="@+id/headerTitle"
         style="@style/HeaderText"
         android:text="HealthConnect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="24dp" />
+        />
 
-    <!-- Patients Section Title -->
-    <TextView
-        android:id="@+id/patientsTitle"
-        style="@style/SectionTitleText"
-        android:text="Patients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btPatients"
+        style="@style/Card"
+        app:cardCornerRadius="@dimen/corner_radius"
         app:layout_constraintTop_toBottomOf="@id/headerTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/CardInner"
+            >
+
+            <TextView
+                android:id="@+id/patientsTitle"
+                style="@style/CardTitle"
+                android:text="@string/patientsCardTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/patientsCount"
+                style="@style/CardCount"
+                android:text="15"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btAppointments"
+        style="@style/Card"
+        app:cardCornerRadius="@dimen/corner_radius"
+        app:layout_constraintTop_toBottomOf="@id/btPatients"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="8dp" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Patients Card -->
-    <TextView
-        android:id="@+id/patientsCount"
-        style="@style/ListText"
-        android:text="15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/patientsTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="8dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/CardInner">
 
-    <TextView
-        android:id="@+id/patientsLabel"
-        style="@style/ListText"
-        android:text="Total Patients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/patientsTitle"
-        app:layout_constraintStart_toEndOf="@id/patientsCount"
-        app:layout_constraintBaseline_toBaselineOf="@id/patientsCount" />
+            <TextView
+                android:id="@+id/appointmentsTitle"
+                style="@style/CardTitle"
+                android:text="@string/appointmentsCardTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
-    <!-- Appointments Section Title -->
-    <TextView
-        android:id="@+id/appointmentsTitle"
-        style="@style/SectionTitleText"
-        android:text="Appointments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/patientsCount"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp" />
+            <TextView
+                android:id="@+id/appointmentsCount"
+                style="@style/CardCount"
+                android:text="15"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Appointments Card -->
-    <TextView
-        android:id="@+id/appointmentsCount"
-        style="@style/ListText"
-        android:text="15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/appointmentsTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="8dp" />
+            <!-- Additional TextView for appointment details -->
+            <TextView
+                android:id="@+id/appointmentDetails"
+                style="@style/CardDetails"
+                android:text="Dan Fan 9:30\nTim Nguyen 15:30"
+                app:layout_constraintTop_toBottomOf="@id/appointmentsTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/appointmentsLabel"
-        style="@style/ListText"
-        android:text="Total Appointments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/appointmentsTitle"
-        app:layout_constraintStart_toEndOf="@id/appointmentsCount"
-        app:layout_constraintBaseline_toBaselineOf="@id/appointmentsCount" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btMedications"
+        style="@style/Card"
+        app:cardCornerRadius="@dimen/corner_radius"
+        app:layout_constraintTop_toBottomOf="@id/btAppointments"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
-    <!-- Medications Section Title -->
-    <TextView
-        android:id="@+id/medicationsTitle"
-        style="@style/SectionTitleText"
-        android:text="Medications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/appointmentsCount"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/CardInner">
 
-    <!-- Medications Card -->
-    <TextView
-        android:id="@+id/medicationsCount"
-        style="@style/ListText"
-        android:text="15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/medicationsTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="8dp" />
+            <TextView
+                android:id="@+id/medicationsTitle"
+                style="@style/CardTitle"
+                android:text="@string/medicationsCardTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
 
-    <TextView
-        android:id="@+id/medicationsLabel"
-        style="@style/ListText"
-        android:text="Total Medications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/medicationsTitle"
-        app:layout_constraintStart_toEndOf="@id/medicationsCount"
-        app:layout_constraintBaseline_toBaselineOf="@id/medicationsCount" />
+            <TextView
+                android:id="@+id/medicationsCount"
+                style="@style/CardCount"
+                android:text="15"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

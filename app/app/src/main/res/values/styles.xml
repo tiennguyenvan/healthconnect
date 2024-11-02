@@ -3,62 +3,82 @@
 
     <!-- App Theme -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:colorBackground">@color/base</item>   <!-- Base background color -->
-        <item name="android:textColor">@color/text</item>         <!-- Main text color -->
+        <item name="android:colorBackground">@color/base</item>
+        <item name="android:textColor">@color/text</item>
     </style>
 
-    <!-- Header Text Style -->
     <style name="HeaderText">
-        <item name="android:fontFamily">@font/lexend_bold</item>   <!-- Bold Lexend font -->
+        <item name="android:fontFamily">@font/lexend_bold</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/text</item>          <!-- Primary text color -->
+        <item name="android:textColor">@color/text</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/element_space</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <!-- Section Title Text Style -->
-    <style name="SectionTitleText">
-        <item name="android:fontFamily">@font/lexend_semibold</item>  <!-- Semi-bold Lexend -->
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/text</item>             <!-- Primary text color -->
-    </style>
 
-    <!-- List Item Text Style -->
-    <style name="ListText">
-        <item name="android:fontFamily">@font/lexend_regular</item>   <!-- Regular Lexend font -->
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/text</item>             <!-- Primary text color -->
-    </style>
 
     <!-- Secondary Text (for Details like DOB, Contact) -->
     <style name="DetailText">
-        <item name="android:fontFamily">@font/lexend_light</item>     <!-- Light Lexend font -->
+        <item name="android:fontFamily">@font/lexend_light</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/lighterText</item>      <!-- Lighter text color -->
+        <item name="android:textColor">@color/lighterText</item>
     </style>
 
-    <!-- Primary Button Style -->
     <style name="PrimaryButton">
-        <item name="android:backgroundTint">@color/primary</item>     <!-- Primary red color -->
+        <item name="android:backgroundTint">@color/primary</item>
         <item name="android:padding">12dp</item>
-        <item name="android:textColor">@color/btnBg</item>            <!-- White text on button -->
+        <item name="android:textColor">@color/btnBg</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">8dp</item>              <!-- Consistent margin -->
+        <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:strokeColor">@color/btnBorder</item>      <!-- Button border -->
-        <item name="android:strokeWidth">1sp</item>                   <!-- Border thickness -->
+        <item name="android:strokeColor">@color/btnBorder</item>
+        <item name="android:strokeWidth">0</item>
     </style>
 
-    <!-- Card Container Style -->
-    <style name="CardContainer">
-        <item name="android:background">@color/btnBg</item>           <!-- White background -->
-        <item name="android:elevation">4dp</item>                    <!-- Elevation for shadow -->
+    <!-- Card Styles -->
+    <style name="Card">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/btnBg</item>
+        <item name="android:elevation">4dp</item><!-- For shadow -->
+        <item name="android:layout_marginTop">@dimen/element_space</item>
+        <item name="android:layout_marginLeft">@dimen/element_space</item>
+        <item name="android:layout_marginRight">@dimen/element_space</item>
+        <item name="android:strokeColor">@color/btnBorder</item>
+        <item name="android:strokeWidth">0</item>
+    </style>
+    <style name="CardInner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">16dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:radius">8dp</item>                       <!-- Rounded corners -->
-        <item name="android:strokeColor">@color/btnBorder</item>      <!-- Border color -->
-        <item name="android:strokeWidth">1dp</item>                   <!-- Border width -->
+    </style>
+
+    <style name="CardTitle">
+        <item name="android:fontFamily">@font/lexend_semibold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="CardCount">
+        <item name="android:fontFamily">@font/lexend_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="CardDetails">
+        <item name="android:layout_marginTop">@dimen/element_space</item>
+        <item name="android:fontFamily">@font/lexend_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">28sp</item>
+        <item name="android:textColor">@color/lighterText</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="element_space">20dp</dimen>
+    <dimen name="gap_big">30dp</dimen>
+    <dimen name="gap_mid">20dp</dimen>
+    <dimen name="gap_small">10dp</dimen>
     <dimen name="corner_radius">10dp</dimen>
 </resources>

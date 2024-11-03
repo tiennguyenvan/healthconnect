@@ -4,7 +4,7 @@
     <color name="primary">#FFC21715</color>       <!-- Primary Red -->
     <color name="text">#FF000000</color>          <!-- Black Text -->
     <color name="base">#FFF8FCFF</color>          <!-- Base Background -->
-    <color name="btnBg">#FFFFFFFF</color>         <!-- Button Background -->
+    <color name="cardBg">#FFFFFFFF</color>         <!-- Button Background -->
     <color name="lighterText">#FF797C80</color>   <!-- Lighter Gray Text -->
     <color name="btnBorder">#FFEDEFF2</color>     <!-- Button Border -->
 </resources>

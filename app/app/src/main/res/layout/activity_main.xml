@@ -1,126 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
     android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    style="@style/AppTheme"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
+    <LinearLayout style="@style/Header">
+        <TextView style="@style/H1" android:text="@string/app_name" />
+    </LinearLayout>
 
-    <!-- Header -->
-    <TextView
-        android:id="@+id/headerTitle"
-        style="@style/HeaderText"
-        android:text="HealthConnect"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-
-    <androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView style="@style/Card"
         android:id="@+id/btPatients"
-        style="@style/Card"
-        app:cardCornerRadius="@dimen/corner_radius"
-        app:layout_constraintTop_toBottomOf="@id/headerTitle"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            style="@style/CardInner"
-            >
-
-            <TextView
-                android:id="@+id/patientsTitle"
-                style="@style/CardTitle"
-                android:text="@string/patientsCardTitle"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                />
-
-            <TextView
-                android:id="@+id/patientsCount"
-                style="@style/CardCount"
-                android:text="15"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        app:cardCornerRadius="@dimen/corner_radius"> <!-- require xmlns:app="http://schemas.android.com/apk/res-auto" -->
+        <LinearLayout style="@style/CardInner">
+            <LinearLayout style="@style/CardHeader">
+                <TextView style="@style/H2" android:text="@string/patientsCardTitle"/>
+                <TextView style="@style/LinkText" android:text="0"/>
+            </LinearLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-
-    <androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView style="@style/Card"
         android:id="@+id/btAppointments"
-        style="@style/Card"
         app:cardCornerRadius="@dimen/corner_radius"
-        app:layout_constraintTop_toBottomOf="@id/btPatients"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            style="@style/CardInner">
-
-            <TextView
-                android:id="@+id/appointmentsTitle"
-                style="@style/CardTitle"
-                android:text="@string/appointmentsCardTitle"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
-
-            <TextView
-                android:id="@+id/appointmentsCount"
-                style="@style/CardCount"
-                android:text="15"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Additional TextView for appointment details -->
-            <TextView
-                android:id="@+id/appointmentDetails"
-                style="@style/CardDetails"
-                android:text="Dan Fan 9:30\nTim Nguyen 15:30"
-                app:layout_constraintTop_toBottomOf="@id/appointmentsTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        >
+        <LinearLayout style="@style/CardInner">
+            <LinearLayout style="@style/CardHeader">
+                <TextView style="@style/H2" android:text="@string/appointmentsCardTitle"/>
+                <TextView style="@style/LinkText" android:text="0"/>
+            </LinearLayout>
+            <TextView style="@style/CardBody" android:text="Dan Fan 9:30\nTim Nguyen 15:30"/>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btMedications"
-        style="@style/Card"
         app:cardCornerRadius="@dimen/corner_radius"
-        app:layout_constraintTop_toBottomOf="@id/btAppointments"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            style="@style/CardInner">
-
-            <TextView
-                android:id="@+id/medicationsTitle"
-                style="@style/CardTitle"
-                android:text="@string/medicationsCardTitle"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent" />
-
-            <TextView
-                android:id="@+id/medicationsCount"
-                style="@style/CardCount"
-                android:text="15"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        style="@style/Card">
+        <LinearLayout style="@style/CardInner">
+            <LinearLayout style="@style/CardHeader">
+                <TextView
+                    style="@style/H2" android:text="@string/medicationsCardTitle"/>
+                <TextView style="@style/LinkText" android:text="0"/>
+            </LinearLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

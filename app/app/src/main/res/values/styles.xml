@@ -5,10 +5,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:paddingTop">@dimen/gap_big</item>
-        <item name="android:paddingLeft">@dimen/gap_big</item>
-        <item name="android:paddingRight">@dimen/gap_big</item>
         <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/gap_big</item>
         <item name="android:background">@color/base</item>
         <item name="android:textColor">@color/text</item>
     </style>
@@ -22,6 +20,10 @@
     </style>
     <style name="LinkTextSmall" parent="LinkText">
         <item name="android:textSize">12sp</item>
+    </style>
+    <style name="ErrorText" parent="LinkText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:visibility">invisible</item>
     </style>
     <style name="BodyText" >
         <item name="android:fontFamily">@font/lexend_regular</item>
@@ -73,8 +75,6 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-
-
     <!-- Form Style -->
     <style name="Field">
         <item name="android:layout_width">match_parent</item>
@@ -96,6 +96,8 @@
         <item name="android:layout_weight">1</item>
         <item name="android:padding">@dimen/gap_small</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
     </style>
     <style name="PrimaryBtn">
         <item name="android:backgroundTint">@color/primary</item>
@@ -141,10 +143,5 @@
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:layout_marginBottom">@dimen/gap_small</item>
     </style>
-
-
-
-
-
 
 </resources>

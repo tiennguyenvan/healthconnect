@@ -1,49 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/main"
-    style="@style/AppTheme"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
-
-    <LinearLayout style="@style/Header">
-        <TextView style="@style/H1" android:text="@string/app_name" />
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView style="@style/Card"
-        android:id="@+id/btPatients"
-        app:cardCornerRadius="@dimen/corner_radius"> <!-- require xmlns:app="http://schemas.android.com/apk/res-auto" -->
-        <LinearLayout style="@style/CardInner">
-            <LinearLayout style="@style/CardHeader">
-                <TextView style="@style/H2" android:text="@string/patientsCardTitle"/>
-                <TextView style="@style/LinkText" android:text="0"/>
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView style="@style/Card"
-        android:id="@+id/btAppointments"
-        app:cardCornerRadius="@dimen/corner_radius"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        style="@style/AppTheme"
         >
-        <LinearLayout style="@style/CardInner">
-            <LinearLayout style="@style/CardHeader">
-                <TextView style="@style/H2" android:text="@string/appointmentsCardTitle"/>
-                <TextView style="@style/LinkText" android:text="0"/>
-            </LinearLayout>
-            <TextView style="@style/CardBody" android:text="Dan Fan 9:30\nTim Nguyen 15:30"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btMedications"
-        app:cardCornerRadius="@dimen/corner_radius"
-        style="@style/Card">
-        <LinearLayout style="@style/CardInner">
-            <LinearLayout style="@style/CardHeader">
-                <TextView
-                    style="@style/H2" android:text="@string/medicationsCardTitle"/>
-                <TextView style="@style/LinkText" android:text="0"/>
-            </LinearLayout>
+        <LinearLayout style="@style/Header">
+            <TextView style="@style/H1" android:text="@string/app_name" />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+
+        <androidx.cardview.widget.CardView style="@style/Card"
+            android:id="@+id/btPatients"
+            app:cardCornerRadius="@dimen/corner_radius"> <!-- require xmlns:app="http://schemas.android.com/apk/res-auto" -->
+            <LinearLayout style="@style/CardInner">
+                <LinearLayout style="@style/CardHeader">
+                    <TextView style="@style/H2" android:text="@string/patientsCardTitle"/>
+                    <TextView style="@style/LinkText" android:text="0"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView style="@style/Card"
+            android:id="@+id/btAppointments"
+            app:cardCornerRadius="@dimen/corner_radius"
+            >
+            <LinearLayout style="@style/CardInner">
+                <LinearLayout style="@style/CardHeader">
+                    <TextView style="@style/H2" android:text="@string/appointmentsCardTitle"/>
+                    <TextView style="@style/LinkText" android:text="0"/>
+                </LinearLayout>
+                <TextView style="@style/CardBody" android:text="Phyo Thaw 9:30\nTim Nguyen 15:30"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btMedications"
+            app:cardCornerRadius="@dimen/corner_radius"
+            style="@style/Card">
+            <LinearLayout style="@style/CardInner">
+                <LinearLayout style="@style/CardHeader">
+                    <TextView
+                        style="@style/H2" android:text="@string/medicationsCardTitle"/>
+                    <TextView style="@style/LinkText" android:text="0"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

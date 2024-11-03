@@ -22,5 +22,7 @@ public class PatientListActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        $.in(this).onClick(R.id.btBackToMain).goToScreen(MainActivity.class);
+        $.in(this).onClick(R.id.btToPatientForm).goToScreen(PatientFormActivity.class);
     }
 }

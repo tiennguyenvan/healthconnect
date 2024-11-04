@@ -206,4 +206,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return patient;
     }
+    public void updatePatient(long patientId, String name, double height, double weight, String dateOfBirth, String contactNumber) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String updatePatientQuery = "UPDATE " + TABLE_PATIENT + " SET "
+                + COLUMN_NAME + " = ?, "
+                + COLUMN_HEIGHT + " = ?, "
+                + COLUMN_WEIGHT + " = ?, "
+                + COLUMN_DATE_OF_BIRTH + " = ?, "
+                + COLUMN_CONTACT_NUMBER + " = ? "
+                + "WHERE " + COLUMN_PATIENT_ID + " = ?";
+
+        SQLiteStatement statement = db.compileStatement(updatePatientQuery);
+        statement.bindString(1, name);
+        statement.bindDouble(2, height);
+        statement.bindDouble(3, weight);
+        statement.bindString(4, dateOfBirth);
+        statement.bindString(5, contactNumber);
+        statement.bindLong(6, patientId);
+
+        statement.executeUpdateDelete();
+        statement.close();
+    }
 }

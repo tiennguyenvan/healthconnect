@@ -24,13 +24,6 @@ public class PatientFormActivity extends AppCompatActivity {
             return insets;
         });
         dbHelper = DatabaseHelper.getInstance(this);
-// pass object
-//        intent.putExtra("PATIENT_OBJECT", patient);
-//        startActivity(intent);
-        // retrieve object
-//        Patient patient = (Patient) getIntent().getSerializableExtra("PATIENT_OBJECT");
-
-
         inThis = $.in(this);
         inThis.onClick(R.id.btBackToMain).goToScreen(PatientListActivity.class);
         inThis.onFocus(R.id.etPatientDOB).pickDate();

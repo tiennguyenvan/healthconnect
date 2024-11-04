@@ -13,7 +13,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper instance;
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "HealthConnect.db";
 
     public static final String TABLE_PATIENT = "Patient";
@@ -74,25 +74,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteStatement statement = db.compileStatement(insertPatientQuery);
 
-        statement.bindString(1, "Tim Nguyen");
-        statement.bindString(2, "1985-07-15"); // we will use date format when displaying
-        statement.bindString(3, "0987654321");
-        statement.bindDouble(4, 175);
-        statement.bindDouble(5, 70);
+        statement.bindString(1, "Tim Nguyen");       // Name
+        statement.bindDouble(2, 175);                // Height
+        statement.bindDouble(3, 70);                 // Weight
+        statement.bindString(4, "1985-07-15");       // DateOfBirth
+        statement.bindString(5, "0987654321");       // ContactNumber
         statement.executeInsert();
 
         statement.bindString(1, "Phyo Thaw");
-        statement.bindString(2, "1990-03-22");
-        statement.bindString(3, "0912345678");
-        statement.bindDouble(4, 180);
-        statement.bindDouble(5, 75);
+        statement.bindDouble(2, 180);
+        statement.bindDouble(3, 75);
+        statement.bindString(4, "1990-03-22");
+        statement.bindString(5, "0912345678");
         statement.executeInsert();
 
         statement.bindString(1, "Bruno Beserra");
-        statement.bindString(2, "1988-11-10");
-        statement.bindString(3, "0998765432");
-        statement.bindDouble(4, 178);
-        statement.bindDouble(5, 80);
+        statement.bindDouble(2, 178);
+        statement.bindDouble(3, 80);
+        statement.bindString(4, "1988-11-10");
+        statement.bindString(5, "0998765432");
         statement.executeInsert();
     }
     public long insertPatient(String name, double height, double weight, String dateOfBirth, String contactNumber) {
@@ -178,4 +178,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return patientList;
     }
 
+    public Patient getPatientById(long patientId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Patient patient = null;
+
+        Cursor cursor = db.query(
+                TABLE_PATIENT,
+                null,
+                COLUMN_PATIENT_ID + " = ?",
+                new String[]{String.valueOf(patientId)},
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            patient = new Patient(
+                    cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_PATIENT_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_HEIGHT)),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_WEIGHT)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE_OF_BIRTH)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CONTACT_NUMBER))
+            );
+            cursor.close();
+        }
+
+        return patient;
+    }
 }

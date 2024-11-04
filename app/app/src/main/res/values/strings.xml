@@ -24,4 +24,7 @@
     <string name="warning_invalid_number">Invalid number</string>
     <string name="warning_invalid_phone">Invalid phone format</string>
     <string name="warning_invalid_date">Invalid date</string>
+    <string name="back_with_patient_name">‹ \t %1$s</string>
+    <string name="patient_details_format">%1$.0fcm, %2$.0fkg\n%3$s\n%4$s</string>
+
 </resources>

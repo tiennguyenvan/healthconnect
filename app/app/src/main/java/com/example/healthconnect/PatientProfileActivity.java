@@ -9,7 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class PatientProfileActivity extends AppCompatActivity {
-
+    private $ inThis;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,5 +20,10 @@ public class PatientProfileActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        inThis = $.in(this);
+
+        inThis.onClick(R.id.btBackToMain).goToScreen(PatientListActivity.class);
+
     }
 }

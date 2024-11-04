@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ListItems"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvPatientName"
+        style="@style/CardBody"
+        android:text="Patient Name" />
+</LinearLayout>

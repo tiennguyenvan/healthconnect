@@ -6,11 +6,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.Nullable;
+import android.database.Cursor;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper instance;
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "HealthConnect.db";
 
     public static final String TABLE_PATIENT = "Patient";
@@ -111,5 +114,68 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowId;
     }
 
+    // Method to get all patients
+    public List<Patient> getAllPatients() {
+        List<Patient> patientList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                TABLE_PATIENT,
+                null,
+                null,
+                null,
+                null,
+                null,
+                COLUMN_NAME + " ASC"
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Patient patient = new Patient(
+                        cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_PATIENT_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_HEIGHT)),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_WEIGHT)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE_OF_BIRTH)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CONTACT_NUMBER))
+                );
+                patientList.add(patient);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return patientList;
+    }
+
+    // Method to search patients by name
+    public List<Patient> searchPatients(String query) {
+        List<Patient> patientList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                TABLE_PATIENT,
+                null,
+                COLUMN_NAME + " LIKE ?",
+                new String[]{"%" + query + "%"},
+                null,
+                null,
+                COLUMN_NAME + " ASC"
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Patient patient = new Patient(
+                        cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_PATIENT_ID)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_HEIGHT)),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_WEIGHT)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATE_OF_BIRTH)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CONTACT_NUMBER))
+                );
+                patientList.add(patient);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return patientList;
+    }
 
 }

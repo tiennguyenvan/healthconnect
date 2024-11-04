@@ -12,7 +12,7 @@
     <string name="full_name">Full Name</string>
     <string name="unit_cm">cm</string>
     <string name="unit_kg">kg</string>
-    <string name="dob_format">Month Day, Year</string>
+    <string name="dob_format">YYYY-MM-D</string>
     <string name="phone">Phone</string>
     <string name="phone_format">xxx-xxx-xxxx</string>
     <string name="add_patient">Add Patient</string>
@@ -20,4 +20,8 @@
     <string name="search_placeholder">Search a Name</string>
     <string name="edit">Edit</string>
     <string name="consultations">Consultations</string>
+    <string name="warning_field_required">This field is required</string>
+    <string name="warning_invalid_number">Invalid number</string>
+    <string name="warning_invalid_phone">Invalid phone format</string>
+    <string name="warning_invalid_date">Invalid date</string>
 </resources>

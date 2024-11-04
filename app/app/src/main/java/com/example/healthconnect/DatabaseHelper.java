@@ -92,4 +92,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         statement.bindDouble(5, 80);
         statement.executeInsert();
     }
+    public long insertPatient(String name, double height, double weight, String dateOfBirth, String contactNumber) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String insertPatientQuery = "INSERT INTO " + TABLE_PATIENT + " ("
+                + COLUMN_NAME + ", " + COLUMN_HEIGHT + ", "
+                + COLUMN_WEIGHT + ", " + COLUMN_DATE_OF_BIRTH + ", " + COLUMN_CONTACT_NUMBER + ") "
+                + "VALUES (?, ?, ?, ?, ?)";
+
+        SQLiteStatement statement = db.compileStatement(insertPatientQuery);
+        statement.bindString(1, name);
+        statement.bindDouble(2, height);
+        statement.bindDouble(3, weight);
+        statement.bindString(4, dateOfBirth);
+        statement.bindString(5, contactNumber);
+
+        long rowId = statement.executeInsert();
+        statement.close();
+        return rowId;
+    }
+
+
 }

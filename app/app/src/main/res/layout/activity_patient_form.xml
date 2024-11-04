@@ -24,7 +24,8 @@
                 android:hint="@string/full_name"
                 android:inputType="textPersonName" />
         </LinearLayout>
-        
+        <TextView android:id="@+id/tvPatientNameError" style="@style/ErrorText"/>
+
 
         <LinearLayout style="@style/Field">
             <TextView android:text="@string/height" style="@style/FieldLabel" />
@@ -33,6 +34,7 @@
                 android:hint="@string/unit_cm"
                 android:inputType="numberDecimal" />
         </LinearLayout>
+        <TextView android:id="@+id/tvPatientHeightError" style="@style/ErrorText"/>
 
         <LinearLayout style="@style/Field">
             <TextView android:text="@string/weight" style="@style/FieldLabel" />
@@ -41,6 +43,7 @@
                 android:hint="@string/unit_kg"
                 android:inputType="numberDecimal" />
         </LinearLayout>
+        <TextView android:id="@+id/tvPatientWeightError" style="@style/ErrorText"/>
 
         <LinearLayout style="@style/Field">
             <TextView android:text="@string/dob" style="@style/FieldLabel" />
@@ -50,6 +53,8 @@
                 android:inputType="date"
                 />
         </LinearLayout>
+        <TextView android:id="@+id/tvPatientDOBError" style="@style/ErrorText"/>
+
         <LinearLayout style="@style/Field">
             <TextView android:text="@string/phone" style="@style/FieldLabel" />
             <EditText
@@ -58,6 +63,7 @@
                 android:hint="@string/phone_format"
                 android:inputType="phone" />
         </LinearLayout>
+        <TextView android:id="@+id/tvPatientPhoneError" style="@style/ErrorText"/>
 
         <Button android:id="@+id/btSubmitPatient"
             style="@style/PrimaryBtn"

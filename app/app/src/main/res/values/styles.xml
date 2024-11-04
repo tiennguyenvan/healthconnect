@@ -23,7 +23,7 @@
     </style>
     <style name="ErrorText" parent="LinkText">
         <item name="android:textSize">12sp</item>
-        <item name="android:visibility">invisible</item>
+        <item name="android:visibility">gone</item>
     </style>
     <style name="BodyText" >
         <item name="android:fontFamily">@font/lexend_regular</item>

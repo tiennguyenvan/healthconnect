@@ -37,7 +37,6 @@ public class Patient implements Serializable {
         this.name = name;
     }
 
-
     public double getHeight() {
         return height;
     }
@@ -55,7 +54,6 @@ public class Patient implements Serializable {
         this.weight = weight;
     }
 
-
     public String getDateOfBirth() {
         return dateOfBirth;
     }
@@ -63,7 +61,6 @@ public class Patient implements Serializable {
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
 
     public String getContactNumber() {
         return contactNumber;

@@ -21,7 +21,7 @@
         <TextView
             android:id="@+id/tvPatientDetails"
             android:text="174cm, 68kg\nJuly 01, 1986\n236-660-8650"
-            style="@style/BodyText"/>
+            style="@style/BodyMultiLineText"/>
 
         <LinearLayout style="@style/SubHeader">
             <TextView style="@style/H2" android:text="@string/consultations"/>

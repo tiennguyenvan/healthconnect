@@ -46,9 +46,10 @@ public class PatientListActivity extends AppCompatActivity {
 
         patientAdapter = new PatientAdapter(patientList, patient -> {
             // Handle item click to navigate to PatientProfileActivity
-            Intent intent = new Intent(this, PatientProfileActivity.class);
-            intent.putExtra("PATIENT_ID", patient.getId());
-            startActivity(intent);
+//            Intent intent = new Intent(this, PatientProfileActivity.class);
+//            intent.putExtra(getString(R.string.key_patient_id), patient.getId());
+//            startActivity(intent);
+            inThis.passToScreen(PatientProfileActivity.class, R.string.key_patient_id, patient.getId());
         });
         rvPatientList.setAdapter(patientAdapter);
 

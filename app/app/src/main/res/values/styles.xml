@@ -2,6 +2,7 @@
 <resources>
 
     <!-- App Theme -->
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -25,21 +26,36 @@
         <item name="android:textSize">12sp</item>
         <item name="android:visibility">gone</item>
     </style>
-    <style name="BodyText" >
+
+    <style name="BodyParagraph" >
         <item name="android:fontFamily">@font/lexend_regular</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:lineHeight">32sp</item>
+        <item name="android:lineHeight">24sp</item>
         <item name="android:textColor">@color/text</item>
-        <item name="android:layout_marginTop">@dimen/gap_mid</item>
+        <item name="android:layout_marginTop">@dimen/gap_small</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <style name="BodyMultiLineText" parent="BodyParagraph">
+        <item name="android:lineHeight">32sp</item>
+    </style>
+    <style name="BodySingleLineText" parent="BodyParagraph">
+        <item name="android:lineHeight">18sp</item>
+        <item name="android:layout_marginTop">0dp</item>
+    </style>
+
+    <!-- Lists -->
     <style name="ListItems">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/gap_mid</item>
         <item name="android:layout_marginBottom">@dimen/gap_big</item>
         <item name="android:scrollbars">vertical</item>
+    </style>
+    <style name="ListItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/gap_mid</item>
     </style>
 
 
@@ -132,7 +148,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="CardBody" parent="BodyText">
+    <style name="CardBody" parent="BodyParagraph">
         <item name="android:textSize">14sp</item>
         <item name="android:lineHeight">28sp</item>
     </style>

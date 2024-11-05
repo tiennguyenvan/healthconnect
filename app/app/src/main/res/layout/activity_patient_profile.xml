@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        style="@style/AppTheme"
+        >
+
+        <LinearLayout style="@style/Header">
+            <TextView android:id="@+id/btBackToMain" style="@style/H1" android:text="‹ \t Tim Nguyen" />
+            <TextView android:id="@+id/btToPatientForm" style="@style/LinkText" android:text="@string/edit" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPatientDetails"
+            android:text="174cm, 68kg\nJuly 01, 1986\n236-660-8650"
+            style="@style/BodyMultiLineText"/>
+
+        <LinearLayout style="@style/SubHeader">
+            <TextView style="@style/H2" android:text="@string/consultations"/>
+            <TextView android:id="@+id/btToAppointmentsForm"
+                style="@style/LinkText" android:text="@string/add_new"
+                />
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPatientConsultations"
+            style="@style/ListItems"
+            />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

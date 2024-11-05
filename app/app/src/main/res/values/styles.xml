@@ -2,63 +2,162 @@
 <resources>
 
     <!-- App Theme -->
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:colorBackground">@color/base</item>   <!-- Base background color -->
-        <item name="android:textColor">@color/text</item>         <!-- Main text color -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/gap_big</item>
+        <item name="android:background">@color/base</item>
+        <item name="android:textColor">@color/text</item>
     </style>
 
-    <!-- Header Text Style -->
-    <style name="HeaderText">
-        <item name="android:fontFamily">@font/lexend_bold</item>   <!-- Bold Lexend font -->
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/text</item>          <!-- Primary text color -->
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <!-- Section Title Text Style -->
-    <style name="SectionTitleText">
-        <item name="android:fontFamily">@font/lexend_semibold</item>  <!-- Semi-bold Lexend -->
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/text</item>             <!-- Primary text color -->
-    </style>
-
-    <!-- List Item Text Style -->
-    <style name="ListText">
-        <item name="android:fontFamily">@font/lexend_regular</item>   <!-- Regular Lexend font -->
+    <style name="LinkText">
+        <item name="android:fontFamily">@font/lexend_regular</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/text</item>             <!-- Primary text color -->
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="LinkTextSmall" parent="LinkText">
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="ErrorText" parent="LinkText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:visibility">gone</item>
     </style>
 
-    <!-- Secondary Text (for Details like DOB, Contact) -->
-    <style name="DetailText">
-        <item name="android:fontFamily">@font/lexend_light</item>     <!-- Light Lexend font -->
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/lighterText</item>      <!-- Lighter text color -->
+    <style name="BodyParagraph" >
+        <item name="android:fontFamily">@font/lexend_regular</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineHeight">24sp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:layout_marginTop">@dimen/gap_small</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="BodyMultiLineText" parent="BodyParagraph">
+        <item name="android:lineHeight">32sp</item>
+    </style>
+    <style name="BodySingleLineText" parent="BodyParagraph">
+        <item name="android:lineHeight">18sp</item>
+        <item name="android:layout_marginTop">0dp</item>
     </style>
 
-    <!-- Primary Button Style -->
-    <style name="PrimaryButton">
-        <item name="android:backgroundTint">@color/primary</item>     <!-- Primary red color -->
-        <item name="android:padding">12dp</item>
-        <item name="android:textColor">@color/btnBg</item>            <!-- White text on button -->
+    <!-- Lists -->
+    <style name="ListItems">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/gap_mid</item>
+        <item name="android:layout_marginBottom">@dimen/gap_big</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+    <style name="ListItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/gap_mid</item>
+    </style>
+
+
+    <!-- Sections -->
+    <style name="Header">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/gap_small</item>
+    </style>
+    <style name="SubHeader" parent="Header">
+        <item name="android:layout_marginTop">@dimen/gap_big</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="H1">
+        <item name="android:fontFamily">@font/lexend_bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/text</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">8dp</item>              <!-- Consistent margin -->
-        <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:strokeColor">@color/btnBorder</item>      <!-- Button border -->
-        <item name="android:strokeWidth">1sp</item>                   <!-- Border thickness -->
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="H2">
+        <item name="android:fontFamily">@font/lexend_semibold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="H3" parent="H2">
+        <item name="android:textSize">16sp</item>
     </style>
 
-    <!-- Card Container Style -->
-    <style name="CardContainer">
-        <item name="android:background">@color/btnBg</item>           <!-- White background -->
-        <item name="android:elevation">4dp</item>                    <!-- Elevation for shadow -->
-        <item name="android:padding">16dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:radius">8dp</item>                       <!-- Rounded corners -->
-        <item name="android:strokeColor">@color/btnBorder</item>      <!-- Border color -->
-        <item name="android:strokeWidth">1dp</item>                   <!-- Border width -->
+    <!-- Form Style -->
+    <style name="Field">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/gap_small</item>
+    </style>
+    <style name="FieldLabel">
+        <item name="android:fontFamily">@font/lexend_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">100sp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="FieldInput">
+        <item name="borderWidth">1dp</item>
+        <item name="android:background">@drawable/input_shape</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">@dimen/gap_small</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
+    <style name="PrimaryBtn">
+        <item name="android:backgroundTint">@color/primary</item>
+        <item name="android:padding">@dimen/gap_small</item>
+        <item name="android:textColor">@color/cardBg</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:strokeColor">@color/btnBorder</item>
+        <item name="android:layout_marginTop">@dimen/gap_mid</item>
+        <item name="android:strokeWidth">0</item>
+    </style>
+
+    <!-- Card Styles -->
+    <style name="Card">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/cardBg</item>
+        <item name="android:elevation">@dimen/gap_small</item><!-- For shadow -->
+        <item name="android:layout_marginTop">@dimen/gap_mid</item>
+        <item name="android:strokeColor">@color/btnBorder</item>
+        <item name="android:strokeWidth">0</item>
+    </style>
+    <style name="CardInner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/gap_mid</item>
+    </style>
+
+    <style name="CardHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="CardBody" parent="BodyParagraph">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">28sp</item>
+    </style>
+    <style name="CardRibbon" parent="CardBody">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight">24sp</item>
+        <item name="android:textColor">@color/lighterText</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">@dimen/gap_small</item>
     </style>
 
 </resources>

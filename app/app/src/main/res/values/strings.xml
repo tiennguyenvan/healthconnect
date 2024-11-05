@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">HealthConnect</string>
+    <string name="patientsCardTitle">Patients</string>
+    <string name="appointmentsCardTitle">Appointment</string>
+    <string name="medicationsCardTitle">Medications</string>
+    <string name="new_patient_header_text">‹ \t New Patient</string>
+    <string name="patient_list_header_text">‹ \t Patients</string>
+    <string name="name">Name</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="dob">DOB</string>
+    <string name="full_name">Full Name</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="dob_format">YYYY-MM-D</string>
+    <string name="phone">Phone</string>
+    <string name="phone_format">xxx-xxx-xxxx</string>
+    <string name="add_patient">Add Patient</string>
+    <string name="add_new">Add New</string>
+    <string name="search_placeholder">Search a Name</string>
+    <string name="edit">Edit</string>
+    <string name="consultations">Consultations</string>
+    <string name="warning_field_required">This field is required</string>
+    <string name="warning_invalid_number">Invalid number</string>
+    <string name="warning_invalid_phone">Invalid phone format</string>
+    <string name="warning_invalid_date">Invalid date</string>
+    <string name="back_with_patient_name">‹ \t %1$s</string>
+    <string name="patient_details_format">%1$.0fcm, %2$.0fkg\n%3$s\n%4$s</string>
+    <string name="key_patient_id">PATIENT_ID</string>
+
 </resources>

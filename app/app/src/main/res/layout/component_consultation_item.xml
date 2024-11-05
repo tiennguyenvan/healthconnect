@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Card"
+    >
+
+    <LinearLayout
+        style="@style/CardInner">
+        <TextView style="@style/CardRibbon"
+            android:text="Consultation Time"
+            />
+        <LinearLayout
+            style="@style/CardHeader">
+            <TextView
+                android:text="Consultation Name"
+                style="@style/H3"/>
+            <TextView style="@style/LinkTextSmall"
+                android:text="Edit If Incomming"
+                />
+
+        </LinearLayout>
+        <TextView
+            android:text="Consultation Detail"
+            android:layout_marginTop="@dimen/gap_small"
+            style="@style/CardBody"
+            />
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        style="@style/AppTheme"
+            >
+
+        <LinearLayout style="@style/Header">
+            <TextView android:id="@+id/btBackToMain" style="@style/H1" android:text="@string/new_patient_header_text"            />
+        </LinearLayout>
+
+        <LinearLayout style="@style/Field">
+            <TextView android:text="@string/name" style="@style/FieldLabel" />
+            <EditText android:id="@+id/etPatientName"
+                style="@style/FieldInput"
+                android:hint="@string/full_name"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+        <TextView android:id="@+id/tvPatientNameError" style="@style/ErrorText"/>
+
+
+        <LinearLayout style="@style/Field">
+            <TextView android:text="@string/height" style="@style/FieldLabel" />
+            <EditText android:id="@+id/etPatientHeight"
+                style="@style/FieldInput"
+                android:hint="@string/unit_cm"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+        <TextView android:id="@+id/tvPatientHeightError" style="@style/ErrorText"/>
+
+        <LinearLayout style="@style/Field">
+            <TextView android:text="@string/weight" style="@style/FieldLabel" />
+            <EditText android:id="@+id/etPatientWeight"
+                style="@style/FieldInput"
+                android:hint="@string/unit_kg"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+        <TextView android:id="@+id/tvPatientWeightError" style="@style/ErrorText"/>
+
+        <LinearLayout style="@style/Field">
+            <TextView android:text="@string/dob" style="@style/FieldLabel" />
+            <EditText android:id="@+id/etPatientDOB"
+                style="@style/FieldInput"
+                android:hint="@string/dob_format"
+                android:inputType="date"
+                />
+        </LinearLayout>
+        <TextView android:id="@+id/tvPatientDOBError" style="@style/ErrorText"/>
+
+        <LinearLayout style="@style/Field">
+            <TextView android:text="@string/phone" style="@style/FieldLabel" />
+            <EditText
+                android:id="@+id/etPatientPhone"
+                style="@style/FieldInput"
+                android:hint="@string/phone_format"
+                android:inputType="phone" />
+        </LinearLayout>
+        <TextView android:id="@+id/tvPatientPhoneError" style="@style/ErrorText"/>
+
+        <Button android:id="@+id/btSubmitPatient"
+            style="@style/PrimaryBtn"
+            android:text="@string/add_patient"
+            />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientViewHolder> {
+public class PatientListRvAdapter extends RecyclerView.Adapter<PatientListRvAdapter.PatientViewHolder> {
 
     private List<Patient> patientList;
     private OnItemClickListener listener;
@@ -17,7 +17,7 @@ public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientV
         void onItemClick(Patient patient);
     }
 
-    public PatientAdapter(List<Patient> patientList, OnItemClickListener listener) {
+    public PatientListRvAdapter(List<Patient> patientList, OnItemClickListener listener) {
         this.patientList = patientList;
         this.listener = listener;
     }

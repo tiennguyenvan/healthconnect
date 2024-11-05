@@ -22,6 +22,15 @@
     <style name="LinkTextSmall" parent="LinkText">
         <item name="android:textSize">12sp</item>
     </style>
+    <style name="LinkTextBig" parent="LinkText">
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="LinkTextBold" parent="LinkText">
+        <item name="android:fontFamily">@font/lexend_bold</item>
+    </style>
+    <style name="LinkTextBigBold" parent="LinkTextBig">
+        <item name="android:fontFamily">@font/lexend_bold</item>
+    </style>
     <style name="ErrorText" parent="LinkText">
         <item name="android:textSize">12sp</item>
         <item name="android:visibility">gone</item>
@@ -132,7 +141,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/cardBg</item>
-        <item name="android:elevation">@dimen/gap_small</item><!-- For shadow -->
+        <item name="android:elevation">@dimen/gap_big</item><!-- For shadow -->
         <item name="android:layout_marginTop">@dimen/gap_mid</item>
         <item name="android:strokeColor">@color/btnBorder</item>
         <item name="android:strokeWidth">0</item>

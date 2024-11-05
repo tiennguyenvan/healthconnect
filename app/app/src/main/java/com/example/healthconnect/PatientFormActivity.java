@@ -36,7 +36,7 @@ public class PatientFormActivity extends AppCompatActivity {
         inThis.onClick(R.id.btBackToMain).goToScreen(PatientListActivity.class);
         inThis.onFocus(R.id.etPatientDOB).pickDate();
         inThis.onClick(R.id.etPatientDOB).pickDate();
-        inThis.onClick(R.id.btSubmitPatient).showToast("TEST");
+//        inThis.onClick(R.id.btSubmitPatient).showToast("TEST");
         inThis.onClick(R.id.btSubmitPatient).doAction(() -> {
             if (!validateInputs()) {
                 return;

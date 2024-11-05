@@ -1,6 +1,5 @@
 package com.example.healthconnect;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -17,7 +16,7 @@ import java.util.List;
 public class PatientListActivity extends AppCompatActivity {
     private $ inThis;
     private RecyclerView rvPatientList;
-    private PatientAdapter patientAdapter;
+    private PatientListRvAdapter patientListRvAdapter;
     private List<Patient> patientList;
     private DatabaseHelper dbHelper;
     private SearchView searchView;
@@ -44,14 +43,14 @@ public class PatientListActivity extends AppCompatActivity {
         dbHelper = DatabaseHelper.getInstance(this);
         patientList = dbHelper.getAllPatients();
 
-        patientAdapter = new PatientAdapter(patientList, patient -> {
+        patientListRvAdapter = new PatientListRvAdapter(patientList, patient -> {
             // Handle item click to navigate to PatientProfileActivity
 //            Intent intent = new Intent(this, PatientProfileActivity.class);
 //            intent.putExtra(getString(R.string.key_patient_id), patient.getId());
 //            startActivity(intent);
             inThis.passToScreen(PatientProfileActivity.class, R.string.key_patient_id, patient.getId());
         });
-        rvPatientList.setAdapter(patientAdapter);
+        rvPatientList.setAdapter(patientListRvAdapter);
 
         // Initialize SearchView
         searchView = findViewById(R.id.sVPatientList);
@@ -74,6 +73,6 @@ public class PatientListActivity extends AppCompatActivity {
 
     private void filterPatients(String query) {
         List<Patient> filteredList = dbHelper.searchPatients(query);
-        patientAdapter.updateList(filteredList);
+        patientListRvAdapter.updateList(filteredList);
     }
 }

@@ -20,11 +20,9 @@ public class Patient implements Serializable {
     }
 
     // Getters and Setters for each field
-
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -32,24 +30,18 @@ public class Patient implements Serializable {
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
     public double getHeight() {
         return height;
     }
-
     public void setHeight(double height) {
         this.height = height;
     }
 
-
     public double getWeight() {
         return weight;
     }
-
     public void setWeight(double weight) {
         this.weight = weight;
     }
@@ -57,7 +49,6 @@ public class Patient implements Serializable {
     public String getDateOfBirth() {
         return dateOfBirth;
     }
-
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
@@ -65,7 +56,6 @@ public class Patient implements Serializable {
     public String getContactNumber() {
         return contactNumber;
     }
-
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }

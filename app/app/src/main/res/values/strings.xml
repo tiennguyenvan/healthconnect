@@ -27,5 +27,8 @@
     <string name="back_with_patient_name">‹ \t %1$s</string>
     <string name="patient_details_format">%1$.0fcm, %2$.0fkg\n%3$s\n%4$s</string>
     <string name="key_patient_id">PATIENT_ID</string>
-
+    <string name="update_patient">Update Patient</string>
+    <string name="noti_patient_added">Patient Added with ID: %1$s</string>
+    <string name="noti_patient_updated">Patient Updated with ID: %1$s</string>
+    <string name="noti_no_patient_found">No patient found with ID: %1$s</string>
 </resources>

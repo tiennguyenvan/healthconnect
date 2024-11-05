@@ -201,6 +201,14 @@ public class $ {
         }
         resetEvent();
     }
+    public void setText(int textId) {
+        View view = activity.findViewById(viewId);
+        String text = activity.getString(textId);
+        if (view instanceof TextView && !text.isEmpty()) {
+            ((TextView) view).setText(text);
+        }
+        resetEvent();
+    }
     public void setTextTo(int viewId, String text) {
         View view = activity.findViewById(viewId);
         if (view instanceof TextView) {

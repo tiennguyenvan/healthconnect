@@ -1,6 +1,5 @@
 package com.example.healthconnect;
 
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,9 +27,10 @@ public class PatientFormActivity extends AppCompatActivity {
 
 
         // Retrieve PATIENT_ID from intent (if available)
-        patientId = getIntent().getLongExtra("PATIENT_ID", -1);
+        patientId = getIntent().getLongExtra(getString(R.string.key_patient_id), -1);
         if (patientId != -1) {
             populateFormForEditing(patientId);
+            inThis.on(R.id.btSubmitPatient).setText(R.string.update_patient);
         }
 
         inThis.onClick(R.id.btBackToMain).goToScreen(PatientListActivity.class);
@@ -52,7 +52,7 @@ public class PatientFormActivity extends AppCompatActivity {
                         inThis.getTextFrom(R.id.etPatientDOB),
                         inThis.getTextFrom(R.id.etPatientPhone)
                 );
-                inThis.showToast("Patient Added with ID: " + patientId);
+                inThis.showToast(getString(R.string.noti_patient_added, String.valueOf(patientId)));
             } else {
                 // Update existing patient
                 dbHelper.updatePatient(
@@ -63,13 +63,14 @@ public class PatientFormActivity extends AppCompatActivity {
                         inThis.getTextFrom(R.id.etPatientDOB),
                         inThis.getTextFrom(R.id.etPatientPhone)
                 );
-                inThis.showToast("Patient Updated with ID: " + patientId);
+                inThis.showToast(getString(R.string.noti_patient_updated, String.valueOf(patientId)));
             }
 
             // Pass the patient ID back to PatientProfileActivity
-            Intent intent = new Intent(this, PatientProfileActivity.class);
-            intent.putExtra("PATIENT_ID", patientId);
-            startActivity(intent);
+//            Intent intent = new Intent(this, PatientProfileActivity.class);
+//            intent.putExtra("PATIENT_ID", patientId);
+//            startActivity(intent);
+            inThis.passToScreen(PatientProfileActivity.class, R.string.key_patient_id, patientId);
         });
     }
 
@@ -85,14 +86,16 @@ public class PatientFormActivity extends AppCompatActivity {
 
     private void populateFormForEditing(long patientId) {
         Patient patient = dbHelper.getPatientById(patientId);
+
         if (patient != null) {
+            inThis.on(R.id.btBackToMain).setText(getString(R.string.back_with_patient_name, patient.getName()));
             inThis.on(R.id.etPatientName).setText(patient.getName());
             inThis.on(R.id.etPatientHeight).setText(String.valueOf(patient.getHeight()));
             inThis.on(R.id.etPatientWeight).setText(String.valueOf(patient.getWeight()));
             inThis.on(R.id.etPatientDOB).setText(patient.getDateOfBirth());
             inThis.on(R.id.etPatientPhone).setText(patient.getContactNumber());
         } else {
-            inThis.log("No patient found with ID: " + patientId);
+            inThis.showToast(getString(R.string.noti_no_patient_found, String.valueOf(patientId)));;
         }
     }
 }

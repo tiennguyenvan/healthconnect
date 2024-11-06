@@ -201,6 +201,7 @@ public class $ {
         }
         resetEvent();
     }
+
     public void setText(int textId) {
         View view = activity.findViewById(viewId);
         String text = activity.getString(textId);
@@ -209,6 +210,7 @@ public class $ {
         }
         resetEvent();
     }
+
     public void setTextTo(int viewId, String text) {
         View view = activity.findViewById(viewId);
         if (view instanceof TextView) {

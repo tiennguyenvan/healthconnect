@@ -9,12 +9,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.controllers.DbTable;
-import com.example.healthconnect.models.Test;
-
-import java.util.List;
+import com.example.healthconnect.models.Patient;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
+    private $ inThis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +26,21 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         dbHelper = DatabaseHelper.getInstance(this);
+        inThis = $.in(this);
+        inThis.onClick(R.id.btPatients).goToScreen(PatientListActivity.class);
+        DbTable patientTable = DbTable.getInstance(this, Patient.class);
 
-//        // Initialize the Test table
-//        DbTable testTable = DbTable.getInstance(this, Test.class);
 
+        //
+//        Patient p = new Patient();
+//        p.setName("TimNguyen");
+//        p.setHeight(175);
+//        p.setWeight(70);
+//        p.setDateOfBirth("1985-07-15");
+//        p.setContactNumber("0987654321");
+//        patientTable.add(p);
+        inThis.on(R.id.tvPatientCount).setText(String.valueOf(patientTable.size()));
 
-        $.in(this).onClick(R.id.btPatients).goToScreen(PatientListActivity.class);
     }
 
     @Override

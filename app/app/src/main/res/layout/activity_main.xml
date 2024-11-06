@@ -23,7 +23,12 @@
             <LinearLayout style="@style/CardInner">
                 <LinearLayout style="@style/CardHeader">
                     <TextView style="@style/H2" android:text="@string/patientsCardTitle"/>
-                    <TextView style="@style/LinkTextBigBold" android:text="0"/>
+
+                    <TextView
+
+ android:id="@+id/tvPatientCount"                       style="@style/LinkTextBigBold"
+                        android:layout_height="match_parent"
+                        android:text="0" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

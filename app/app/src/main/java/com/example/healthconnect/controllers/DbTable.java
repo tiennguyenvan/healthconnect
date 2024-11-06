@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public class DbTable extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 7;
     private static final String DATABASE_NAME = "HealthConnect.db";
     private final Class<?> entityType;
     private final String tableName;
@@ -37,6 +37,7 @@ public class DbTable extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         createTable(db);
+        insertDemoData(db);
     }
 
     @Override
@@ -48,8 +49,13 @@ public class DbTable extends SQLiteOpenHelper {
     private void createTable(SQLiteDatabase db) {
         StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS " + tableName + " (");
         sql.append("id INTEGER PRIMARY KEY AUTOINCREMENT, ");
-        Field[] fields = entityType.getFields();
+        Field[] fields = entityType.getDeclaredFields();
+
         for (Field field : fields) {
+            field.setAccessible(true);
+            if (field.getName().equals("id")) {
+                continue; // Skip the 'id' field
+            }
             sql.append(field.getName()).append(" ").append(getSQLiteType(field)).append(", ");
         }
         sql.setLength(sql.length() - 2);
@@ -69,9 +75,12 @@ public class DbTable extends SQLiteOpenHelper {
     public long add(Object entity) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        for (Field field : entityType.getFields()) {
+        for (Field field : entityType.getDeclaredFields()) {
             try {
                 field.setAccessible(true);
+                if (field.getName().equals("id")) {
+                    continue; // Skip the 'id' field
+                }
                 Object value = field.get(entity);
                 if (value != null) {
                     if (field.getType() == String.class) values.put(field.getName(), (String) value);
@@ -89,9 +98,12 @@ public class DbTable extends SQLiteOpenHelper {
     public int update(long id, Object entity) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        for (Field field : entityType.getFields()) {
+        for (Field field : entityType.getDeclaredFields()) {
             try {
                 field.setAccessible(true);
+                if (field.getName().equals("id")) {
+                    continue; // Skip the 'id' field
+                }
                 Object value = field.get(entity);
                 if (value != null) {
                     if (field.getType() == String.class) values.put(field.getName(), (String) value);
@@ -138,7 +150,7 @@ public class DbTable extends SQLiteOpenHelper {
     }
 
     private void setEntityFields(Cursor cursor, Object entity) throws IllegalAccessException {
-        for (Field field : entityType.getFields()) {
+        for (Field field : entityType.getDeclaredFields()) {
             field.setAccessible(true);
             int columnIndex = cursor.getColumnIndex(field.getName());
             if (columnIndex != -1) {
@@ -187,4 +199,53 @@ public class DbTable extends SQLiteOpenHelper {
         List<T> results = getByField("id", id);
         return results.isEmpty() ? null : results.get(0);
     }
+
+    ////////////////
+    ////////////////
+    // for demo data
+    private ContentValues getContentValues(Object entity) {
+        ContentValues values = new ContentValues();
+        for (Field field : entityType.getDeclaredFields()) {
+            try {
+                field.setAccessible(true);
+                if (field.getName().equals("id")) {
+                    continue; // Skip the 'id' field
+                }
+                Object value = field.get(entity);
+                if (value != null) {
+                    if (field.getType() == String.class) values.put(field.getName(), (String) value);
+                    else if (field.getType() == int.class || field.getType() == Integer.class) values.put(field.getName(), (Integer) value);
+                    else if (field.getType() == long.class || field.getType() == Long.class) values.put(field.getName(), (Long) value);
+                    else if (field.getType() == double.class || field.getType() == Double.class) values.put(field.getName(), (Double) value);
+                    // Handle other types as needed
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException("Error accessing field", e);
+            }
+        }
+        return values;
+    }
+
+    private void insertDemoData(SQLiteDatabase db) {
+        try {
+            // Check if the entity class has a static 'demoData' method
+            Method demoDataMethod = entityType.getMethod("demoData");
+            // Invoke the 'demoData' method
+            @SuppressWarnings("unchecked")
+            List<Object> demoDataList = (List<Object>) demoDataMethod.invoke(null);
+            if (demoDataList == null) {
+                return;
+            }
+            for (Object entity : demoDataList) {
+                ContentValues values = getContentValues(entity);
+                db.insert(tableName, null, values);
+            }
+        } catch (NoSuchMethodException e) {
+            // The 'demoData' method doesn't exist; do nothing
+        } catch (Exception e) {
+            throw new RuntimeException("Error inserting demo data", e);
+        }
+    }
+
+
 }

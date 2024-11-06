@@ -1,4 +1,4 @@
-package com.example.healthconnect;
+package com.example.healthconnect.models;
 
 import java.io.Serializable;
 

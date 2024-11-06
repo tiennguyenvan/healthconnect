@@ -8,6 +8,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.healthconnect.models.Patient;
+
 public class PatientListRvAdapter extends RecyclerView.Adapter<PatientListRvAdapter.PatientViewHolder> {
 
     private List<Patient> patientList;

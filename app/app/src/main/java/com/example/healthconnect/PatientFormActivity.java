@@ -7,6 +7,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.healthconnect.models.Patient;
+
 public class PatientFormActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private $ inThis;

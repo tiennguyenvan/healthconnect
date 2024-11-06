@@ -7,6 +7,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Calendar;
 
+import com.example.healthconnect.models.Patient;
+
 public class PatientFormActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private $ inThis;

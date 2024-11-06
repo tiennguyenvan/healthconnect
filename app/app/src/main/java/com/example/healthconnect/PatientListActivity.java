@@ -11,6 +11,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.healthconnect.models.Patient;
+
 import java.util.List;
 
 public class PatientListActivity extends AppCompatActivity {

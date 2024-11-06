@@ -8,6 +8,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.healthconnect.controllers.DbTable;
+import com.example.healthconnect.models.Test;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
 
@@ -22,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         dbHelper = DatabaseHelper.getInstance(this);
+
+//        // Initialize the Test table
+//        DbTable testTable = DbTable.getInstance(this, Test.class);
+
 
         $.in(this).onClick(R.id.btPatients).goToScreen(PatientListActivity.class);
         $.in(this).onClick(R.id.btAppointments).goToScreen(appointmentUpdate.class);

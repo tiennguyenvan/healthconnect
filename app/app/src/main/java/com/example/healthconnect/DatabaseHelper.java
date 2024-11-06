@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.Nullable;
 import android.database.Cursor;
+
+import com.example.healthconnect.models.Patient;
+
 import java.util.ArrayList;
 import java.util.List;
 

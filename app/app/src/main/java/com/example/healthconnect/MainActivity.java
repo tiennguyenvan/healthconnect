@@ -31,16 +31,10 @@ public class MainActivity extends AppCompatActivity {
         DbTable patientTable = DbTable.getInstance(this, Patient.class);
 
 
-        //
-//        Patient p = new Patient();
-//        p.setName("TimNguyen");
-//        p.setHeight(175);
-//        p.setWeight(70);
-//        p.setDateOfBirth("1985-07-15");
-//        p.setContactNumber("0987654321");
-//        patientTable.add(p);
-        inThis.on(R.id.tvPatientCount).setText(String.valueOf(patientTable.size()));
 
+        inThis.on(R.id.tvPatientCount).setText(String.valueOf(patientTable.size()));
+        $.in(this).onClick(R.id.btPatients).goToScreen(PatientListActivity.class);
+        $.in(this).onClick(R.id.btAppointments).goToScreen(appointmentUpdate.class);
     }
 
     @Override

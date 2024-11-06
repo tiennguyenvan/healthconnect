@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Header with Back Button and Title -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Header">
+
+        <TextView
+            android:id="@+id/btBackToMain"
+            style="@style/H1"
+            android:text="@string/appointmentsUpdate" />
+    </LinearLayout>
+
+    <!-- Patient Info -->
+    <LinearLayout
+        android:id="@+id/patientInfoLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/headerLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Field">
+
+        <TextView
+            android:id="@+id/tvPatientInfo"
+            style="@style/FieldLabel"
+            android:text="" />
+    </LinearLayout>
+
+    <!-- Start Date Field -->
+    <LinearLayout
+        android:id="@+id/startDateLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/patientInfoLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Field">
+
+        <TextView
+            android:text="@string/start"
+            style="@style/FieldLabel" />
+
+        <EditText
+            android:id="@+id/etStartDate"
+            style="@style/FieldInput"
+            android:hint="@string/dateFormat"
+            android:inputType="date"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvStartDateError"
+        style="@style/ErrorText"
+        app:layout_constraintTop_toBottomOf="@id/startDateLayout"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Duration Field -->
+    <LinearLayout
+        android:id="@+id/durationLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvStartDateError"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Field">
+
+        <TextView
+            android:text="@string/duration"
+            style="@style/FieldLabel" />
+
+        <EditText
+            android:id="@+id/etDuration"
+            style="@style/FieldInput"
+            android:hint="0.5"
+            android:inputType="numberDecimal"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvDurationError"
+        style="@style/ErrorText"
+        app:layout_constraintTop_toBottomOf="@id/durationLayout"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Update Appointment Button -->
+    <Button
+        android:id="@+id/btnUpdateAppointment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/primary"
+        android:text="@string/update_appointment"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDurationError" />
+
+    <!-- Cancel Appointment Button -->
+    <Button
+        android:id="@+id/btnCancelAppointment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/transparent"
+        android:text="@string/cancel_appointment"
+        android:textColor="@color/primary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnUpdateAppointment" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,4 +31,19 @@
     <string name="noti_patient_added">Patient Added with ID: %1$s</string>
     <string name="noti_patient_updated">Patient Updated with ID: %1$s</string>
     <string name="noti_no_patient_found">No patient found with ID: %1$s</string>
+
+    <!--New Appointment-->
+    <string name="appointmentNew">‹ \t New Appointment</string>
+
+    <!--Appointment Update  -->
+    <string name="appointmentsUpdate">‹ \t Appointment</string>
+    <string name="cancel_appointment">Cancel Appointment</string>
+    <string name="start">Start</string>
+    <string name="dateFormat">YYYY-MM-DD</string>
+    <string name="duration">Duration</string>
+    <string name="update_appointment">Update Appointment</string>
+    <string name="hours">hours</string>
+    <string name="btadd_appointment">Add Appointment</string>
+
+
 </resources>

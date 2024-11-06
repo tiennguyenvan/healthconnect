@@ -230,4 +230,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         statement.executeUpdateDelete();
         statement.close();
     }
+
+    public boolean appointmentUpdate(long appointmentId, String startDate, double duration) {    SQLiteDatabase db = this.getWritableDatabase();
+        String updateAppointmentQuery = "UPDATE Appointment SET StartDate = ?, Duration = ? WHERE AppointmentID = ?";
+
+        SQLiteStatement statement = db.compileStatement(updateAppointmentQuery);
+        statement.bindString(1, startDate);
+        statement.bindDouble(2, duration);
+        statement.bindLong(3, appointmentId);
+
+        int rowsAffected = statement.executeUpdateDelete();
+        statement.close();
+
+        // Returns true if at least one row was updated, false otherwise
+        return rowsAffected > 0;
+    }
 }

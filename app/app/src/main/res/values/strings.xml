@@ -5,6 +5,7 @@
     <string name="medicationsCardTitle">Medications</string>
     <string name="new_patient_header_text">‹ \t New Patient</string>
     <string name="patient_list_header_text">‹ \t Patients</string>
+    <string name="appointments_list_header_text">‹ \t Appointments</string>
     <string name="name">Name</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>

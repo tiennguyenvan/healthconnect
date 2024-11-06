@@ -1,4 +1,4 @@
-package com.example.healthconnect;
+package com.example.healthconnect.activities.patient;
 
 import android.os.Bundle;
 
@@ -11,6 +11,10 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.healthconnect.MainActivity;
+import com.example.healthconnect.R;
+import com.example.healthconnect.controllers.DbTable;
+import com.example.healthconnect.core.$;
 import com.example.healthconnect.models.Patient;
 
 import java.util.List;
@@ -20,8 +24,9 @@ public class PatientListActivity extends AppCompatActivity {
     private RecyclerView rvPatientList;
     private PatientListRvAdapter patientListRvAdapter;
     private List<Patient> patientList;
-    private DatabaseHelper dbHelper;
+
     private SearchView searchView;
+    private DbTable<Patient> patientTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +42,14 @@ public class PatientListActivity extends AppCompatActivity {
         inThis.onClick(R.id.btBackToMain).goToScreen(MainActivity.class);
         inThis.onClick(R.id.btToPatientForm).goToScreen(PatientFormActivity.class);
 
-
         // Initialize RecyclerView and Adapter
         rvPatientList = findViewById(R.id.rvPatientList);
         rvPatientList.setLayoutManager(new LinearLayoutManager(this));
 
-        dbHelper = DatabaseHelper.getInstance(this);
-        patientList = dbHelper.getAllPatients();
+        patientTable = DbTable.getInstance(this, Patient.class);
+        patientList = patientTable.getAll();
 
         patientListRvAdapter = new PatientListRvAdapter(patientList, patient -> {
-            // Handle item click to navigate to PatientProfileActivity
-//            Intent intent = new Intent(this, PatientProfileActivity.class);
-//            intent.putExtra(getString(R.string.key_patient_id), patient.getId());
-//            startActivity(intent);
             inThis.passToScreen(PatientProfileActivity.class, R.string.key_patient_id, patient.getId());
         });
         rvPatientList.setAdapter(patientListRvAdapter);
@@ -74,7 +74,7 @@ public class PatientListActivity extends AppCompatActivity {
     }
 
     private void filterPatients(String query) {
-        List<Patient> filteredList = dbHelper.searchPatients(query);
+        List<Patient> filteredList = patientTable.searchBy(Patient.columnName(), query);
         patientListRvAdapter.updateList(filteredList);
     }
 }

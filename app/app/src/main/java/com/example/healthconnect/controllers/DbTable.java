@@ -1,35 +1,39 @@
 package com.example.healthconnect.controllers;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Map;
 
-public class DbTable extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 7;
+public class DbTable<T> extends SQLiteOpenHelper {
+    private static final int DATABASE_VERSION = 9;
     private static final String DATABASE_NAME = "HealthConnect.db";
-    private final Class<?> entityType;
+    private final Class<T> entityType;
     private final String tableName;
 
-    // Singleton instance
-    private static DbTable instance;
+    // Map to hold singleton instances per entity type
+    private static Map<Class<?>, DbTable<?>> instances = new HashMap<>();
 
-    public DbTable(Context context, Class<?> entityType) {
+    private DbTable(Context context, Class<T> entityType) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.entityType = entityType;
         this.tableName = entityType.getSimpleName();
     }
 
-    public static synchronized DbTable getInstance(Context context, Class<?> entityType) {
+    public static synchronized <T> DbTable<T> getInstance(Context context, Class<T> entityType) {
+        @SuppressWarnings("unchecked")
+        DbTable<T> instance = (DbTable<T>) instances.get(entityType);
         if (instance == null) {
-            instance = new DbTable(context.getApplicationContext(), entityType);
+            instance = new DbTable<>(context.getApplicationContext(), entityType);
+            instances.put(entityType, instance);
         }
         return instance;
     }
@@ -44,6 +48,14 @@ public class DbTable extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + tableName);
         onCreate(db);
+    }
+
+    public void closeDatabase() {
+        DbTable<?> instance = instances.get(entityType);
+        if (instance != null && instance.getWritableDatabase().isOpen()) {
+            instance.getWritableDatabase().close();
+            instances.remove(entityType);
+        }
     }
 
     private void createTable(SQLiteDatabase db) {
@@ -72,70 +84,38 @@ public class DbTable extends SQLiteOpenHelper {
         else throw new IllegalArgumentException("Unsupported field type: " + type.getSimpleName());
     }
 
-    public long add(Object entity) {
+    public long add(T entity) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        for (Field field : entityType.getDeclaredFields()) {
-            try {
-                field.setAccessible(true);
-                if (field.getName().equals("id")) {
-                    continue; // Skip the 'id' field
-                }
-                Object value = field.get(entity);
-                if (value != null) {
-                    if (field.getType() == String.class) values.put(field.getName(), (String) value);
-                    else if (field.getType() == int.class || field.getType() == Integer.class) values.put(field.getName(), (Integer) value);
-                    else if (field.getType() == long.class || field.getType() == Long.class) values.put(field.getName(), (Long) value);
-                    else if (field.getType() == double.class || field.getType() == Double.class) values.put(field.getName(), (Double) value);
-                }
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException("Error accessing field", e);
-            }
-        }
+        ContentValues values = getContentValues(entity);
+//        System.out.println("ContentValues: " + values.toString());
         return db.insert(tableName, null, values);
     }
 
-    public int update(long id, Object entity) {
+    public int update(long id, T entity) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        for (Field field : entityType.getDeclaredFields()) {
-            try {
-                field.setAccessible(true);
-                if (field.getName().equals("id")) {
-                    continue; // Skip the 'id' field
-                }
-                Object value = field.get(entity);
-                if (value != null) {
-                    if (field.getType() == String.class) values.put(field.getName(), (String) value);
-                    else if (field.getType() == int.class || field.getType() == Integer.class) values.put(field.getName(), (Integer) value);
-                    else if (field.getType() == long.class || field.getType() == Long.class) values.put(field.getName(), (Long) value);
-                    else if (field.getType() == double.class || field.getType() == Double.class) values.put(field.getName(), (Double) value);
-                }
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException("Error accessing field", e);
-            }
-        }
+        ContentValues values = getContentValues(entity);
         return db.update(tableName, values, "id = ?", new String[]{String.valueOf(id)});
     }
 
-    @SuppressWarnings("unchecked") // Suppress unchecked cast warning
-    public <T> List<T> getAll() {
+    public List<T> getAll() {
         List<T> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
         try (Cursor cursor = db.query(tableName, null, null, null, null, null, null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 do {
-                    T entity = (T) entityType.getDeclaredConstructor().newInstance();
+                    T entity = entityType.getDeclaredConstructor().newInstance();
                     setEntityFields(cursor, entity);
                     list.add(entity);
                 } while (cursor.moveToNext());
             }
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException |
+                 InvocationTargetException | NoSuchMethodException e) {
             throw new RuntimeException("Error retrieving data", e);
         }
         return list;
     }
+
     public int size() {
         SQLiteDatabase db = this.getReadableDatabase();
         int count = 0;
@@ -149,61 +129,89 @@ public class DbTable extends SQLiteOpenHelper {
         return count;
     }
 
-    private void setEntityFields(Cursor cursor, Object entity) throws IllegalAccessException {
+    private void setEntityFields(Cursor cursor, T entity) throws IllegalAccessException {
         for (Field field : entityType.getDeclaredFields()) {
             field.setAccessible(true);
             int columnIndex = cursor.getColumnIndex(field.getName());
             if (columnIndex != -1) {
-                if (field.getType() == String.class) field.set(entity, cursor.getString(columnIndex));
-                else if (field.getType() == int.class) field.set(entity, cursor.getInt(columnIndex));
-                else if (field.getType() == long.class) field.set(entity, cursor.getLong(columnIndex));
-                else if (field.getType() == double.class) field.set(entity, cursor.getDouble(columnIndex));
+                if (field.getType() == String.class)
+                    field.set(entity, cursor.getString(columnIndex));
+                else if (field.getType() == int.class || field.getType() == Integer.class)
+                    field.set(entity, cursor.getInt(columnIndex));
+                else if (field.getType() == long.class || field.getType() == Long.class)
+                    field.set(entity, cursor.getLong(columnIndex));
+                else if (field.getType() == double.class || field.getType() == Double.class)
+                    field.set(entity, cursor.getDouble(columnIndex));
             }
         }
     }
 
-    @SuppressWarnings("unchecked") // Suppress unchecked cast warning
-    private <T> List<T> getByField(String fieldName, Object value) {
+    public List<T> getBy(String fieldName, Object value) {
         List<T> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        try (Cursor cursor = db.query(tableName, null, fieldName + " = ?", new String[]{String.valueOf(value)}, null, null, null)) {
+        try (Cursor cursor = db.query(
+                tableName,
+                null,
+                fieldName + " = ?",
+                new String[]{String.valueOf(value)},
+                null,
+                null,
+                null)) {
+
             if (cursor != null && cursor.moveToFirst()) {
                 do {
-                    T entity = (T) entityType.getDeclaredConstructor().newInstance();
+                    T entity = entityType.getDeclaredConstructor().newInstance();
                     setEntityFields(cursor, entity);
                     list.add(entity);
                 } while (cursor.moveToNext());
             }
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException |
+                 InvocationTargetException | NoSuchMethodException e) {
             throw new RuntimeException("Error retrieving data by " + fieldName, e);
         }
         return list;
     }
 
-    private String getFieldNameFromGetter(Function<Object, ?> fieldGetter) {
-        try {
-            Method method = fieldGetter.getClass().getDeclaredMethods()[0];
-            String getterName = method.getName();
-            if (getterName.startsWith("get") && getterName.length() > 3) {
-                return Character.toLowerCase(getterName.charAt(3)) + getterName.substring(4);
-            } else {
-                throw new IllegalArgumentException("Invalid getter method reference");
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Could not extract field name from getter", e);
-        }
+    public T getById(Object value) {
+        List<T> results = getBy("id", value);
+        return results.isEmpty() ? null : results.get(0);
     }
 
-    public <T> T getById(long id) {
-        List<T> results = getByField("id", id);
-        return results.isEmpty() ? null : results.get(0);
+    public List<T> searchBy(String fieldName, String value) {
+        List<T> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Prepare the value for the LIKE clause by adding '%' wildcards
+        String queryValue = "%" + value + "%";
+
+        try (Cursor cursor = db.query(
+                tableName,
+                null,
+                fieldName + " LIKE ?",
+                new String[]{queryValue},
+                null,
+                null,
+                null)) {
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    T entity = entityType.getDeclaredConstructor().newInstance();
+                    setEntityFields(cursor, entity);
+                    list.add(entity);
+                } while (cursor.moveToNext());
+            }
+        } catch (InstantiationException | IllegalAccessException |
+                 InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException("Error searching data by " + fieldName, e);
+        }
+        return list;
     }
 
     ////////////////
     ////////////////
     // for demo data
-    private ContentValues getContentValues(Object entity) {
+    private ContentValues getContentValues(T entity) {
         ContentValues values = new ContentValues();
         for (Field field : entityType.getDeclaredFields()) {
             try {
@@ -212,11 +220,17 @@ public class DbTable extends SQLiteOpenHelper {
                     continue; // Skip the 'id' field
                 }
                 Object value = field.get(entity);
+//                System.out.println("Field: " + field.getName() + ", Value: " + value);
+
                 if (value != null) {
-                    if (field.getType() == String.class) values.put(field.getName(), (String) value);
-                    else if (field.getType() == int.class || field.getType() == Integer.class) values.put(field.getName(), (Integer) value);
-                    else if (field.getType() == long.class || field.getType() == Long.class) values.put(field.getName(), (Long) value);
-                    else if (field.getType() == double.class || field.getType() == Double.class) values.put(field.getName(), (Double) value);
+                    if (field.getType() == String.class)
+                        values.put(field.getName(), (String) value);
+                    else if (field.getType() == int.class || field.getType() == Integer.class)
+                        values.put(field.getName(), (Integer) value);
+                    else if (field.getType() == long.class || field.getType() == Long.class)
+                        values.put(field.getName(), (Long) value);
+                    else if (field.getType() == double.class || field.getType() == Double.class)
+                        values.put(field.getName(), (Double) value);
                     // Handle other types as needed
                 }
             } catch (IllegalAccessException e) {
@@ -232,12 +246,13 @@ public class DbTable extends SQLiteOpenHelper {
             Method demoDataMethod = entityType.getMethod("demoData");
             // Invoke the 'demoData' method
             @SuppressWarnings("unchecked")
-            List<Object> demoDataList = (List<Object>) demoDataMethod.invoke(null);
+            List<T> demoDataList = (List<T>) demoDataMethod.invoke(null);
             if (demoDataList == null) {
                 return;
             }
-            for (Object entity : demoDataList) {
+            for (T entity : demoDataList) {
                 ContentValues values = getContentValues(entity);
+//                System.out.println("ContentValues Demo: " + values.toString());
                 db.insert(tableName, null, values);
             }
         } catch (NoSuchMethodException e) {
@@ -246,6 +261,4 @@ public class DbTable extends SQLiteOpenHelper {
             throw new RuntimeException("Error inserting demo data", e);
         }
     }
-
-
 }

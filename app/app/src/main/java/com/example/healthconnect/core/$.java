@@ -1,4 +1,4 @@
-package com.example.healthconnect;
+package com.example.healthconnect.core;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.healthconnect.R;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -148,8 +150,10 @@ public class $ {
         };
         registerEvent(action);
     }
-
-    public void pickDate() {
+    public void pickPastDate() {
+        pickDate(false);
+    }
+    public void pickDate(boolean pastDateOnly) {
         View localView = activity.findViewById(viewId);
         Runnable action = () -> {
             if (!(localView instanceof EditText)) {
@@ -176,7 +180,9 @@ public class $ {
                 String date = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay;
                 ((EditText) localView).setText(date);
             }, year, month, day);
-
+            if (pastDateOnly) {
+                datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+            }
             datePickerDialog.show();
         };
         registerEvent(action);

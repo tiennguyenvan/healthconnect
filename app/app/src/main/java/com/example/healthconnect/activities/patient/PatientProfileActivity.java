@@ -1,4 +1,4 @@
-package com.example.healthconnect;
+package com.example.healthconnect.activities.patient;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,11 +6,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.healthconnect.R;
+import com.example.healthconnect.controllers.DbTable;
+import com.example.healthconnect.core.$;
 import com.example.healthconnect.models.Patient;
 
 public class PatientProfileActivity extends AppCompatActivity {
     private $ inThis;
-    private DatabaseHelper dbHelper;
+
+    private DbTable<Patient> patientTable;
     private long patientId;
     private Patient patient;
 
@@ -32,8 +36,9 @@ public class PatientProfileActivity extends AppCompatActivity {
             return;
         }
 
-        dbHelper = DatabaseHelper.getInstance(this);
-        patient = dbHelper.getPatientById(patientId);
+        patientTable = DbTable.getInstance(this, Patient.class);
+
+        patient = patientTable.getById(patientId);
         if (patient == null) {
             finish();
             return;
@@ -51,7 +56,7 @@ public class PatientProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        patient = dbHelper.getPatientById(patientId);
+        patient = patientTable.getById(patientId);
         if (patient != null) {
             showPatientDetails(patient);
         }

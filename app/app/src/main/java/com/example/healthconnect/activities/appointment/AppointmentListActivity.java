@@ -1,4 +1,4 @@
-package com.example.healthconnect;
+package com.example.healthconnect.activities.appointment;
 
 import android.os.Bundle;
 
@@ -8,7 +8,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class appointments_list extends AppCompatActivity {
+import com.example.healthconnect.R;
+
+public class AppointmentListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

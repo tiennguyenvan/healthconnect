@@ -8,11 +8,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.healthconnect.activities.appointment.appointmentUpdate;
+import com.example.healthconnect.activities.patient.PatientListActivity;
 import com.example.healthconnect.controllers.DbTable;
+import com.example.healthconnect.core.$;
 import com.example.healthconnect.models.Patient;
 
 public class MainActivity extends AppCompatActivity {
-    private DatabaseHelper dbHelper;
+    private DbTable<Patient> patientTable;
     private $ inThis;
 
     @Override
@@ -25,21 +28,19 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        dbHelper = DatabaseHelper.getInstance(this);
+
         inThis = $.in(this);
         inThis.onClick(R.id.btPatients).goToScreen(PatientListActivity.class);
-        DbTable patientTable = DbTable.getInstance(this, Patient.class);
-
-
+        patientTable = DbTable.getInstance(this, Patient.class);
 
         inThis.on(R.id.tvPatientCount).setText(String.valueOf(patientTable.size()));
-        $.in(this).onClick(R.id.btPatients).goToScreen(PatientListActivity.class);
-        $.in(this).onClick(R.id.btAppointments).goToScreen(appointmentUpdate.class);
+        inThis.onClick(R.id.btPatients).goToScreen(PatientListActivity.class);
+        inThis.onClick(R.id.btAppointments).goToScreen(appointmentUpdate.class);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dbHelper.closeDatabase();
+        patientTable.closeDatabase();
     }
 }

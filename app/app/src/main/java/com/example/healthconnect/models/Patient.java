@@ -6,7 +6,9 @@ import java.util.List;
 
 // define Patient table
 public class Patient implements Serializable {
+
     private long id;
+    public static String columnName() { return "name";}
     private String name;
     private double height;
     private double weight;
@@ -75,5 +77,6 @@ public class Patient implements Serializable {
         demoData.add(new Patient("Bruno Beserra", 171.0, 85.0, "1985-05-15", "0998765432"));
         return demoData;
     }
+
 
 }

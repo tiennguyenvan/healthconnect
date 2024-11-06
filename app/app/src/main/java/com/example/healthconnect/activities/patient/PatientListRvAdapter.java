@@ -1,4 +1,4 @@
-package com.example.healthconnect;
+package com.example.healthconnect.activities.patient;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.healthconnect.R;
 import com.example.healthconnect.models.Patient;
 
 public class PatientListRvAdapter extends RecyclerView.Adapter<PatientListRvAdapter.PatientViewHolder> {

@@ -1,11 +1,11 @@
 package com.example.healthconnect;
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.activity.EdgeToEdge;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import java.util.Calendar;
 
 public class PatientFormActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
@@ -15,30 +15,28 @@ public class PatientFormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_patient_form);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
         dbHelper = DatabaseHelper.getInstance(this);
         inThis = $.in(this);
 
-
         // Retrieve PATIENT_ID from intent (if available)
-        patientId = getIntent().getLongExtra(getString(R.string.key_patient_id), -1);
+        patientId = getIntent().getLongExtra("PATIENT_ID", -1);
         if (patientId != -1) {
             populateFormForEditing(patientId);
-            inThis.on(R.id.btSubmitPatient).setText(R.string.update_patient);
         }
 
+        // Set up date picker for DOB field with max date as today
+        inThis.onClick(R.id.etPatientDOB).doAction(this::showDatePickerDialog);
+        inThis.onFocus(R.id.etPatientDOB).doAction(this::showDatePickerDialog);
+
+        // Set up back button to go back to the patient list
         inThis.onClick(R.id.btBackToMain).goToScreen(PatientListActivity.class);
-        inThis.onFocus(R.id.etPatientDOB).pickDate();
-        inThis.onClick(R.id.etPatientDOB).pickDate();
-//        inThis.onClick(R.id.btSubmitPatient).showToast("TEST");
+
+        // Set up submit button to add or update patient
         inThis.onClick(R.id.btSubmitPatient).doAction(() -> {
-            if (!validateInputs()) {
+            if (!validateDOB(inThis.getTextFrom(R.id.etPatientDOB))) {
+                inThis.showToast("Date of Birth cannot be in the future.");
                 return;
             }
 
@@ -52,7 +50,7 @@ public class PatientFormActivity extends AppCompatActivity {
                         inThis.getTextFrom(R.id.etPatientDOB),
                         inThis.getTextFrom(R.id.etPatientPhone)
                 );
-                inThis.showToast(getString(R.string.noti_patient_added, String.valueOf(patientId)));
+                inThis.showToast("Patient Added with ID: " + patientId);
             } else {
                 // Update existing patient
                 dbHelper.updatePatient(
@@ -63,39 +61,57 @@ public class PatientFormActivity extends AppCompatActivity {
                         inThis.getTextFrom(R.id.etPatientDOB),
                         inThis.getTextFrom(R.id.etPatientPhone)
                 );
-                inThis.showToast(getString(R.string.noti_patient_updated, String.valueOf(patientId)));
+                inThis.showToast("Patient Updated with ID: " + patientId);
             }
 
-            // Pass the patient ID back to PatientProfileActivity
-//            Intent intent = new Intent(this, PatientProfileActivity.class);
-//            intent.putExtra("PATIENT_ID", patientId);
-//            startActivity(intent);
-            inThis.passToScreen(PatientProfileActivity.class, R.string.key_patient_id, patientId);
+            // Navigate back to PatientProfileActivity
+            Intent intent = new Intent(this, PatientProfileActivity.class);
+            intent.putExtra("PATIENT_ID", patientId);
+            startActivity(intent);
         });
     }
 
-    private boolean validateInputs() {
-        boolean isValid = true;
-        isValid &= inThis.validateInput(R.id.etPatientName,   R.id.tvPatientNameError);
-        isValid &= inThis.validateInput(R.id.etPatientHeight, R.id.tvPatientHeightError);
-        isValid &= inThis.validateInput(R.id.etPatientWeight, R.id.tvPatientWeightError);
-        isValid &= inThis.validateInput(R.id.etPatientDOB,    R.id.tvPatientDOBError);
-        isValid &= inThis.validateInput(R.id.etPatientPhone,  R.id.tvPatientPhoneError);
-        return isValid;
+    // Shows a date picker dialog with today's date as the maximum
+    private void showDatePickerDialog() {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year1, month1, dayOfMonth) -> {
+            String selectedDate = String.format("%04d-%02d-%02d", year1, month1 + 1, dayOfMonth);
+            inThis.on(R.id.etPatientDOB).setText(selectedDate);
+        }, year, month, day);
+
+        datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+        datePickerDialog.show();
     }
 
+    // Validates if the DOB is not in the future
+    private boolean validateDOB(String dob) {
+        final Calendar today = Calendar.getInstance();
+        Calendar dobCalendar = Calendar.getInstance();
+        try {
+            String[] parts = dob.split("-");
+            int year = Integer.parseInt(parts[0]);
+            int month = Integer.parseInt(parts[1]) - 1;
+            int day = Integer.parseInt(parts[2]);
+            dobCalendar.set(year, month, day);
+        } catch (Exception e) {
+            return false; // Invalid date format
+        }
+        return !dobCalendar.after(today);
+    }
+
+    // Populates form fields with patient data if editing
     private void populateFormForEditing(long patientId) {
         Patient patient = dbHelper.getPatientById(patientId);
-
         if (patient != null) {
-            inThis.on(R.id.btBackToMain).setText(getString(R.string.back_with_patient_name, patient.getName()));
             inThis.on(R.id.etPatientName).setText(patient.getName());
             inThis.on(R.id.etPatientHeight).setText(String.valueOf(patient.getHeight()));
             inThis.on(R.id.etPatientWeight).setText(String.valueOf(patient.getWeight()));
             inThis.on(R.id.etPatientDOB).setText(patient.getDateOfBirth());
             inThis.on(R.id.etPatientPhone).setText(patient.getContactNumber());
-        } else {
-            inThis.showToast(getString(R.string.noti_no_patient_found, String.valueOf(patientId)));;
         }
     }
 }

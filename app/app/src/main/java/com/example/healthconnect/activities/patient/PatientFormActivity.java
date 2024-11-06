@@ -9,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.R;
 import com.example.healthconnect.controllers.DbTable;
-import com.example.healthconnect.core.$;
+import com.example.healthconnect.controllers.$;
 import com.example.healthconnect.models.Patient;
 
 public class PatientFormActivity extends AppCompatActivity {

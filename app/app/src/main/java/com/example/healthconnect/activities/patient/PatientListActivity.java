@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healthconnect.MainActivity;
 import com.example.healthconnect.R;
 import com.example.healthconnect.controllers.DbTable;
-import com.example.healthconnect.core.$;
+import com.example.healthconnect.controllers.$;
 import com.example.healthconnect.models.Patient;
 
 import java.util.List;

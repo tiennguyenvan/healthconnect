@@ -1,4 +1,4 @@
-package com.example.healthconnect.core;
+package com.example.healthconnect.controllers;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;

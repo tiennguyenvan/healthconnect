@@ -14,7 +14,7 @@ import com.example.healthconnect.models.Patient;
 public class PatientListRvAdapter extends RecyclerView.Adapter<PatientListRvAdapter.PatientViewHolder> {
 
     private List<Patient> patientList;
-    private OnItemClickListener listener;
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Patient patient);

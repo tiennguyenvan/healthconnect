@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.appointment.NewAppointment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        style="@style/AppTheme">
+
+        <!-- Title for New Appointment Screen -->
+        <LinearLayout
+            android:id="@+id/headerLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Header">
+
+            <TextView
+                android:id="@+id/btBackToMain"
+                style="@style/H1"
+                android:text="@string/appointmentNew" />
+        </LinearLayout>
+
+
+        <!-- Patient Information Display (Patient Number and Name) -->
+        <LinearLayout
+            android:id="@+id/patientInfoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Field">
+
+            <!-- text hard coded, needs to change for @string later -->
+            <TextView
+                android:id="@+id/tvPatientInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Patient Number and Name"
+                android:textColor="@android:color/darker_gray"
+                style="@style/FieldLabel" />
+        </LinearLayout>
+
+        <!-- Start Date Field -->
+        <LinearLayout
+            android:id="@+id/startDateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Field"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:text="Start"
+                style="@style/FieldLabel" />
+
+            <EditText
+                android:id="@+id/etStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/dateFormat"
+                android:inputType="date"
+                style="@style/FieldInput" />
+        </LinearLayout>
+
+        <!-- Duration Field -->
+        <LinearLayout
+            android:id="@+id/durationLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Field"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:text="@string/duration"
+                style="@style/FieldLabel" />
+
+            <EditText
+                android:id="@+id/etDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hours"
+                android:inputType="number"
+                style="@style/FieldInput" />
+        </LinearLayout>
+
+        <!-- Add Appointment Button -->
+        <Button
+            android:id="@+id/btnAddAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btadd_appointment"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

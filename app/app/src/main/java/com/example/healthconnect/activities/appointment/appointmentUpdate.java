@@ -9,8 +9,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.R;
+import com.example.healthconnect.controllers.$;
 
 public class appointmentUpdate extends AppCompatActivity {
+    private $ inThis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,7 @@ public class appointmentUpdate extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        inThis = $.in(this);
+        inThis.onClick(R.id.btBackToMain).goToScreen(appointment_list.class);
     }
 }

@@ -8,12 +8,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.healthconnect.MainActivity;
 import com.example.healthconnect.R;
 import com.example.healthconnect.controllers.$;
+import com.example.healthconnect.controllers.DbTable;
+import com.example.healthconnect.models.Patient;
 
 public class NewAppointment extends AppCompatActivity {
     private $ inThis;
+    private DbTable<Patient> patientTable;
+    private long patientId = -1;  // Default to -1 if no patient ID is passed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,13 @@ public class NewAppointment extends AppCompatActivity {
             return insets;
         });
         inThis = $.in(this);
-        inThis.onClick(R.id.btBackToMain).goToScreen(appointment_list.class);
+        inThis.onClick(R.id.btBackToMain).goToScreen(appointmentList.class);
+        patientTable = DbTable.getInstance(this, Patient.class);
+
+        patientId = getIntent().getLongExtra(getString(R.string.key_patient_id), -1);
+        Patient patient = patientTable.getById(patientId);
+        if (patientId != -1) {
+            inThis.on(R.id.tvPatientInfo).setText(getString(R.string.appointment_patient_name, patient.getName()));
+        }
     }
 }

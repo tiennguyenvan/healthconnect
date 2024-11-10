@@ -8,7 +8,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.healthconnect.activities.appointment.appointment_list;
+import com.example.healthconnect.activities.appointment.appointmentList;
 import com.example.healthconnect.activities.patient.PatientListActivity;
 import com.example.healthconnect.controllers.DbTable;
 import com.example.healthconnect.controllers.$;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         inThis.on(R.id.tvPatientCount).setText(String.valueOf(patientTable.size()));
         inThis.onClick(R.id.btPatients).goToScreen(PatientListActivity.class);
-        inThis.onClick(R.id.btAppointments).goToScreen(appointment_list.class);
+        inThis.onClick(R.id.btAppointments).goToScreen(appointmentList.class);
     }
 
     @Override

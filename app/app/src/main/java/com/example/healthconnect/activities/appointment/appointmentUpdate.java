@@ -25,6 +25,6 @@ public class appointmentUpdate extends AppCompatActivity {
             return insets;
         });
         inThis = $.in(this);
-        inThis.onClick(R.id.btBackToMain).goToScreen(appointment_list.class);
+        inThis.onClick(R.id.btBackToMain).goToScreen(appointmentList.class);
     }
 }

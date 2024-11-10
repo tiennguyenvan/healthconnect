@@ -13,13 +13,13 @@
         android:theme="@style/Theme.HealthConnect"
         tools:targetApi="31">
         <activity
+            android:name=".activities.appointment.PatientListForAppointment"
+            android:exported="false" />
+        <activity
             android:name=".activities.appointment.NewAppointment"
             android:exported="false" />
         <activity
-            android:name=".activities.appointment.appointment_list"
-            android:exported="false" />
-        <activity
-            android:name=".activities.appointment.appointmentNew"
+            android:name=".activities.appointment.appointmentList"
             android:exported="false" />
         <activity
             android:name=".activities.appointment.appointmentUpdate"

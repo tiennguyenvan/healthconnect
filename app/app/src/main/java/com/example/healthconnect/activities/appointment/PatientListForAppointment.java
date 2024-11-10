@@ -13,50 +13,49 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthconnect.MainActivity;
 import com.example.healthconnect.R;
+import com.example.healthconnect.activities.patient.PatientFormActivity;
 import com.example.healthconnect.activities.patient.PatientListRvAdapter;
+import com.example.healthconnect.activities.patient.PatientProfileActivity;
 import com.example.healthconnect.controllers.$;
 import com.example.healthconnect.controllers.DbTable;
 import com.example.healthconnect.models.Patient;
-import com.example.healthconnect.models.Appointment;
 
 import java.util.List;
 
-public class appointmentList extends AppCompatActivity {
+public class PatientListForAppointment extends AppCompatActivity {
     private $ inThis;
-    private RecyclerView rvAppointmentList;
-    private PatientListRvAdapter appointmentListRvAdapter;
+    private RecyclerView rvPatientList;
+    private PatientListRvAdapter patientListRvAdapter;
     private List<Patient> patientList;
-    private List<Appointment> appointmentList;
+
     private SearchView searchView;
     private DbTable<Patient> patientTable;
-    private DbTable<Appointment> appointmentTable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_appointment_list);
+        setContentView(R.layout.activity_patient_list_for_appointment);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         inThis = $.in(this);
-        inThis.onClick(R.id.btBackToMain).goToScreen(MainActivity.class);
-        inThis.onClick(R.id.bt_ToAppointmentForm).goToScreen(PatientListForAppointment.class);
+        inThis.onClick(R.id.btBackToMain).goToScreen(appointmentList.class);
 
         // Initialize RecyclerView and Adapter
-        rvAppointmentList = findViewById(R.id.rvAppointmentList);
-        rvAppointmentList.setLayoutManager(new LinearLayoutManager(this));
+        rvPatientList = findViewById(R.id.rvPatientList);
+        rvPatientList.setLayoutManager(new LinearLayoutManager(this));
 
         patientTable = DbTable.getInstance(this, Patient.class);
         patientList = patientTable.getAll();
-        // I need to figure out how to get just patient name and appointment date (can be null if no appointments for patient)
-        // not sure about this part, if list shows all the patients, or if appears everyone but dates are not displayed if no appointment
 
-        appointmentListRvAdapter = new PatientListRvAdapter(patientList, patient -> {
-            inThis.passToScreen(appointmentUpdate.class);
+        patientListRvAdapter = new PatientListRvAdapter(patientList, patient -> {
+            inThis.passToScreen(NewAppointment.class, R.string.key_patient_id, patient.getId());
         });
-        rvAppointmentList.setAdapter(appointmentListRvAdapter);
+        rvPatientList.setAdapter(patientListRvAdapter);
 
         // Initialize SearchView
         searchView = findViewById(R.id.sVPatientList);
@@ -76,8 +75,9 @@ public class appointmentList extends AppCompatActivity {
             }
         });
     }
+
     private void filterPatients(String query) {
         List<Patient> filteredList = patientTable.searchBy(Patient.columnName(), query);
-        appointmentListRvAdapter.updateList(filteredList);
+        patientListRvAdapter.updateList(filteredList);
     }
 }

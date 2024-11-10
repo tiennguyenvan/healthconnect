@@ -45,6 +45,8 @@
     <string name="update_appointment">Update Appointment</string>
     <string name="hours">hours</string>
     <string name="btadd_appointment">Add Appointment</string>
+    <string name="appointment_patient_name">%1$s</string>
+
 
 
 </resources>

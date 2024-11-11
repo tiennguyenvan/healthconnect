@@ -11,12 +11,15 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.healthconnect.R;
 import com.example.healthconnect.controllers.$;
 import com.example.healthconnect.controllers.DbTable;
+import com.example.healthconnect.models.Appointment;
 import com.example.healthconnect.models.Patient;
 
 public class NewAppointment extends AppCompatActivity {
     private $ inThis;
     private DbTable<Patient> patientTable;
+    private DbTable<Appointment> appointmentTable;
     private long patientId = -1;  // Default to -1 if no patient ID is passed
+    private long appointmentId = -1;  // Default to -1 if no appointment ID is passed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class NewAppointment extends AppCompatActivity {
         inThis = $.in(this);
         inThis.onClick(R.id.btBackToMain).goToScreen(appointmentList.class);
         patientTable = DbTable.getInstance(this, Patient.class);
+        appointmentTable = DbTable.getInstance(this, Appointment.class);
 
         patientId = getIntent().getLongExtra(getString(R.string.key_patient_id), -1);
         Patient patient = patientTable.getById(patientId);

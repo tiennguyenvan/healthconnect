@@ -1,2 +1,4 @@
-package com.example.healthconnect.models;public class Symptoms {
+package com.example.healthconnect.models;
+
+public class Symptoms {
 }

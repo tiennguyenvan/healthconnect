@@ -12,7 +12,7 @@ public class Appointment implements Serializable {
     private String startTime;
     private String endTime;
     private String diagnosis;
-    private String[] symptoms;
+    private String symptoms;
     private String prescriptionDetail;
 
     public Appointment(){}
@@ -30,7 +30,7 @@ public class Appointment implements Serializable {
         this.appointment_id = appointment_id;
     }
 
-    public Appointment(long appointment_id, long patient_id, String startDate, String startTime, String endTime, String diagnosis, String[] symptoms, String prescriptionDetail)
+    public Appointment(long appointment_id, long patient_id, String startDate, String startTime, String endTime, String diagnosis, String symptoms, String prescriptionDetail)
     {
         this(appointment_id, patient_id, startDate, startTime, endTime);
         this.diagnosis = diagnosis;
@@ -86,11 +86,11 @@ public class Appointment implements Serializable {
         this.diagnosis = diagnosis;
     }
 
-    public String[] getSymptoms() {
+    public String getSymptoms() {
         return symptoms;
     }
 
-    public void setSymptoms(String[] symptoms) {
+    public void setSymptoms(String symptoms) {
         this.symptoms = symptoms;
     }
 
@@ -102,12 +102,14 @@ public class Appointment implements Serializable {
         this.prescriptionDetail = prescriptionDetail;
     }
 
-//    public static List<Appointment> demoData() {
-//        List<Appointment> demoData = new ArrayList<>();
-//        demoData.add(new Appointment(1, 1, "2024-09-10", "2024-09-11"));
-//        demoData.add(new Appointment(2,"Phyo Thaw", "2024-09-10", 60));
-//        demoData.add(new Appointment(3, "Bruno Beserra", "2024-10-11", 22));
-//        return demoData;
-//    }
+    public static List<Appointment> demoData() {
+        List<Appointment> demoData = new ArrayList<>();
+
+        demoData.add(new Appointment(1, 1, "2024-09-10", "09:00", "10:00", "Flu", "1,2", "Rest and hydration"));
+        demoData.add(new Appointment(2, 2, "2024-09-11", "11:00", "12:00", "Cold", "2,3", "Vitamin C and rest"));
+        demoData.add(new Appointment(3, 3, "2024-10-11", "14:00", "15:00", "Headache", "4", "Pain relievers"));
+
+        return demoData;
+    }
 }
 

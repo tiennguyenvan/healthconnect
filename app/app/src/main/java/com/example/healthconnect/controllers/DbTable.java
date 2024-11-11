@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DbTable<T> extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 11;
+    private static final int DATABASE_VERSION = 12;
     private static final String DATABASE_NAME = "HealthConnect.db";
     private final Class<T> entityType;
     private final String tableName;

@@ -13,11 +13,13 @@ import com.example.healthconnect.activities.patient.PatientListActivity;
 import com.example.healthconnect.controllers.DbTable;
 import com.example.healthconnect.controllers.$;
 import com.example.healthconnect.models.Medication;
+import com.example.healthconnect.models.Appointment;
 import com.example.healthconnect.models.Patient;
 
 public class MainActivity extends AppCompatActivity {
     private DbTable<Patient> patientTable;
     private DbTable<Medication> medicationTable;
+    private DbTable<Appointment> appointmentTable;
     private $ inThis;
 
     @Override
@@ -41,11 +43,16 @@ public class MainActivity extends AppCompatActivity {
 
         inThis.onClick(R.id.btPatients).goToScreen(PatientListActivity.class);
         inThis.onClick(R.id.btAppointments).goToScreen(appointmentList.class);
+        appointmentTable = DbTable.getInstance(this, Appointment.class);
+
+        // When I uncomment it, it freezes the app
+        //inThis.on(R.id.tvAppointmentCount).setText(String.valueOf(appointmentTable.size()));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         patientTable.closeDatabase();
+        appointmentTable.closeDatabase();
     }
 }

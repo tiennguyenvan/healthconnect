@@ -9,28 +9,30 @@ public class Appointment implements Serializable {
     private long appointment_id;
     private long patient_id;
     private String startDate;
-    private String endDate;
+    private String startTime;
+    private String endTime;
     private String diagnosis;
     private String[] symptoms;
     private String prescriptionDetail;
 
     public Appointment(){}
 
-    public Appointment(long patient_id, String startDate, String endDate)
+    public Appointment(long patient_id, String startDate, String startTime, String endTime)
     {
         this.patient_id = patient_id;
         this.startDate = startDate;
-        this.endDate = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
-    public Appointment(long appointment_id, long patient_id, String startDate, String endDate) {
-        this(patient_id, startDate, endDate);
+    public Appointment(long appointment_id, long patient_id, String startDate, String startTime, String endTime) {
+        this(patient_id, startDate, startTime, endTime);
         this.appointment_id = appointment_id;
     }
 
-    public Appointment(long appointment_id, long patient_id, String startDate, String endDate, String diagnosis, String[] symptoms, String prescriptionDetail)
+    public Appointment(long appointment_id, long patient_id, String startDate, String startTime, String endTime, String diagnosis, String[] symptoms, String prescriptionDetail)
     {
-        this(appointment_id, patient_id, startDate, endDate);
+        this(appointment_id, patient_id, startDate, startTime, endTime);
         this.diagnosis = diagnosis;
         this.symptoms = symptoms;
         this.prescriptionDetail = prescriptionDetail;
@@ -60,12 +62,20 @@ public class Appointment implements Serializable {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public String getDiagnosis() {
@@ -92,9 +102,9 @@ public class Appointment implements Serializable {
         this.prescriptionDetail = prescriptionDetail;
     }
 
-    //    public static List<Appointment> demoData() {
+//    public static List<Appointment> demoData() {
 //        List<Appointment> demoData = new ArrayList<>();
-//        demoData.add(new Appointment(1, "Tim Nguyen", "2024-09-11", 30));
+//        demoData.add(new Appointment(1, 1, "2024-09-10", "2024-09-11"));
 //        demoData.add(new Appointment(2,"Phyo Thaw", "2024-09-10", 60));
 //        demoData.add(new Appointment(3, "Bruno Beserra", "2024-10-11", 22));
 //        return demoData;

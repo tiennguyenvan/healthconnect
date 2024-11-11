@@ -52,6 +52,7 @@
                         android:text="@string/appointmentsCardTitle" />
 
                     <TextView
+                        android:id="@+id/tvAppointmentCount"
                         style="@style/LinkTextBigBold"
                         android:id="@+id/tvAppointmentCount"
                         android:text="0" />

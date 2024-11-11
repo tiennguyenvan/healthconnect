@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.activities.appointment.appointmentList;
+import com.example.healthconnect.activities.medication.MedicationListActivity;
 import com.example.healthconnect.activities.patient.PatientListActivity;
 import com.example.healthconnect.controllers.DbTable;
 import com.example.healthconnect.controllers.$;
@@ -37,16 +38,15 @@ public class MainActivity extends AppCompatActivity {
         inThis.onClick(R.id.btPatients).goToScreen(PatientListActivity.class);
         patientTable = DbTable.getInstance(this, Patient.class);
         medicationTable = DbTable.getInstance(this, Medication.class);
+        appointmentTable = DbTable.getInstance(this, Appointment.class);
 
         inThis.on(R.id.tvPatientCount).setText(String.valueOf(patientTable.size()));
         inThis.on(R.id.tvMedicationCount).setText(String.valueOf(medicationTable.size()));
+        inThis.on(R.id.tvAppointmentCount).setText(String.valueOf(appointmentTable.size()));
 
         inThis.onClick(R.id.btPatients).goToScreen(PatientListActivity.class);
         inThis.onClick(R.id.btAppointments).goToScreen(appointmentList.class);
-        appointmentTable = DbTable.getInstance(this, Appointment.class);
-
-        // When I uncomment it, it freezes the app
-        //inThis.on(R.id.tvAppointmentCount).setText(String.valueOf(appointmentTable.size()));
+        inThis.onClick(R.id.btMedications).goToScreen(MedicationListActivity.class);
     }
 
     @Override

@@ -18,19 +18,10 @@
             <TextView android:id="@+id/btToMedicationForm" style="@style/LinkText" android:text="@string/add_new" />
         </LinearLayout>
 
-        <LinearLayout style="@style/Field">
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/sVMedicationList"
-                style="@style/FieldInput"
-                android:padding="5dp"
-                android:hint="@string/search_placeholder"
-                android:queryHint="@string/search_placeholder" />
-        </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMedicationList"
-            style="@style/ListItems"
-            android:layout_weight="1" />
-
+        <com.example.healthconnect.views.SearchRecyclerView
+            android:id="@+id/medicationSearchList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

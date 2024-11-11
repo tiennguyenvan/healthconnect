@@ -1,0 +1,50 @@
+<!-- res/layout/view_search_recycler.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Container for the SearchView -->
+    <LinearLayout
+        style="@style/Field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            style="@style/FieldInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_placeholder"
+            android:padding="5dp"
+            android:queryHint="@string/search_placeholder" />
+    </LinearLayout>
+
+    <!-- RecyclerView for displaying list items -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        style="@style/ListItems"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>
+
+
+
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent">-->
+
+<!--<com.example.healthconnect.views.SearchRecyclerView-->
+<!--    style="@style/Widget.Theme.HealthConnect.MyView"-->
+<!--    android:layout_width="300dp"-->
+<!--    android:layout_height="300dp"-->
+<!--    android:paddingLeft="20dp"-->
+<!--    android:paddingBottom="40dp"-->
+<!--    app:exampleDimension="24sp"-->
+<!--    app:exampleDrawable="@android:drawable/ic_menu_add"-->
+<!--    app:exampleString="Hello, SearchRecyclerView" />-->
+
+<!--</FrameLayout>-->
+

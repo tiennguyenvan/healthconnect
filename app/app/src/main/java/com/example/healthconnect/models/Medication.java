@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Medication {
     private long medicationId;
+    public static String columnMedicationName() { return "medicationName";}
     private String medicationName;
     private int stock;
     private String conflicts; // List of medication IDs that conflict with this medication

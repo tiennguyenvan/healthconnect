@@ -1,10 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- res/values/colors.xml -->
+<?xml version="1.0" encoding="utf-8"?><!-- res/values/colors.xml -->
 <resources>
     <color name="primary">#FFC21715</color>       <!-- Primary Red -->
     <color name="text">#FF000000</color>          <!-- Black Text -->
     <color name="base">#FFF8FCFF</color>          <!-- Base Background -->
     <color name="cardBg">#FFFFFFFF</color>         <!-- Button Background -->
     <color name="lighterText">#FF797C80</color>   <!-- Lighter Gray Text -->
-    <color name="btnBorder">#FFEDEFF2</color>     <!-- Button Border -->
+    <color name="btnBorder">#FFEDEFF2</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_600">#FF757575</color>     <!-- Button Border -->
 </resources>

@@ -5,6 +5,7 @@
     <string name="medicationsCardTitle">Medications</string>
     <string name="new_patient_header_text">‹ \t New Patient</string>
     <string name="patient_list_header_text">‹ \t Patients</string>
+    <string name="medication_list_header_text">‹ \t Medications</string>
     <string name="appointments_list_header_text">‹ \t Appointments</string>
     <string name="name">Name</string>
     <string name="height">Height</string>
@@ -46,7 +47,6 @@
     <string name="hours">hours</string>
     <string name="btadd_appointment">Add Appointment</string>
     <string name="appointment_patient_name">%1$s</string>
-
 
 
 </resources>

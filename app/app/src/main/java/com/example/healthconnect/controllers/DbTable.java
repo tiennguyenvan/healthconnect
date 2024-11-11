@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DbTable<T> extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 11;
     private static final String DATABASE_NAME = "HealthConnect.db";
     private final Class<T> entityType;
     private final String tableName;
@@ -38,10 +39,22 @@ public class DbTable<T> extends SQLiteOpenHelper {
         return instance;
     }
 
-    @Override
+        @Override
     public void onCreate(SQLiteDatabase db) {
-        createTable(db);
-        insertDemoData(db);
+//        createTable(db);
+//        insertDemoData(db);
+    }
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+
+        // Check if the table exists
+        if (!isTableExists(db, tableName)) {
+            // Create the table if it doesn't exist
+            createTable(db);
+            // Insert demo data if the table was just created
+            insertDemoData(db);
+        }
     }
 
     @Override
@@ -57,6 +70,15 @@ public class DbTable<T> extends SQLiteOpenHelper {
             instances.remove(entityType);
         }
     }
+
+    private boolean isTableExists(SQLiteDatabase db, String tableName) {
+        try (Cursor cursor = db.rawQuery(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+                new String[]{tableName})) {
+            return cursor.moveToFirst();
+        }
+    }
+
 
     private void createTable(SQLiteDatabase db) {
         StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS " + tableName + " (");

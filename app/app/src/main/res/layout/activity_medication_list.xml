@@ -14,20 +14,20 @@
         >
 
         <LinearLayout style="@style/Header">
-            <TextView android:id="@+id/btBackToMain" style="@style/H1" android:text="@string/patient_list_header_text" />
-            <TextView android:id="@+id/btToPatientForm" style="@style/LinkText" android:text="@string/add_new" />
+            <TextView android:id="@+id/btBackToMain" style="@style/H1" android:text="@string/medication_list_header_text" />
+            <TextView android:id="@+id/btToMedicationForm" style="@style/LinkText" android:text="@string/add_new" />
         </LinearLayout>
 
         <LinearLayout style="@style/Field">
             <androidx.appcompat.widget.SearchView
-                android:id="@+id/sVPatientList"
+                android:id="@+id/sVMedicationList"
                 style="@style/FieldInput"
                 android:padding="5dp"
                 android:hint="@string/search_placeholder"
                 android:queryHint="@string/search_placeholder" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvPatientList"
+            android:id="@+id/rvMedicationList"
             style="@style/ListItems"
             android:layout_weight="1" />
 

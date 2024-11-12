@@ -11,11 +11,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healthconnect.MainActivity;
 import com.example.healthconnect.R;
-import com.example.healthconnect.activities.patient.PatientFormActivity;
 import com.example.healthconnect.activities.patient.PatientListRvAdapter;
-import com.example.healthconnect.activities.patient.PatientProfileActivity;
 import com.example.healthconnect.controllers.$;
 import com.example.healthconnect.controllers.DbTable;
 import com.example.healthconnect.models.Patient;

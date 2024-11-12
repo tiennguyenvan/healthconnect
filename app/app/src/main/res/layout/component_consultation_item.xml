@@ -14,7 +14,7 @@
             <TextView
                 android:text="Consultation Name"
                 style="@style/H3"/>
-            <TextView style="@style/LinkTextSmall"
+            <TextView style="@style/PrimaryTextSmall"
                 android:text="Edit If Incomming"
                 />
 

@@ -15,7 +15,7 @@
 
         <LinearLayout style="@style/Header">
             <TextView android:id="@+id/btBackToMain" style="@style/H1" android:text="‹ \t Tim Nguyen" />
-            <TextView android:id="@+id/btToPatientForm" style="@style/LinkText" android:text="@string/edit" />
+            <TextView android:id="@+id/btToPatientForm" style="@style/PrimaryTextMedium" android:text="@string/edit" />
         </LinearLayout>
 
         <TextView
@@ -26,7 +26,7 @@
         <LinearLayout style="@style/SubHeader">
             <TextView style="@style/H2" android:text="@string/consultations"/>
             <TextView android:id="@+id/btToAppointmentsForm"
-                style="@style/LinkText" android:text="@string/add_new"
+                style="@style/PrimaryTextMedium" android:text="@string/add_new"
                 />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView

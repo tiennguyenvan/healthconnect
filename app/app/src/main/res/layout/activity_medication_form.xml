@@ -15,9 +15,9 @@
         <LinearLayout style="@style/Header">
 
             <TextView
-                android:id="@+id/btBackToMain"
+                android:id="@+id/btBackToMedicationList"
                 style="@style/H1"
-                android:text="@string/new_patient_header_text" />
+                android:text="@string/new_medication_header_text" />
         </LinearLayout>
 
         <com.example.healthconnect.views.LabeledInputField
@@ -45,10 +45,10 @@
             app:labelText="@string/max_stock" />
 
         <com.example.healthconnect.views.SelectableAutocompleteView
-            android:id="@+id/selectableAutoCompleteView"
+            android:id="@+id/saMedicationConflicts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:displayDirection="horizontal"
+            app:displayDirection="vertical"
             app:hintText="Type to search"
             app:labelText="Conflicts" />
 

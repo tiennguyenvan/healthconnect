@@ -69,9 +69,6 @@ public class LabeledInputField extends LinearLayout {
     }
 
     // Method to set the label text
-    public void setText(String text) {
-        setLabelText(text);
-    }
     public void setLabelText(String text) {
         tvLabel.setText(text);
     }
@@ -85,14 +82,24 @@ public class LabeledInputField extends LinearLayout {
     public void setInputType(int inputType) {
         etInput.setInputType(inputType);
     }
+    public int getInputType() {
+        return etInput.getInputType();
+    }
 
-    // Method to retrieve the input text
+    public void setText(String text) {
+        setInputText(text);
+    }
+    public void setInputText(String text) {
+        etInput.setText(text);
+    }
     public String getText() {
         return getInputText();
     }
     public String getInputText() {
         return etInput.getText().toString();
     }
+
+
 
     // Method to set an error message
     public void setError(String error) {

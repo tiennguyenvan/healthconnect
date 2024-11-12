@@ -1,6 +1,7 @@
 package com.example.healthconnect.activities.patient;
 
 import android.os.Bundle;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -41,7 +42,14 @@ public class PatientFormActivity extends AppCompatActivity {
         inThis.onFocus(R.id.etPatientDOB).pickPastDate();
 
         // Set up back button to go back to the patient list
-        inThis.onClick(R.id.btBackToMain).goToScreen(PatientListActivity.class);
+        inThis.onClick(R.id.btBackToPatientListOrProfile).doAction(() -> {
+            if (patientId != -1) {
+                inThis.passToScreen(PatientProfileActivity.class, R.string.key_patient_id, patientId);
+            } else {
+                inThis.goToScreen(PatientListActivity.class);
+            }
+        });
+
 
         // Set up submit button to add or update patient
         inThis.onClick(R.id.btSubmitPatient).doAction(() -> {
@@ -72,11 +80,11 @@ public class PatientFormActivity extends AppCompatActivity {
 
     private boolean validateInputs() {
         boolean isValid = true;
-        isValid &= inThis.validateInput(R.id.etPatientName,   R.id.tvPatientNameError);
+        isValid &= inThis.validateInput(R.id.etPatientName, R.id.tvPatientNameError);
         isValid &= inThis.validateInput(R.id.etPatientHeight, R.id.tvPatientHeightError);
         isValid &= inThis.validateInput(R.id.etPatientWeight, R.id.tvPatientWeightError);
-        isValid &= inThis.validateInput(R.id.etPatientDOB,    R.id.tvPatientDOBError);
-        isValid &= inThis.validateInput(R.id.etPatientPhone,  R.id.tvPatientPhoneError);
+        isValid &= inThis.validateInput(R.id.etPatientDOB, R.id.tvPatientDOBError);
+        isValid &= inThis.validateInput(R.id.etPatientPhone, R.id.tvPatientPhoneError);
         return isValid;
     }
 
@@ -84,14 +92,16 @@ public class PatientFormActivity extends AppCompatActivity {
         Patient patient = patientTable.getById(patientId);
 
         if (patient != null) {
-            inThis.on(R.id.btBackToMain).setText(getString(R.string.back_with_patient_name, patient.getName()));
+            inThis.on(R.id.btBackToPatientListOrProfile).setText(getString(R.string.back_with_patient_name, patient.getName()));
             inThis.on(R.id.etPatientName).setText(patient.getName());
             inThis.on(R.id.etPatientHeight).setText(String.valueOf(patient.getHeight()));
             inThis.on(R.id.etPatientWeight).setText(String.valueOf(patient.getWeight()));
             inThis.on(R.id.etPatientDOB).setText(patient.getDateOfBirth());
             inThis.on(R.id.etPatientPhone).setText(patient.getContactNumber());
+            inThis.on(R.id.btSubmitPatient).setText(R.string.update_patient);
         } else {
-            inThis.showToast(getString(R.string.noti_no_patient_found, String.valueOf(patientId)));;
+            inThis.showToast(getString(R.string.noti_no_patient_found, String.valueOf(patientId)));
+            ;
         }
     }
 }

@@ -14,7 +14,7 @@
             >
 
         <LinearLayout style="@style/Header">
-            <TextView android:id="@+id/btBackToMain" style="@style/H1" android:text="@string/new_patient_header_text"            />
+            <TextView android:id="@+id/btBackToPatientListOrProfile" style="@style/H1" android:text="@string/new_patient_header_text"            />
         </LinearLayout>
 
         <LinearLayout style="@style/Field">

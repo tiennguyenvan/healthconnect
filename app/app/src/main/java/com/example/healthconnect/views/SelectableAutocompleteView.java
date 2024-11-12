@@ -134,6 +134,10 @@ public class SelectableAutocompleteView extends LinearLayout {
         updateSelectedItemsDisplay();
     }
 
+    public void setSelectedItems(List<String> selectedItems) {
+        this.selectedItems = selectedItems;
+        updateSelectedItemsDisplay();
+    }
     // Method to clear all selected items (optional)
     public void clearSelectedItems() {
         selectedItems.clear();

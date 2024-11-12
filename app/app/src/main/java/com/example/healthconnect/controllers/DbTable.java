@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -12,10 +13,11 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class DbTable<T> extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 15;
     private static final String DATABASE_NAME = "HealthConnect.db";
     private final Class<T> entityType;
     private final String tableName;
@@ -41,26 +43,22 @@ public class DbTable<T> extends SQLiteOpenHelper {
 
         @Override
     public void onCreate(SQLiteDatabase db) {
-//        createTable(db);
-//        insertDemoData(db);
+
     }
     @Override
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);
-
-        // Check if the table exists
-        if (!isTableExists(db, tableName)) {
-            // Create the table if it doesn't exist
+        if (!isTableExists(db) || !isTableSchemaMatching(db)) {
+            Log.d( "MMMM" , "DROP TABLE " + tableName);
+            dropTable(db);
             createTable(db);
-            // Insert demo data if the table was just created
             insertDemoData(db);
         }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + tableName);
-        onCreate(db);
+
     }
 
     public void closeDatabase() {
@@ -71,7 +69,7 @@ public class DbTable<T> extends SQLiteOpenHelper {
         }
     }
 
-    private boolean isTableExists(SQLiteDatabase db, String tableName) {
+    private boolean isTableExists(SQLiteDatabase db) {
         try (Cursor cursor = db.rawQuery(
                 "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
                 new String[]{tableName})) {
@@ -79,7 +77,47 @@ public class DbTable<T> extends SQLiteOpenHelper {
         }
     }
 
+    private boolean isTableSchemaMatching(SQLiteDatabase db) {
+        List<String> dbColumns = getDatabaseColumns(db);
+        List<String> entityColumns = getEntityColumns();
+        return dbColumns.containsAll(entityColumns) && entityColumns.containsAll(dbColumns);
+    }
 
+
+    // Get columns from the existing table in the database
+    private List<String> getDatabaseColumns(SQLiteDatabase db) {
+        List<String> columns = new ArrayList<>();
+        try (Cursor cursor = db.rawQuery("PRAGMA table_info(" + tableName + ")", null)) {
+            while (cursor.moveToNext()) {
+                int nameIndex = cursor.getColumnIndex("name");
+                int typeIndex = cursor.getColumnIndex("type");
+
+                if (nameIndex != -1 && typeIndex != -1) {
+                    String columnName = cursor.getString(nameIndex);
+                    String columnType = cursor.getString(typeIndex);
+                    columns.add(columnName + " " + columnType);
+                }
+            }
+        }
+        Log.d("MMMMMMMMMMM",  String.join(",", columns));
+
+        return columns;
+    }
+
+    // Get columns from the entity class
+    private List<String> getEntityColumns() {
+        List<String> columns = new ArrayList<>();
+        Field[] fields = entityType.getDeclaredFields();
+        for (Field field : fields) {
+            columns.add(field.getName() + " " + getSQLiteType(field));
+        }
+        Log.d("NNNNNNNNNNNN",  String.join(",", columns));
+        return columns;
+    }
+
+    private void dropTable(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + tableName);
+    }
     private void createTable(SQLiteDatabase db) {
         StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS " + tableName + " (");
         sql.append("id INTEGER PRIMARY KEY AUTOINCREMENT, ");

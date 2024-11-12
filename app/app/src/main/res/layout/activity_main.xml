@@ -31,7 +31,7 @@
                         android:text="@string/patientsCardTitle" />
                     <TextView
                         android:id="@+id/tvPatientCount"
-                        style="@style/LinkTextBigBold"
+                        style="@style/PrimaryTextBold"
                         android:layout_height="match_parent"
                         android:text="0" />
                 </LinearLayout>
@@ -53,7 +53,7 @@
 
                     <TextView
                         android:id="@+id/tvAppointmentCount"
-                        style="@style/LinkTextBigBold"
+                        style="@style/PrimaryTextBold"
                         android:text="0" />
                 </LinearLayout>
 
@@ -76,7 +76,7 @@
                         style="@style/H2"
                         android:text="@string/medicationsCardTitle" />
                     <TextView
-                        style="@style/LinkTextBigBold"
+                        style="@style/PrimaryTextBold"
                         android:id="@+id/tvMedicationCount"
                         android:text="0" />
                 </LinearLayout>

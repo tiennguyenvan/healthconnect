@@ -15,7 +15,7 @@
 
         <LinearLayout style="@style/Header">
             <TextView android:id="@+id/btBackToMain" style="@style/H1" android:text="@string/medication_list_header_text" />
-            <TextView android:id="@+id/btToMedicationForm" style="@style/LinkText" android:text="@string/add_new" />
+            <TextView android:id="@+id/btToMedicationForm" style="@style/PrimaryTextMedium" android:text="@string/add_new" />
         </LinearLayout>
 
         <com.example.healthconnect.views.SearchRecyclerView

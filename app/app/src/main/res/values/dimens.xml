@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="gap_big">30dp</dimen>
+    <dimen name="large">30dp</dimen>
     <dimen name="gap_mid">20dp</dimen>
     <dimen name="gap_small">10dp</dimen>
+    <dimen name="gap_x_small">5dp</dimen>
     <dimen name="corner_radius">10dp</dimen>
 </resources>

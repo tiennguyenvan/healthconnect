@@ -9,6 +9,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.healthconnect.MainActivity;
 import com.example.healthconnect.R;
 import com.example.healthconnect.controllers.$;
 import com.example.healthconnect.controllers.DbTable;
@@ -32,6 +33,9 @@ public class MedicationListActivity extends AppCompatActivity {
         inThis = $.in(this);
         medicationDbTable = DbTable.getInstance(this, Medication.class);
 
+        inThis.onClick(R.id.btToMedicationForm).goToScreen(MedicationFormActivity.class);
+        inThis.onClick(R.id.btBackToMain).goToScreen(MainActivity.class);
+
         SearchRecyclerView<Medication> medicationSearch = findViewById(R.id.medicationSearchList);
         medicationSearch.setItemList(medicationDbTable.getAll());
         medicationSearch.setItemLayout(R.layout.component_medication_item);
@@ -40,7 +44,7 @@ public class MedicationListActivity extends AppCompatActivity {
             tvMedicationName.setText(medication.getMedicationName());
         });
         medicationSearch.setOnClickItem((medication -> {
-            inThis.passToScreen(MedicationFormActivity.class, getString(R.string.key_medication_id), medication.getMedicationId());
+            inThis.passToScreen(MedicationFormActivity.class, getString(R.string.key_medication_id), medication.getId());
         }));
         medicationSearch.setOnSearch(query -> medicationDbTable.searchBy(Medication.columnMedicationName(), query));
 

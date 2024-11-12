@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class Appointment implements Serializable {
-    private long appointment_id;
+    private long id;
     private long patient_id;
     private String startDate;
     private String startTime;
@@ -25,25 +25,25 @@ public class Appointment implements Serializable {
         this.endTime = endTime;
     }
 
-    public Appointment(long appointment_id, long patient_id, String startDate, String startTime, String endTime) {
+    public Appointment(long id, long patient_id, String startDate, String startTime, String endTime) {
         this(patient_id, startDate, startTime, endTime);
-        this.appointment_id = appointment_id;
+        this.id = id;
     }
 
-    public Appointment(long appointment_id, long patient_id, String startDate, String startTime, String endTime, String diagnosis, String symptoms, String prescriptionDetail)
+    public Appointment(long id, long patient_id, String startDate, String startTime, String endTime, String diagnosis, String symptoms, String prescriptionDetail)
     {
-        this(appointment_id, patient_id, startDate, startTime, endTime);
+        this(id, patient_id, startDate, startTime, endTime);
         this.diagnosis = diagnosis;
         this.symptoms = symptoms;
         this.prescriptionDetail = prescriptionDetail;
     }
 
-    public long getAppointment_id() {
-        return appointment_id;
+    public long getId() {
+        return id;
     }
 
-    public void setAppointment_id(long appointment_id) {
-        this.appointment_id = appointment_id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getPatient_id() {

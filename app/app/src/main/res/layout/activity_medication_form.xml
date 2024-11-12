@@ -1,10 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.medication.MedicationFormActivity">
+    android:layout_height="match_parent">
 
+    <LinearLayout
+        style="@style/AppTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout style="@style/Header">
+
+            <TextView
+                android:id="@+id/btBackToMain"
+                style="@style/H1"
+                android:text="@string/new_patient_header_text" />
+        </LinearLayout>
+
+        <com.example.healthconnect.views.LabeledInputField
+            android:id="@+id/etMedicationName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            app:hintText="@string/full_medication_name"
+            app:labelText="@string/name" />
+
+        <com.example.healthconnect.views.LabeledInputField
+            android:id="@+id/etMedicationStock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            app:hintText="@string/number_of_units"
+            app:labelText="@string/stock" />
+
+        <com.example.healthconnect.views.LabeledInputField
+            android:id="@+id/etMedicationMaxStock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            app:hintText="@string/number_of_units"
+            app:labelText="@string/max_stock" />
+
+        <com.example.healthconnect.views.SelectableAutocompleteView
+            android:id="@+id/selectableAutoCompleteView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:displayDirection="horizontal"
+            app:hintText="Type to search"
+            app:labelText="Conflicts" />
+
+        <Button
+            android:id="@+id/btSubmitMedication"
+            style="@style/PrimaryBtn"
+            android:text="@string/add_medication" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

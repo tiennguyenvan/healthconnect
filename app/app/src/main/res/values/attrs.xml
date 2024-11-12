@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Use the common attributes in multiple styleable blocks -->
+    <attr name="exampleString" format="string" />
+    <attr name="exampleDimension" format="dimension" />
+    <attr name="exampleColor" format="color" />
+    <attr name="exampleDrawable" format="color|reference" />
+
+    <declare-styleable name="InputAttrs">
+        <attr name="labelText" format="string" />
+        <attr name="hintText" format="string"/>
+        <attr name="android:inputType" />
+        <attr name="displayDirection" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

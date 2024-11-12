@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.appointment.appointmentList">
+    tools:context=".activities.appointment.AppointmentListActivity">
 
     <LinearLayout
         app:layout_constraintTop_toTopOf="parent"
@@ -19,26 +19,14 @@
             <TextView android:id="@+id/bt_ToAppointmentForm" style="@style/PrimaryTextMedium" android:text="@string/add_new" />
         </LinearLayout>
 
-        <LinearLayout style="@style/Field">
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/sVPatientList"
-                style="@style/FieldInput"
-                android:hint="@string/search_placeholder"
-                android:padding="5dp"
-                android:queryHint="@string/search_placeholder" />
-        </LinearLayout>
-
         <LinearLayout
             style="@style/Field"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.example.healthconnect.views.SearchRecyclerView
                 android:id="@+id/rvAppointmentList"
-                style="@style/ListItems"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

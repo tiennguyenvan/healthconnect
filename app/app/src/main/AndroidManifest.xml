@@ -19,16 +19,16 @@
             android:name=".activities.medication.MedicationListActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.appointment.PatientListForAppointment"
+            android:name=".activities.appointment.PatientListForAppointmentActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.appointment.NewAppointment"
+            android:name=".activities.appointment.AppointmentNewActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.appointment.appointmentList"
+            android:name=".activities.appointment.AppointmentListActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.appointment.appointmentUpdate"
+            android:name=".activities.appointment.AppointmentUpdateActivity"
             android:exported="false" />
         <activity
             android:name=".activities.patient.PatientFormActivity"

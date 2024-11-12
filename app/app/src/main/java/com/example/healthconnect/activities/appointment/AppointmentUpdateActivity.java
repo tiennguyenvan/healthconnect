@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.healthconnect.R;
 import com.example.healthconnect.controllers.$;
 
-public class appointmentUpdate extends AppCompatActivity {
+public class AppointmentUpdateActivity extends AppCompatActivity {
     private $ inThis;
 
     @Override
@@ -25,6 +25,6 @@ public class appointmentUpdate extends AppCompatActivity {
             return insets;
         });
         inThis = $.in(this);
-        inThis.onClick(R.id.btBackToMain).goToScreen(appointmentList.class);
+        inThis.onClick(R.id.btBackToMain).goToScreen(AppointmentListActivity.class);
     }
 }

@@ -14,7 +14,7 @@ import com.example.healthconnect.controllers.DbTable;
 import com.example.healthconnect.models.Appointment;
 import com.example.healthconnect.models.Patient;
 
-public class NewAppointment extends AppCompatActivity {
+public class AppointmentNewActivity extends AppCompatActivity {
     private $ inThis;
     private DbTable<Patient> patientTable;
     private DbTable<Appointment> appointmentTable;
@@ -32,7 +32,7 @@ public class NewAppointment extends AppCompatActivity {
             return insets;
         });
         inThis = $.in(this);
-        inThis.onClick(R.id.btBackToMain).goToScreen(appointmentList.class);
+        inThis.onClick(R.id.btBackToMain).goToScreen(AppointmentListActivity.class);
         patientTable = DbTable.getInstance(this, Patient.class);
         appointmentTable = DbTable.getInstance(this, Appointment.class);
 

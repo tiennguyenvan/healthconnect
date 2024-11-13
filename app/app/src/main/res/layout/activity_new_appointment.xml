@@ -27,7 +27,7 @@
             style="@style/Header">
 
             <TextView
-                android:id="@+id/btMedicationListToMain"
+                android:id="@+id/btAppointmentListToMain"
                 style="@style/H1"
                 android:text="@string/appointmentNew" />
         </LinearLayout>
@@ -50,7 +50,7 @@
                 style="@style/FieldLabel" />
         </LinearLayout>
 
-        <!-- Start Date Field -->
+        <!-- Date Field -->
         <LinearLayout
             android:id="@+id/startDateLayout"
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="Start"
+                android:text="@string/dateAppointment"
                 style="@style/FieldLabel" />
 
             <EditText
@@ -72,9 +72,9 @@
                 style="@style/FieldInput" />
         </LinearLayout>
 
-        <!-- Duration Field -->
+        <!-- Start Time Field -->
         <LinearLayout
-            android:id="@+id/durationLayout"
+            android:id="@+id/startTimeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Field"
@@ -82,15 +82,37 @@
             android:layout_marginTop="8dp">
 
             <TextView
-                android:text="@string/duration"
+                android:text="@string/startTime"
                 style="@style/FieldLabel" />
 
             <EditText
-                android:id="@+id/etDuration"
+                android:id="@+id/etStartTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hours"
-                android:inputType="number"
+                android:hint="@string/timeFormat"
+                android:inputType="time"
+                style="@style/FieldInput" />
+        </LinearLayout>
+
+        <!-- End Time Field -->
+        <LinearLayout
+            android:id="@+id/endTimeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Field"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:text="@string/endTime"
+                style="@style/FieldLabel" />
+
+            <EditText
+                android:id="@+id/etEndTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/timeFormat"
+                android:inputType="time"
                 style="@style/FieldInput" />
         </LinearLayout>
 

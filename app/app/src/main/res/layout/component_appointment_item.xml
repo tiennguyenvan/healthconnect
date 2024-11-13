@@ -4,7 +4,9 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvAppointmentName"
+        android:id="@+id/tvAppointmentDetails"
         style="@style/BodySingleLineText"
-        android:text="@string/name" />
+        android:text="@string/appointment_details_format" />
+
+
 </LinearLayout>

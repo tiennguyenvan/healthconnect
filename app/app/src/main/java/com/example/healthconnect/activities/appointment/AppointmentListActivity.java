@@ -24,6 +24,7 @@ public class AppointmentListActivity extends AppCompatActivity {
     private $ inThis;
     private DbTable<Appointment> appointmentTable;
     private DbTable<Patient> patientTable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,60 +47,16 @@ public class AppointmentListActivity extends AppCompatActivity {
         appointmentSearch.setItemList(appointmentTable.getAll());
         appointmentSearch.setItemLayout(R.layout.component_appointment_item);
         appointmentSearch.setOnBindItem((itemView, appointment) -> {
-            TextView tvMedicationAppointmentName = itemView.findViewById(R.id.tvAppointmentName);
+            TextView tvAppointmentDetails = itemView.findViewById(R.id.tvAppointmentDetails);
             Patient patient = patientTable.getById(appointment.getPatient_id());
-            tvMedicationAppointmentName.setText(patient.getName());
+
+            String appointmentDetails = patient.getName() + ", " + appointment.getDate() + " | " + appointment.getStartTime() + " - " + appointment.getEndTime();
+            tvAppointmentDetails.setText(appointmentDetails);
         });
+
         appointmentSearch.setOnClickItem((appointment -> {
             inThis.passToScreen(AppointmentUpdateActivity.class);
         }));
         appointmentSearch.setOnSearch(query -> appointmentTable.searchBy(Medication.columnMedicationName(), query));
-
-
-
-        /*
-        // Initialize RecyclerView and Adapter
-        rvAppointmentList = findViewById(R.id.rvAppointmentList);
-        rvAppointmentList.setLayoutManager(new LinearLayoutManager(this));
-
-        patientTable = DbTable.getInstance(this, Patient.class);
-        patientList = patientTable.getAll();
-        // I need to figure out how to get just patient name and appointment date (can be null if no appointments for patient)
-        // not sure about this part, if list shows all the patients, or if appears everyone but dates are not displayed if no appointment
-
-        /*
-        * appointmentlist
-        * app.getPatientId
-        * */
-
-//        appointmentListRvAdapter = new PatientListRvAdapter(patientList, patient -> {
-//            inThis.passToScreen(AppointmentUpdateActivity.class);
-//        });
-//        rvAppointmentList.setAdapter(appointmentListRvAdapter);
-//
-//        // Initialize SearchView
-//        searchView = findViewById(R.id.sVPatientList);
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                // Perform final search when the user submits the query
-//                filterPatients(query);
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                // Filter as the user types
-//                filterPatients(newText);
-//                return true;
-//            }
-//        });
     }
-    private void filterPatients(String query) {
-        List<Patient> filteredList = patientTable.searchBy(Patient.columnName(), query);
-//        appointmentListRvAdapter.updateList(filteredList);
-    }
-
-//    */
-//}
 }

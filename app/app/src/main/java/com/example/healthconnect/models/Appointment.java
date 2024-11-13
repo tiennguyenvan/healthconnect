@@ -8,7 +8,7 @@ import java.util.List;
 public class Appointment implements Serializable {
     private long id;
     private long patient_id;
-    private String startDate;
+    private String date;
     private String startTime;
     private String endTime;
     private String diagnosis;
@@ -17,22 +17,22 @@ public class Appointment implements Serializable {
 
     public Appointment(){}
 
-    public Appointment(long patient_id, String startDate, String startTime, String endTime)
+    public Appointment(long patient_id, String date, String startTime, String endTime)
     {
         this.patient_id = patient_id;
-        this.startDate = startDate;
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public Appointment(long id, long patient_id, String startDate, String startTime, String endTime) {
-        this(patient_id, startDate, startTime, endTime);
+    public Appointment(long id, long patient_id, String date, String startTime, String endTime) {
+        this(patient_id, date, startTime, endTime);
         this.id = id;
     }
 
-    public Appointment(long id, long patient_id, String startDate, String startTime, String endTime, String diagnosis, String symptoms, String prescriptionDetail)
+    public Appointment(long id, long patient_id, String date, String startTime, String endTime, String diagnosis, String symptoms, String prescriptionDetail)
     {
-        this(id, patient_id, startDate, startTime, endTime);
+        this(id, patient_id, date, startTime, endTime);
         this.diagnosis = diagnosis;
         this.symptoms = symptoms;
         this.prescriptionDetail = prescriptionDetail;
@@ -54,12 +54,12 @@ public class Appointment implements Serializable {
         this.patient_id = patient_id;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setDate(String startDate) {
+        this.date = startDate;
     }
 
     public String getStartTime() {

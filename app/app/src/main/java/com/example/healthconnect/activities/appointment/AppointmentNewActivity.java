@@ -48,6 +48,10 @@ public class AppointmentNewActivity extends AppCompatActivity {
         }
 
         inThis.onClick(R.id.btnAddAppointment).doAction(() -> {
+            if (!validateInputs()) {
+                return;
+            }
+
             Appointment appointment = new Appointment();
             appointment.setPatient_id(patient.getId());
             appointment.setDate(inThis.getTextFrom(R.id.etStartDate));
@@ -67,4 +71,13 @@ public class AppointmentNewActivity extends AppCompatActivity {
             inThis.passToScreen(AppointmentListActivity.class);
         });
     }
+
+    private boolean validateInputs() {
+        boolean isValid = true;
+        isValid &= inThis.validateInput(R.id.etStartDate, R.id.tvAppointmentDateError);
+        isValid &= inThis.validateInput(R.id.etStartTime, R.id.tvAppointmentStartTimeError);
+        isValid &= inThis.validateInput(R.id.etEndTime, R.id.tvAppointmentEndTimeError);
+        return isValid;
+    }
+
 }

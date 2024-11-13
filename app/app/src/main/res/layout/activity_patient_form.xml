@@ -24,7 +24,10 @@
                 android:hint="@string/full_name"
                 android:inputType="textPersonName" />
         </LinearLayout>
-        <TextView android:id="@+id/tvPatientNameError" style="@style/ErrorText"/>
+
+        <TextView
+            android:id="@+id/tvPatientNameError"
+            style="@style/ErrorText" />
 
 
         <LinearLayout style="@style/Field">

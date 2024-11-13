@@ -44,16 +44,10 @@ public class MedicationFormActivity extends AppCompatActivity {
         medications = medicationTable.getAll();
         medicationId = getIntent().getLongExtra(getString(R.string.key_medication_id), -1);
 
-
-        List<String> medicationNames = medications.stream().map(Medication::getMedicationName).collect(Collectors.toList());
-
-        Map<String, Long> medicationNamesToIds = new HashMap<>();
-        for (Medication medication : medications) {
-            medicationNamesToIds.put(medication.getMedicationName(), medication.getId());
-        }
-
         conflictPicker = findViewById(R.id.saMedicationConflicts);
-        conflictPicker.setSuggestions(medicationNames);
+
+
+        conflictPicker.setSuggestions(medicationTable.objectsToFields(medications, Medication::getMedicationName));
 
         if (medicationId != -1) {
             populateFormForEditing(medicationId);
@@ -70,14 +64,9 @@ public class MedicationFormActivity extends AppCompatActivity {
             medication.setMedicationName(inThis.getTextFrom(R.id.etMedicationName));
             medication.setStock(inThis.getDoubleFrom(R.id.etMedicationStock));
             medication.setMaxStock(inThis.getDoubleFrom(R.id.etMedicationMaxStock));
-            List<String> conflictIds = conflictPicker.getSelectedItems().stream()
-                    .filter(medicationNamesToIds::containsKey) // Ensure the conflict name exists in the map
-                    .map(medicationNamesToIds::get) // Get the ID from the map
-                    .map(String::valueOf)  // Convert ID to String
-                    .collect(Collectors.toList());
-
-            String conflictIdsString = String.join(",", conflictIds);
-            medication.setConflicts(conflictIdsString);
+            medication.setConflicts(medicationTable.objectFieldsToIdsString(
+                    medications, conflictPicker.getSelectedItems(), Medication::getMedicationName
+            ));
 
             if (medicationId == -1) {
                 medicationId = medicationTable.add(medication);
@@ -111,25 +100,17 @@ public class MedicationFormActivity extends AppCompatActivity {
 
     private void populateFormForEditing(long medicationId) {
         Medication medication = medicationTable.getById(medicationId);
-        inThis.log("Max Stock " + medication.getMaxStock() + " from ID " + medicationId);
+//        inThis.log("Max Stock " + medication.getMaxStock() + " from ID " + medicationId);
         if (medication != null) {
             inThis.on(R.id.btBackToMedicationList).setText(R.string.edit_medication_header_text);
             inThis.on(R.id.etMedicationName).setText(medication.getMedicationName());
             inThis.on(R.id.etMedicationStock).setText(String.valueOf(medication.getStock()));
             inThis.on(R.id.etMedicationMaxStock).setText(String.valueOf(medication.getMaxStock()));
-            Map<Long, String> medicationIdsToNames = medications.stream()
-                    .collect(Collectors.toMap(Medication::getId, Medication::getMedicationName));
-            List<String> conflictNames = Arrays.stream(medication.getConflicts().split(","))
-                    .map(String::trim)
-                    .filter(name -> !name.isEmpty())
-                    .map(Long::valueOf)                       // Convert ID to Long
-                    .map(medicationIdsToNames::get)                    // Get the medication name from the map
-                    .filter(name -> name != null)             // Filter out any nulls (in case ID not found)
-                    .collect(Collectors.toList());
-            conflictPicker.setSelectedItems(conflictNames);
+            conflictPicker.setSelectedItems(medicationTable.idsStringToObjectFields(medication.getConflicts(), Medication::getMedicationName));
             inThis.on(R.id.btSubmitMedication).setText(R.string.update_medication);
         } else {
-            inThis.showToast(getString(R.string.noti_no_medication_found, String.valueOf(medicationId)));;
+            inThis.showToast(getString(R.string.noti_no_medication_found, String.valueOf(medicationId)));
+            ;
         }
     }
 }

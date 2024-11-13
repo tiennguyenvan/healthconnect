@@ -25,6 +25,6 @@ public class AppointmentUpdateActivity extends AppCompatActivity {
             return insets;
         });
         inThis = $.in(this);
-        inThis.onClick(R.id.btBackToMain).goToScreen(AppointmentListActivity.class);
+        inThis.onClick(R.id.btMedicationListToMain).goToScreen(AppointmentListActivity.class);
     }
 }

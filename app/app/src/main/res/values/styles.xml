@@ -11,7 +11,7 @@
         <item name="android:background">@color/base</item>
         <item name="android:textColor">@color/text</item>
     </style>
-
+    <!-- Texts -->
     <style name="BodyText">
         <item name="android:fontFamily">@font/lexend_regular</item>
         <item name="android:textSize">18sp</item>
@@ -19,19 +19,23 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="BodyTextSmall" parent="BodyText">
         <item name="android:textSize">12sp</item>
     </style>
+
     <style name="BodyTextMedium" parent="BodyText">
         <item name="android:textSize">16sp</item>
     </style>
-    <style name="BodyTextBig" parent="BodyText">
+
+    <style name="BodyTextLarge" parent="BodyText">
         <item name="android:textSize">24sp</item>
     </style>
 
     <style name="PrimaryText" parent="BodyText">
         <item name="android:textColor">@color/primary</item>
     </style>
+
     <style name="PrimaryTextMedium" parent="BodyTextMedium">
         <item name="android:textColor">@color/primary</item>
     </style>

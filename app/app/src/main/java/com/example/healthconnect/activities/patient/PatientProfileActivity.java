@@ -44,8 +44,8 @@ public class PatientProfileActivity extends AppCompatActivity {
             return;
         }
 
-        inThis.on(R.id.btBackToMain).setText(getString(R.string.back_with_patient_name, patient.getName()));
-        inThis.onClick(R.id.btBackToMain).goToScreen(PatientListActivity.class);
+        inThis.on(R.id.btMedicationListToMain).setText(getString(R.string.back_with_patient_name, patient.getName()));
+        inThis.onClick(R.id.btMedicationListToMain).goToScreen(PatientListActivity.class);
         inThis.onClick(R.id.btToPatientForm).doAction(() -> {
             inThis.passToScreen(PatientFormActivity.class, R.string.key_patient_id, patientId);
         });
@@ -63,7 +63,7 @@ public class PatientProfileActivity extends AppCompatActivity {
     }
 
     private void showPatientDetails(Patient patient) {
-        inThis.on(R.id.btBackToMain).setText(getString(R.string.back_with_patient_name, patient.getName()));
+        inThis.on(R.id.btMedicationListToMain).setText(getString(R.string.back_with_patient_name, patient.getName()));
         String patientDetails = getString(
                 R.string.patient_details_format,
                 patient.getHeight(),

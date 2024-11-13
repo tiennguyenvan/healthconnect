@@ -14,12 +14,13 @@
         >
 
         <LinearLayout style="@style/Header">
-            <TextView android:id="@+id/btMedicationListToMain" style="@style/H1" android:text="@string/medication_list_header_text" />
-            <TextView android:id="@+id/btMedicationListToMedicationForm" style="@style/PrimaryTextMedium" android:text="@string/add_new" />
+            <TextView android:id="@+id/btSymptomListToMain" style="@style/H1" android:text="@string/symptom_list_header_text" />
+
+            <TextView android:id="@+id/btSymptomListToSymptomForm" style="@style/PrimaryTextMedium" android:text="@string/add_new" />
         </LinearLayout>
 
         <com.example.healthconnect.views.SearchRecyclerView
-            android:id="@+id/srvMedication"
+            android:id="@+id/srvSymptom"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

@@ -14,7 +14,7 @@
         >
 
         <LinearLayout style="@style/Header">
-            <TextView android:id="@+id/btBackToMain" style="@style/H1" android:text="‹ \t Tim Nguyen" />
+            <TextView android:id="@+id/btMedicationListToMain" style="@style/H1" android:text="‹ \t Tim Nguyen" />
             <TextView android:id="@+id/btToPatientForm" style="@style/PrimaryTextMedium" android:text="@string/edit" />
         </LinearLayout>
 

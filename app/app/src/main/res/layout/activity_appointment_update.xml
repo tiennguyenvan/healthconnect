@@ -21,7 +21,7 @@
         style="@style/Header">
 
         <TextView
-            android:id="@+id/btBackToMain"
+            android:id="@+id/btMedicationListToMain"
             style="@style/H1"
             android:text="@string/appointmentsUpdate" />
     </LinearLayout>

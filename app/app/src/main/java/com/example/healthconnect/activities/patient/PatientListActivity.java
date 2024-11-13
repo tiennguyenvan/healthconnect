@@ -39,8 +39,8 @@ public class PatientListActivity extends AppCompatActivity {
             return insets;
         });
         inThis = $.in(this);
-        inThis.onClick(R.id.btBackToMain).goToScreen(MainActivity.class);
-        inThis.onClick(R.id.btToPatientForm).goToScreen(PatientFormActivity.class);
+        inThis.onClick(R.id.btPatientListToMain).goToScreen(MainActivity.class);
+        inThis.onClick(R.id.btPatientListToPatientForm).goToScreen(PatientFormActivity.class);
 
         // Initialize RecyclerView and Adapter
         rvPatientList = findViewById(R.id.rvPatientList);

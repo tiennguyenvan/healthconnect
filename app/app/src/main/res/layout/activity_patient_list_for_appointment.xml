@@ -15,7 +15,7 @@ android:layout_height="match_parent">
     >
 
     <LinearLayout style="@style/Header">
-        <TextView android:id="@+id/btBackToMain" style="@style/H1" android:text="@string/patient_list_header_text" />
+        <TextView android:id="@+id/btMedicationListToMain" style="@style/H1" android:text="@string/patient_list_header_text" />
     </LinearLayout>
 
     <LinearLayout style="@style/Field">

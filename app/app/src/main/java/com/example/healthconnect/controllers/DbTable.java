@@ -11,10 +11,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class DbTable<T> extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 15;
@@ -321,4 +324,134 @@ public class DbTable<T> extends SQLiteOpenHelper {
             throw new RuntimeException("Error inserting demo data", e);
         }
     }
+
+    // mapping converters
+    public List<T> idsStringToObjects(String ids) {
+        return idsStringToSortedObjects(ids, null);
+    }
+
+    public List<T> idsStringToSortedObjects(String ids, Comparator<T> sortCallback) {
+        if (ids == null || ids.isEmpty()) return Collections.emptyList();
+
+        // Split and parse IDs
+        String[] idArray = ids.split(",");
+        List<T> list = new ArrayList<>();
+        for (String idStr : idArray) {
+            try {
+                long id = Long.parseLong(idStr.trim());
+                T entity = getById(id); // Load each entity
+                if (entity != null) {
+                    list.add(entity);
+                }
+            } catch (NumberFormatException e) {
+                Log.e("DbTable", "Invalid ID format: " + idStr, e);
+            }
+        }
+
+        // Sort if a sortCallback is provided
+        if (sortCallback != null) {
+            list.sort(sortCallback);
+        }
+        return list;
+    }
+
+    public <R> List<R> idsStringToObjectFields(String ids, Function<T, R> returnCallback) {
+        return idsStringToSortedObjectFields(ids, returnCallback, null); // Call the overloaded method with no sorting
+    }
+
+    public <R> List<R> idsStringToSortedObjectFields(String ids, Function<T, R> returnCallback, Comparator<R> sortCallback) {
+        if (ids == null || ids.isEmpty()) return Collections.emptyList();
+
+        // Split and parse IDs
+        String[] idArray = ids.split(",");
+        List<R> resultList = new ArrayList<>();
+        for (String idStr : idArray) {
+            try {
+                long id = Long.parseLong(idStr.trim());
+                T entity = getById(id); // Load each entity
+                if (entity != null && returnCallback != null) {
+                    // Apply the returnCallback to extract the desired field
+                    R result = returnCallback.apply(entity);
+                    resultList.add(result);
+                }
+            } catch (NumberFormatException e) {
+                Log.e("DbTable", "Invalid ID format: " + idStr, e);
+            }
+        }
+
+        // Sort if a sortCallback is provided
+        if (sortCallback != null) {
+            resultList.sort(sortCallback);
+        }
+        return resultList;
+    }
+
+    // Method to convert a list of objects to a comma-separated string of their IDs
+    public String objectsToIdsString(List<T> objects) {
+        if (objects == null || objects.isEmpty()) return "";
+
+        return objects.stream()
+                .map(this::objectToId)
+                .filter(id -> id != null)  // Filter out nulls if any ID is not retrievable
+                .map(String::valueOf)      // Convert each ID to a string
+                .collect(Collectors.joining(","));
+    }
+
+    // Helper method to retrieve the ID of an object using reflection
+    private Long objectToId(T object) {
+        try {
+            Field idField = object.getClass().getDeclaredField("id");
+            idField.setAccessible(true);
+            return (Long) idField.get(object);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            Log.e("DbTable", "Error accessing ID field", e);
+            return null; // Return null if the ID can't be accessed
+        }
+    }
+    // Method to convert a list of objects to a list of specific field values
+    public <R> List<R> objectsToFields(List<T> objects, Function<T, R> fieldExtractor) {
+        return objectsToSortedFields(objects, fieldExtractor, null); // Call the overloaded method with no sorting
+    }
+
+    // Method to convert a list of objects to a sorted list of specific field values
+    public <R> List<R> objectsToSortedFields(List<T> objects, Function<T, R> fieldExtractor, Comparator<R> sortCallback) {
+        if (objects == null || objects.isEmpty()) return Collections.emptyList();
+
+        // Extract field values using fieldExtractor
+        List<R> fieldValues = objects.stream()
+                .map(fieldExtractor)
+                .collect(Collectors.toList());
+
+        // Sort if a sortCallback is provided
+        if (sortCallback != null) {
+            fieldValues.sort(sortCallback);
+        }
+
+        return fieldValues;
+    }
+
+    // Method to match field values to objects and return a comma-separated string of IDs
+    public <R> String objectFieldsToIdsString(List<T> objects, List<R> fieldValues, Function<T, R> fieldExtractor) {
+        if (fieldValues == null || fieldValues.isEmpty() || objects == null || objects.isEmpty()) {
+            return "";
+        }
+
+        return fieldValues.stream()
+                .map(fieldValue -> findIdByField(objects, fieldValue, fieldExtractor))
+                .filter(id -> id != null) // Filter out nulls if no matching object was found
+                .map(String::valueOf)      // Convert each ID to a string
+                .collect(Collectors.joining(","));
+    }
+
+    // Helper method to find the ID of the first object that matches the given field value
+    private <R> Long findIdByField(List<T> objects, R fieldValue, Function<T, R> fieldExtractor) {
+        for (T object : objects) {
+            // Check if the object's field matches the desired field value
+            if (fieldExtractor.apply(object).equals(fieldValue)) {
+                return objectToId(object); // Retrieve the object's ID
+            }
+        }
+        return null; // Return null if no match was found
+    }
+
 }

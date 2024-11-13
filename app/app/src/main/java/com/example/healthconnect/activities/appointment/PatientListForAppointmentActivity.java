@@ -40,7 +40,7 @@ public class PatientListForAppointmentActivity extends AppCompatActivity {
         });
 
         inThis = $.in(this);
-        inThis.onClick(R.id.btBackToMain).goToScreen(AppointmentListActivity.class);
+        inThis.onClick(R.id.btMedicationListToMain).goToScreen(AppointmentListActivity.class);
 
         // Initialize RecyclerView and Adapter
         rvPatientList = findViewById(R.id.rvPatientList);

@@ -32,7 +32,7 @@ public class AppointmentNewActivity extends AppCompatActivity {
             return insets;
         });
         inThis = $.in(this);
-        inThis.onClick(R.id.btBackToMain).goToScreen(AppointmentListActivity.class);
+        inThis.onClick(R.id.btMedicationListToMain).goToScreen(AppointmentListActivity.class);
         patientTable = DbTable.getInstance(this, Patient.class);
         appointmentTable = DbTable.getInstance(this, Appointment.class);
 

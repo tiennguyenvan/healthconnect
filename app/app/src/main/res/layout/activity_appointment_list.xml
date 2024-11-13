@@ -15,7 +15,7 @@
         style="@style/AppTheme">
 
         <LinearLayout style="@style/Header">
-            <TextView android:id="@+id/btBackToMain" style="@style/H1" android:text="@string/appointments_list_header_text" />
+            <TextView android:id="@+id/btMedicationListToMain" style="@style/H1" android:text="@string/appointments_list_header_text" />
             <TextView android:id="@+id/bt_ToAppointmentForm" style="@style/PrimaryTextMedium" android:text="@string/add_new" />
         </LinearLayout>
 

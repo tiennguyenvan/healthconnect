@@ -33,10 +33,10 @@ public class MedicationListActivity extends AppCompatActivity {
         inThis = $.in(this);
         medicationDbTable = DbTable.getInstance(this, Medication.class);
 
-        inThis.onClick(R.id.btToMedicationForm).goToScreen(MedicationFormActivity.class);
-        inThis.onClick(R.id.btBackToMain).goToScreen(MainActivity.class);
+        inThis.onClick(R.id.btMedicationListToMedicationForm).goToScreen(MedicationFormActivity.class);
+        inThis.onClick(R.id.btMedicationListToMain).goToScreen(MainActivity.class);
 
-        SearchRecyclerView<Medication> medicationSearch = findViewById(R.id.medicationSearchList);
+        SearchRecyclerView<Medication> medicationSearch = findViewById(R.id.srvMedication);
         medicationSearch.setItemList(medicationDbTable.getAll());
         medicationSearch.setItemLayout(R.layout.component_medication_item);
         medicationSearch.setOnBindItem((itemView, medication) -> {

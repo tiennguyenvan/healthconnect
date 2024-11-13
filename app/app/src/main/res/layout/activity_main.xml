@@ -28,7 +28,7 @@
                 <LinearLayout style="@style/CardHeader">
                     <TextView
                         style="@style/H2"
-                        android:text="@string/patientsCardTitle" />
+                        android:text="@string/patients" />
                     <TextView
                         android:id="@+id/tvPatientCount"
                         style="@style/PrimaryTextBold"
@@ -49,7 +49,7 @@
 
                     <TextView
                         style="@style/H2"
-                        android:text="@string/appointmentsCardTitle" />
+                        android:text="@string/appointments" />
 
                     <TextView
                         android:id="@+id/tvAppointmentCount"
@@ -74,10 +74,29 @@
 
                     <TextView
                         style="@style/H2"
-                        android:text="@string/medicationsCardTitle" />
+                        android:text="@string/medications" />
                     <TextView
                         style="@style/PrimaryTextBold"
                         android:id="@+id/tvMedicationCount"
+                        android:text="0" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btSymptoms"
+            style="@style/Card"
+            app:cardCornerRadius="@dimen/corner_radius">
+
+            <LinearLayout style="@style/CardInner">
+
+                <LinearLayout style="@style/CardHeader">
+
+                    <TextView
+                        style="@style/H2"
+                        android:text="@string/symptoms" />
+                    <TextView
+                        style="@style/PrimaryTextBold"
+                        android:id="@+id/tvSymptomCount"
                         android:text="0" />
                 </LinearLayout>
             </LinearLayout>

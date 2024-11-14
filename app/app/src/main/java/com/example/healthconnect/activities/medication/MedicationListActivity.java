@@ -47,6 +47,5 @@ public class MedicationListActivity extends AppCompatActivity {
             inThis.passToScreen(MedicationFormActivity.class, getString(R.string.key_medication_id), medication.getId());
         }));
         medicationSearch.setOnSearch(query -> medicationDbTable.searchBy(Medication.columnMedicationName(), query));
-
     }
 }

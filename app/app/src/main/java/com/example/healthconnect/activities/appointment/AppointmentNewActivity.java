@@ -62,7 +62,7 @@ public class AppointmentNewActivity extends AppCompatActivity {
                 appointmentId = appointmentTable.add(appointment);
                 inThis.showToast(getString(R.string.noti_appointment_added, String.valueOf(appointmentId)));
             } else {
-                // Update existing patient
+                // Update existing appointment
                 appointmentTable.update(appointmentId, appointment);
                 inThis.showToast(getString(R.string.noti_appointment_updated, String.valueOf(appointmentId)));
             }

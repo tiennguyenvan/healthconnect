@@ -454,4 +454,11 @@ public class DbTable<T> extends SQLiteOpenHelper {
         return null; // Return null if no match was found
     }
 
+    // Helper method to delete appointment from table
+    public void delete(long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("Appointment", "id = ?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
 }

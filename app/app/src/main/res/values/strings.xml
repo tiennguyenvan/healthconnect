@@ -14,6 +14,7 @@
     <string name="symptom_list_header_text">‹ \t Symptoms</string>
 
     <string name="appointments_list_header_text">‹ \t Appointments</string>
+    <string name="edit_appointments_header_text">‹ \t Appointments</string>
     <string name="name">Name</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>
@@ -45,6 +46,7 @@
     <string name="noti_appointment_added">Appointment Added with ID: %1$s</string>
     <string name="noti_appointment_updated">Appointment Updated with ID: %1$s</string>
     <string name="noti_no_appointment_found">No appointment found with ID: %1$s</string>
+    <string name="noti_appointment_deleted">Appointment Deleted with ID: %1$s</string>
 
     <string name="noti_medication_added">Medication Added with ID: %1$s</string>
     <string name="noti_medication_updated">Medication Updated with ID: %1$s</string>
@@ -65,6 +67,7 @@
 
 
     <!--Appointment Update  -->
+    <string name="nameField">Name: </string>
     <string name="appointmentsUpdate">‹ \t Appointment</string>
     <string name="cancel_appointment">Cancel Appointment</string>
     <string name="start">Start</string>

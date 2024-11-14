@@ -55,8 +55,8 @@ public class AppointmentListActivity extends AppCompatActivity {
         });
 
         appointmentSearch.setOnClickItem((appointment -> {
-            inThis.passToScreen(AppointmentUpdateActivity.class);
+            inThis.passToScreen(AppointmentUpdateActivity.class, getString(R.string.key_appointment_id), appointment.getId());
         }));
-        appointmentSearch.setOnSearch(query -> appointmentTable.searchBy(Medication.columnMedicationName(), query));
+        appointmentSearch.setOnSearch(query -> appointmentTable.searchBy(Appointment.columnAppointmentName(), query));
     }
 }

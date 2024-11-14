@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Appointment implements Serializable {
     private long id;
+    public static String columnAppointmentName() { return "appointmentName";}
     private long patient_id;
     private String date;
     private String startTime;

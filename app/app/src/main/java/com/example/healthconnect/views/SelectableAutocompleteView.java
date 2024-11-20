@@ -24,6 +24,17 @@ public class SelectableAutocompleteView extends LinearLayout {
     private ArrayAdapter<String> suggestionAdapter;
     private List<String> selectedItems = new ArrayList<>();
     private OnItemClickListener onItemClickListener;
+    private Boolean allowOneItem = false;
+    private TextView tvError;
+
+
+    public Boolean getAllowOneItem() {
+        return allowOneItem;
+    }
+
+    public void setAllowOneItem(Boolean allowOneItem) {
+        this.allowOneItem = allowOneItem;
+    }
 
     public interface OnItemClickListener {
         void onItemClick(String item);
@@ -48,6 +59,7 @@ public class SelectableAutocompleteView extends LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.view_selectable_auto_complete, this, true);
 
         tvLabel = findViewById(R.id.tvLabel);
+        tvError = findViewById(R.id.tvError);
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
         selectedItemsContainer = findViewById(R.id.selectedItemsContainer);
 
@@ -95,6 +107,21 @@ public class SelectableAutocompleteView extends LinearLayout {
         });
     }
 
+    public void setError(String errorMessage) {
+        if (errorMessage != null && !errorMessage.isEmpty()) {
+            tvError.setText(errorMessage);
+            tvError.setVisibility(View.VISIBLE);
+        } else {
+            clearError(); // If errorMessage is empty or null, clear the error
+        }
+    }
+
+    public void clearError() {
+        tvError.setText("");
+        tvError.setVisibility(View.GONE);
+    }
+
+
     // Method to set suggestion list
     public void setSuggestions(List<String> suggestions) {
         suggestionAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, suggestions);
@@ -108,6 +135,9 @@ public class SelectableAutocompleteView extends LinearLayout {
 
     // Method to add a selected item and update the display
     private void addSelectedItem(String item) {
+        if (allowOneItem) {
+            selectedItems.clear();
+        }
         if (!selectedItems.contains(item)) {
             selectedItems.add(item);
             updateSelectedItemsDisplay();
@@ -130,12 +160,21 @@ public class SelectableAutocompleteView extends LinearLayout {
 
     // Method to remove a selected item and update the display
     private void removeSelectedItem(String item) {
-        selectedItems.remove(item);
-        updateSelectedItemsDisplay();
+        if (allowOneItem) {
+            selectedItems.clear();
+            updateSelectedItemsDisplay();
+            return;
+        }
+        if (selectedItems != null && selectedItems.contains(item)) {
+            selectedItems.remove(item);
+            updateSelectedItemsDisplay();
+        }
+
     }
 
     public void setSelectedItems(List<String> selectedItems) {
-        this.selectedItems = selectedItems;
+//        this.selectedItems = selectedItems;
+        this.selectedItems = new ArrayList<>(selectedItems);
         updateSelectedItemsDisplay();
     }
     // Method to clear all selected items (optional)

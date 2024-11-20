@@ -6,7 +6,10 @@
     <string name="symptoms">Symptoms</string>
     <string name="new_patient_header_text">‹ \t New Patient</string>
     <string name="new_medication_header_text">‹ \t New Medication</string>
+    <string name="new_treatment_header_text">‹ \t New Treatment</string>
     <string name="edit_medication_header_text">‹ \t Edit Medication</string>
+    <string name="edit_treatment_header_text">‹ \t Edit Treatment</string>
+    <string name="edit_diagnose_header_text">‹ \t Edit Diagnose</string>
     <string name="new_symptom_header_text">‹ \t New Symptom</string>
     <string name="edit_symptom_header_text">‹ \t New Symptom</string>
     <string name="patient_list_header_text">‹ \t Patients</string>
@@ -33,9 +36,11 @@
 
     <string name="consultations">Consultations</string>
     <string name="warning_field_required">This field is required</string>
+    <string name="warning_invalid_format">Invalid format</string>
     <string name="warning_invalid_number">Invalid number</string>
     <string name="warning_invalid_phone">Invalid phone format</string>
     <string name="warning_invalid_date">Invalid date</string>
+    <string name="warning_invalid_medication">Invalid medication</string>
     <string name="back_with_patient_name">‹ \t %1$s</string>
     <string name="patient_details_format">%1$.0fcm, %2$.0fkg\n%3$s\n%4$s</string>
 
@@ -52,10 +57,17 @@
     <string name="noti_medication_added">Medication Added with ID: %1$s</string>
     <string name="noti_medication_updated">Medication Updated with ID: %1$s</string>
     <string name="noti_no_medication_found">No medication found with ID: %1$s</string>
+    <string name="noti_no_treatment_found">No treatment found with ID: %1$s</string>
+    <string name="noti_no_diagnose_found">No diagnose found with ID: %1$s</string>
+    <string name="noti_no_symptom_found">No symptom found with ID: %1$s</string>
 
     <string name="noti_symptom_added">Symptom Added with ID: %1$s</string>
     <string name="noti_symptom_updated">Symptom Updated with ID: %1$s</string>
-    <string name="noti_no_symptom_found">No symptom found with ID: %1$s</string>
+    <string name="noti_treatment_added">Treatment Added with ID: %1$s</string>
+    <string name="noti_treatment_updated">Treatment Updated with ID: %1$s</string>
+    <string name="noti_diagnose_added">Diagnose Added with ID: %1$s</string>
+    <string name="noti_diagnose_updated">Diagnose Updated with ID: %1$s</string>
+
 
 
     <!--New Appointment-->
@@ -88,6 +100,8 @@
     <string name="close_icon">✖</string>
     <string name="err_max_stock_must_be_larger_than_stock">Max stock must be larger than stock</string>
     <string name="update_medication">Update Medication</string>
+    <string name="update_treatment">Update Treatment</string>
+    <string name="update_diagnose">Update Diagnose</string>
     <string name="update_symptom">Update Symptom</string>
     <string name="full_symptom_name">Full Symptom Name</string>
 
@@ -104,6 +118,13 @@
     <string name="diagnoses">Diagnoses</string>
     <string name="medication_name">Medication Name</string>
     <string name="treatment_name">Treatment Name</string>
+    <string name="add_treatment">Add Treatment</string>
+    <string name="type_to_search">Type to search</string>
+    <string name="medication">Medication</string>
+    <string name="_3x_days">3x/days</string>
+    <string name="_3_days">3 days</string>
+    <string name="after_meals">After meals</string>
+    <string name="label">Label</string>
 
 
 </resources>

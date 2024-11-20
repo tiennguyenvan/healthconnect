@@ -206,7 +206,7 @@ public class $ {
         String ret = "";
         if (et instanceof EditText) {
             ret = ((EditText) et).getText().toString();
-        } else if (et instanceof LabeledInputField){
+        } else if (et instanceof LabeledInputField) {
             ret = ((LabeledInputField) et).getText();
         }
         return ret.trim();
@@ -293,8 +293,13 @@ public class $ {
     }
 
     public boolean validateLabeledInput(int inputViewId) {
+        return validateLabeledInput(inputViewId, null);
+    }
+
+
+    public boolean validateLabeledInput(int inputViewId, String regex) {
         LabeledInputField inputView = activity.findViewById(inputViewId);
-        String inputText = inputView.getText().toString().trim();
+        String inputText = inputView.getText().trim();
         int inputType = inputView.getInputType();
 
         // Check if the input is empty
@@ -338,10 +343,17 @@ public class $ {
                 }
                 break;
 
+            // string
             default:
+                if (regex != null && !inputText.matches(regex)) {
+                    inputView.setError(activity.getString(R.string.warning_invalid_format));
+                    return false;
+                }
+
                 inputView.clearError();
                 break;
         }
+
 
         return true;
     }

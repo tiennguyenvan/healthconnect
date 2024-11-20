@@ -19,6 +19,9 @@
             android:name=".activities.diagnose.DiagnoseListActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.treatment.TreatmentFormActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.treatment.TreatmentListActivity"
             android:exported="false" />
         <activity

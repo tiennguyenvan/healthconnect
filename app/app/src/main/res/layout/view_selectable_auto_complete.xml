@@ -21,14 +21,18 @@
     <TextView
         android:id="@+id/tvLabel"
         style="@style/FieldLabel"
-        android:text="Label" />
+        android:text="@string/label" />
+    <TextView
+        android:id="@+id/tvError"
+        style="@style/ErrorText"
+        android:text="" />
 
     <AutoCompleteTextView
         android:layout_marginTop="@dimen/gap_x_small"
         android:id="@+id/autoCompleteTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Type to search"
+        android:hint="@string/type_to_search"
         android:padding="8dp"
         style="@style/FieldInput"
         android:dropDownHeight="wrap_content"

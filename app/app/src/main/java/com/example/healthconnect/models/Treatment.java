@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Treatment {
     private long id;
+    public static String columnMedicationId() { return "medicationId";}
     private long medicationId;
     private String dose;
     private String duration;

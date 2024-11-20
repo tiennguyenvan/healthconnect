@@ -160,24 +160,7 @@ public class DbTable<T> extends SQLiteOpenHelper {
         return db.update(tableName, values, "id = ?", new String[]{String.valueOf(id)});
     }
 
-    public List<T> getAll() {
-        List<T> list = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
 
-        try (Cursor cursor = db.query(tableName, null, null, null, null, null, null)) {
-            if (cursor != null && cursor.moveToFirst()) {
-                do {
-                    T entity = entityType.getDeclaredConstructor().newInstance();
-                    setEntityFields(cursor, entity);
-                    list.add(entity);
-                } while (cursor.moveToNext());
-            }
-        } catch (InstantiationException | IllegalAccessException |
-                 InvocationTargetException | NoSuchMethodException e) {
-            throw new RuntimeException("Error retrieving data", e);
-        }
-        return list;
-    }
 
     public int size() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -207,6 +190,28 @@ public class DbTable<T> extends SQLiteOpenHelper {
                     field.set(entity, cursor.getDouble(columnIndex));
             }
         }
+    }
+
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    // GET data
+    public List<T> getAll() {
+        List<T> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        try (Cursor cursor = db.query(tableName, null, null, null, null, null, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    T entity = entityType.getDeclaredConstructor().newInstance();
+                    setEntityFields(cursor, entity);
+                    list.add(entity);
+                } while (cursor.moveToNext());
+            }
+        } catch (InstantiationException | IllegalAccessException |
+                 InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException("Error retrieving data", e);
+        }
+        return list;
     }
 
     public List<T> getBy(String fieldName, Object value) {
@@ -270,6 +275,41 @@ public class DbTable<T> extends SQLiteOpenHelper {
         }
         return list;
     }
+    public List<T> searchByColumnInValues(String columnName, List<?> values) {
+        if (values == null || values.isEmpty()) return Collections.emptyList();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<T> list = new ArrayList<>();
+
+        // Create a query with placeholders for the `IN` clause
+        String placeholders = String.join(",", Collections.nCopies(values.size(), "?"));
+        String query = columnName + " IN (" + placeholders + ")";
+        String[] args = values.stream().map(String::valueOf).toArray(String[]::new);
+
+        try (Cursor cursor = db.query(
+                tableName,
+                null,
+                query,
+                args,
+                null,
+                null,
+                null)) {
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    T entity = entityType.getDeclaredConstructor().newInstance();
+                    setEntityFields(cursor, entity);
+                    list.add(entity);
+                } while (cursor.moveToNext());
+            }
+        } catch (InstantiationException | IllegalAccessException |
+                 InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException("Error searching data by " + columnName + " in values", e);
+        }
+
+        return list;
+    }
+
 
     ////////////////
     ////////////////
@@ -325,6 +365,8 @@ public class DbTable<T> extends SQLiteOpenHelper {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////
     // mapping converters
     public List<T> idsStringToObjects(String ids) {
         return idsStringToSortedObjects(ids, null);

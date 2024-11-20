@@ -5,101 +5,183 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        style="@style/AppTheme"
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout style="@style/Header">
+        <LinearLayout
+            style="@style/AppTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                style="@style/H1"
-                android:text="@string/app_name" />
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/btPatients"
-            style="@style/Card"
-            app:cardCornerRadius="@dimen/corner_radius"> <!-- require xmlns:app="http://schemas.android.com/apk/res-auto" -->
-            <LinearLayout style="@style/CardInner">
-
-                <LinearLayout style="@style/CardHeader">
-                    <TextView
-                        style="@style/H2"
-                        android:text="@string/patients" />
-                    <TextView
-                        android:id="@+id/tvPatientCount"
-                        style="@style/PrimaryTextBold"
-                        android:layout_height="match_parent"
-                        android:text="0" />
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/btAppointments"
-            style="@style/Card"
-            app:cardCornerRadius="@dimen/corner_radius">
-
-            <LinearLayout style="@style/CardInner">
-
-                <LinearLayout style="@style/CardHeader">
-
-                    <TextView
-                        style="@style/H2"
-                        android:text="@string/appointments" />
-
-                    <TextView
-                        android:id="@+id/tvAppointmentCount"
-                        style="@style/PrimaryTextBold"
-                        android:text="0" />
-                </LinearLayout>
+            <LinearLayout style="@style/Header">
 
                 <TextView
-                    style="@style/CardBody"
-                    android:text="Phyo Thaw 9:30\nTim Nguyen 15:30" />
+                    style="@style/H1"
+                    android:text="@string/app_name" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/btMedications"
-            style="@style/Card"
-            app:cardCornerRadius="@dimen/corner_radius">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btPatients"
+                style="@style/Card"
+                app:cardCornerRadius="@dimen/corner_radius"> <!-- require xmlns:app="http://schemas.android.com/apk/res-auto" -->
+                <LinearLayout style="@style/CardInner">
 
-            <LinearLayout style="@style/CardInner">
+                    <LinearLayout style="@style/CardHeader">
 
-                <LinearLayout style="@style/CardHeader">
+                        <TextView
+                            style="@style/H2"
+                            android:text="@string/patients" />
 
-                    <TextView
-                        style="@style/H2"
-                        android:text="@string/medications" />
-                    <TextView
-                        style="@style/PrimaryTextBold"
-                        android:id="@+id/tvMedicationCount"
-                        android:text="0" />
+                        <TextView
+                            android:id="@+id/tvPatientCount"
+                            style="@style/PrimaryTextBold"
+                            android:layout_height="match_parent"
+                            android:text="@string/zero" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/btSymptoms"
-            style="@style/Card"
-            app:cardCornerRadius="@dimen/corner_radius">
+            </androidx.cardview.widget.CardView>
 
-            <LinearLayout style="@style/CardInner">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btAppointments"
+                style="@style/Card"
+                app:cardCornerRadius="@dimen/corner_radius">
 
-                <LinearLayout style="@style/CardHeader">
+                <LinearLayout style="@style/CardInner">
+
+                    <LinearLayout style="@style/CardHeader">
+
+                        <TextView
+                            style="@style/H2"
+                            android:text="@string/appointments" />
+
+                        <TextView
+                            android:id="@+id/tvAppointmentCount"
+                            style="@style/PrimaryTextBold"
+                            android:text="0" />
+                    </LinearLayout>
 
                     <TextView
-                        style="@style/H2"
-                        android:text="@string/symptoms" />
-                    <TextView
-                        style="@style/PrimaryTextBold"
-                        android:id="@+id/tvSymptomCount"
-                        android:text="0" />
+                        style="@style/CardBody"
+                        android:text="Phyo Thaw 9:30"/>
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btMedications"
+                style="@style/Card"
+                app:cardCornerRadius="@dimen/corner_radius">
+
+                <LinearLayout style="@style/CardInner">
+
+                    <LinearLayout style="@style/CardHeader">
+
+                        <TextView
+                            style="@style/H2"
+                            android:text="@string/medications" />
+
+                        <TextView
+                            android:id="@+id/tvMedicationCount"
+                            style="@style/PrimaryTextBold"
+                            android:text="@string/zero" />
+                    </LinearLayout>
+                    <TextView
+                        style="@style/CardBody"
+                        android:text="Paracetamol 50/500"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btDiagnoses"
+                style="@style/Card"
+                app:cardCornerRadius="@dimen/corner_radius">
+
+                <LinearLayout style="@style/CardInner">
+
+                    <LinearLayout style="@style/CardHeader">
+
+                        <TextView
+                            style="@style/H2"
+                            android:text="@string/diagnoses" />
+
+                        <TextView
+                            android:id="@+id/tvDiagnoseCount"
+                            style="@style/PrimaryTextBold"
+                            android:text="@string/zero" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btSymptoms"
+                    style="@style/Card"
+                    android:layout_width="wrap_content"
+                    android:layout_marginEnd="@dimen/gap_small"
+                    android:layout_weight="1"
+
+                    app:cardCornerRadius="@dimen/corner_radius">
+
+                    <LinearLayout
+                        style="@style/CardInner"
+                        android:orientation="vertical"
+                        android:padding="15dp">
+
+                        <LinearLayout style="@style/CardHeader">
+
+                            <TextView
+                                style="@style/H4"
+                                android:text="@string/symptoms" />
+
+                            <TextView
+                                android:id="@+id/tvSymptomCount"
+                                style="@style/PrimaryTextMedium"
+                                android:text="@string/zero" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btTreatments"
+                    style="@style/Card"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/gap_small"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="@dimen/corner_radius">
+
+                    <LinearLayout
+                        style="@style/CardInner"
+                        android:padding="15dp">
+
+                        <LinearLayout style="@style/CardHeader">
+
+                            <TextView
+                                style="@style/H4"
+                                android:text="@string/treatments" />
+
+                            <TextView
+                                android:id="@+id/tvTreatmentCount"
+                                style="@style/PrimaryTextMedium"
+                                android:text="@string/zero" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

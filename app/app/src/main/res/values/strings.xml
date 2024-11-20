@@ -12,6 +12,7 @@
     <string name="patient_list_header_text">‹ \t Patients</string>
     <string name="medication_list_header_text">‹ \t Medications</string>
     <string name="symptom_list_header_text">‹ \t Symptoms</string>
+    <string name="treatment_list_header_text">‹ \t Treatments</string>
 
     <string name="appointments_list_header_text">‹ \t Appointments</string>
     <string name="edit_appointments_header_text">‹ \t Appointments</string>
@@ -95,5 +96,14 @@
     <string name="key_medication_id">MEDICATION_ID</string>
     <string name="key_appointment_id">APPOINTMENT_ID</string>
     <string name="key_symptom_id">SYMPTOM_ID</string>
+    <string name="key_treatment_id">TREATMENT_ID</string>
+    <string name="dose">Dose</string>
+    <string name="note">Note</string>
+    <string name="zero">0</string>
+    <string name="treatments">Treatments</string>
+    <string name="diagnoses">Diagnoses</string>
+    <string name="medication_name">Medication Name</string>
+    <string name="treatment_name">Treatment Name</string>
+
 
 </resources>

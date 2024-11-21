@@ -5,6 +5,9 @@ import java.util.List;
 
 public class Diagnose {
     private long id;
+    public static String columnName() {
+        return "name";
+    };
     private String name;
     private String symptomIds;   // Comma-separated list of symptom IDs
     private String treatmentIds; // Comma-separated list of treatment IDs

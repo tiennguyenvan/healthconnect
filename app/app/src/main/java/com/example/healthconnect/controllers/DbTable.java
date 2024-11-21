@@ -473,6 +473,9 @@ public class DbTable<T> extends SQLiteOpenHelper {
     }
 
     // Method to match field values to objects and return a comma-separated string of IDs
+    // loop through fieldValues, for each fieldValue,
+    // search by looping through the objects to find the object that has the same value as fieldValue
+    // (use fieldExtractor to extract a value from each object)
     public <R> String objectFieldsToIdsString(List<T> objects, List<R> fieldValues, Function<T, R> fieldExtractor) {
         if (fieldValues == null || fieldValues.isEmpty() || objects == null || objects.isEmpty()) {
             return "";

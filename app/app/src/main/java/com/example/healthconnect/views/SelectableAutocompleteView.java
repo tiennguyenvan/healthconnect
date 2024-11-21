@@ -105,6 +105,16 @@ public class SelectableAutocompleteView extends LinearLayout {
                 }
             }
         });
+
+        // Set up focus listener to show suggestions on focus
+        autoCompleteTextView.setOnFocusChangeListener((view, hasFocus) -> {
+            if (hasFocus) {
+                autoCompleteTextView.showDropDown(); // Show suggestions immediately
+            }
+        });
+
+        // Set up touch listener to show suggestions when clicked
+        autoCompleteTextView.setOnClickListener(v -> autoCompleteTextView.showDropDown());
     }
 
     public void setError(String errorMessage) {

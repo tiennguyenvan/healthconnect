@@ -52,14 +52,7 @@ public class TreatmentListActivity extends AppCompatActivity {
         srvTreatment.setItemList(treatmentDbTable.getAll());
         srvTreatment.setItemLayout(R.layout.component_treatment_item);
         srvTreatment.setOnBindItem((itemView, treatment) -> {
-            String treatmentName = "";
-            treatmentName += medicationNames.get(treatment.getMedicationId());
-
-
-            treatmentName += ", " + treatment.getDose();
-            treatmentName += ", " + treatment.getDuration();
-            treatmentName += ", " + treatment.getNote();
-            ((TextView) itemView.findViewById(R.id.tvTreatmentName)).setText(treatmentName);
+            ((TextView) itemView.findViewById(R.id.tvTreatmentName)).setText(treatment.getName(medicationNames));
         });
         srvTreatment.setOnClickItem((treatment -> {
             inThis.passToScreen(TreatmentFormActivity.class, getString(R.string.key_treatment_id), treatment.getId());

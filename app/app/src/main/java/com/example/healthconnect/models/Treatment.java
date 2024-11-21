@@ -3,6 +3,7 @@ package com.example.healthconnect.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Treatment {
     private long id;
@@ -61,6 +62,14 @@ public class Treatment {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getName(Map<Long, String> medicationNames) {
+        String treatmentName = medicationNames.getOrDefault(this.getMedicationId(), "Undefined");
+        treatmentName += ", " + this.getDose();
+        treatmentName += ", " + this.getDuration();
+        treatmentName += ", " + this.getNote();
+        return treatmentName;
     }
 
     // Demo data

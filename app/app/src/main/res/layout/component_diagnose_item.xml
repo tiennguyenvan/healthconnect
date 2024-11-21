@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ListItem"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tvDiagnoseName"
+        style="@style/BodyTextMedium"
+        android:text="@string/diagnose_name" />
+
+</LinearLayout>

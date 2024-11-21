@@ -6,6 +6,7 @@
     <string name="symptoms">Symptoms</string>
     <string name="new_patient_header_text">‹ \t New Patient</string>
     <string name="new_medication_header_text">‹ \t New Medication</string>
+    <string name="new_diagnose_header_text">‹ \t New Medication</string>
     <string name="new_treatment_header_text">‹ \t New Treatment</string>
     <string name="edit_medication_header_text">‹ \t Edit Medication</string>
     <string name="edit_treatment_header_text">‹ \t Edit Treatment</string>
@@ -16,6 +17,7 @@
     <string name="medication_list_header_text">‹ \t Medications</string>
     <string name="symptom_list_header_text">‹ \t Symptoms</string>
     <string name="treatment_list_header_text">‹ \t Treatments</string>
+    <string name="diagnose_list_header_text">‹ \t Diagnose</string>
 
     <string name="appointments_list_header_text">‹ \t Appointments</string>
     <string name="edit_appointments_header_text">‹ \t Appointments</string>
@@ -24,6 +26,7 @@
     <string name="weight">Weight</string>
     <string name="dob">DOB</string>
     <string name="full_name">Full Name</string>
+    <string name="full_disease_name">Full Disease Name</string>
     <string name="unit_cm">cm</string>
     <string name="unit_kg">kg</string>
     <string name="dob_format">YYYY-MM-D</string>
@@ -41,6 +44,8 @@
     <string name="warning_invalid_phone">Invalid phone format</string>
     <string name="warning_invalid_date">Invalid date</string>
     <string name="warning_invalid_medication">Invalid medication</string>
+    <string name="warning_invalid_symptoms">Invalid Symptoms</string>
+    <string name="warning_invalid_treatments">Invalid Treatments</string>
     <string name="back_with_patient_name">‹ \t %1$s</string>
     <string name="patient_details_format">%1$.0fcm, %2$.0fkg\n%3$s\n%4$s</string>
 
@@ -118,13 +123,16 @@
     <string name="diagnoses">Diagnoses</string>
     <string name="medication_name">Medication Name</string>
     <string name="treatment_name">Treatment Name</string>
+    <string name="diagnose_name">Diagnose Name</string>
     <string name="add_treatment">Add Treatment</string>
+    <string name="add_diagnose">Add Diagnose</string>
     <string name="type_to_search">Type to search</string>
     <string name="medication">Medication</string>
     <string name="_3x_days">3x/days</string>
     <string name="_3_days">3 days</string>
     <string name="after_meals">After meals</string>
     <string name="label">Label</string>
+    <string name="key_diagnose_id">DIAGNOSE_ID</string>
 
 
 </resources>

@@ -72,6 +72,8 @@ public class Treatment {
         return treatmentName;
     }
 
+    
+
     // Demo data
     public static List<Treatment> demoData() {
         List<Treatment> demoData = new ArrayList<>();

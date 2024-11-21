@@ -16,6 +16,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -494,6 +495,38 @@ public class DbTable<T> extends SQLiteOpenHelper {
             // Check if the object's field matches the desired field value
             if (fieldExtractor.apply(object).equals(fieldValue)) {
                 return objectToId(object); // Retrieve the object's ID
+            }
+        }
+        return null; // Return null if no match was found
+    }
+
+    public <R, S> List<S> objectFieldsToObjectFields(
+            List<T> objects,
+            List<R> fieldValues,
+            Function<T, R> sourceFieldExtractor,
+            Function<T, S> targetFieldExtractor
+    ) {
+        if (fieldValues == null || fieldValues.isEmpty() || objects == null || objects.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // Find objects whose `sourceField` matches any value in `fieldValues` and extract their `targetField`
+        return fieldValues.stream()
+                .map(fieldValue -> findFieldByField(objects, fieldValue, sourceFieldExtractor, targetFieldExtractor))
+                .filter(Objects::nonNull) // Filter out nulls if no matching object was found
+                .collect(Collectors.toList());
+    }
+
+    private <R, S> S findFieldByField(
+            List<T> objects,
+            R sourceFieldValue,
+            Function<T, R> sourceFieldExtractor,
+            Function<T, S> targetFieldExtractor
+    ) {
+        for (T object : objects) {
+            // Check if the object's sourceField matches the given sourceFieldValue
+            if (sourceFieldExtractor.apply(object).equals(sourceFieldValue)) {
+                return targetFieldExtractor.apply(object); // Extract the targetField value
             }
         }
         return null; // Return null if no match was found

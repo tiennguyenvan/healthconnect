@@ -17,8 +17,6 @@ import com.example.healthconnect.models.Medication;
 import com.example.healthconnect.models.Treatment;
 import com.example.healthconnect.views.SearchRecyclerView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,7 +41,7 @@ public class TreatmentListActivity extends AppCompatActivity {
         treatmentDbTable = DbTable.getInstance(this, Treatment.class);
         medicationDbTable = DbTable.getInstance(this, Medication.class);
         List<Medication>  allMedications = medicationDbTable.getAll();
-        Map<Long, String> medicationNames = Medication.mapToIdsNames(allMedications);
+        Map<Long, String> medicationNames = Medication.objectsToIdsNames(allMedications);
 
         inThis.onClick(R.id.btTreatmentListToTreatmentForm).goToScreen(TreatmentFormActivity.class);
         inThis.onClick(R.id.btTreatmentListToMain).goToScreen(MainActivity.class);

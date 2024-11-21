@@ -1,8 +1,12 @@
 package com.example.healthconnect.models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Medication {
@@ -96,9 +100,49 @@ public class Medication {
         conflicts = String.join(",", conflictList);
     }
 
-    public static Map<Long, String> mapToIdsNames(List<Medication> medications) {
+    public List<Long> getConflictIds() {
+        return Arrays.stream(conflicts.split(",")).map(String::trim).map(Long::parseLong).collect(Collectors.toList());
+    }
+
+    public Boolean isConflict(Long id) {
+        List<Long> conflictIds = getConflictIds();
+        return conflictIds.contains(id);
+    }
+
+    public static Map<Long, String> objectsToIdsNames(List<Medication> medications) {
         return medications.stream()
                 .collect(Collectors.toMap(Medication::getId, Medication::getMedicationName));
+    }
+
+    public static Map<Long, Medication> objectsToIdsObjects(List<Medication> medications) {
+        return medications.stream()
+                .collect(Collectors.toMap(Medication::getId, medication -> medication));
+    }
+
+    public static String getConflictWarningFromIds(List<Medication> medications, List<Long> medicationIds) {
+        Set<Long> uniqueMedicationIds = new HashSet<>(medicationIds);
+        Map<Long, Medication> idToMedicationMap = Medication.objectsToIdsObjects(medications);
+        Map<Long, List<Long>> conflictsMap = new HashMap<>();
+        StringBuilder warning = new StringBuilder();
+        for (Long medicationId : uniqueMedicationIds) {
+            Medication medication = idToMedicationMap.get(medicationId);
+            if (medication == null) {
+                continue;
+            }
+            for (Long otherId : uniqueMedicationIds) {
+                Medication otherMedication = idToMedicationMap.get(otherId);
+                if (otherMedication == null) {
+                    continue;
+                }
+
+                if (!medicationId.equals(otherId) && medication.isConflict(otherId)) {
+                    warning.append(String.format("Conflict: %1$s >< %2$s", medication.getMedicationName(), otherMedication.getMedicationName()));
+                    warning.append("\n");
+                }
+            }
+        }
+
+        return String.valueOf(warning);
     }
 
     // Demo data

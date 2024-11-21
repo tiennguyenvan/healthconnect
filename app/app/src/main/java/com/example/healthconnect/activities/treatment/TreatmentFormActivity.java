@@ -42,7 +42,7 @@ public class TreatmentFormActivity extends AppCompatActivity {
         treatmentTable = DbTable.getInstance(this, Treatment.class);
         medicationTable = DbTable.getInstance(this, Medication.class);
         medications = medicationTable.getAll();
-        medicationNames = Medication.mapToIdsNames(medications);
+        medicationNames = Medication.objectsToIdsNames(medications);
 
         treatmentId = getIntent().getLongExtra(getString(R.string.key_treatment_id), -1);
 

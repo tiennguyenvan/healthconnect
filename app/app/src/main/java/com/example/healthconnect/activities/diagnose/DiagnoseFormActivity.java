@@ -1,6 +1,8 @@
 package com.example.healthconnect.activities.diagnose;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +33,7 @@ public class DiagnoseFormActivity extends AppCompatActivity {
     private Map<Long, String> symptomNames, treatmentNames, medicationNames;
     private List<Symptom> symptoms;
     private List<Treatment> treatments;
+    private List<Medication> medications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,8 @@ public class DiagnoseFormActivity extends AppCompatActivity {
         treatments = treatmentTable.getAll();
 
         medicationTable = DbTable.getInstance(this, Medication.class);
-        medicationNames = Medication.mapToIdsNames(medicationTable.getAll());
+        medications = medicationTable.getAll();
+        medicationNames = Medication.objectsToIdsNames(medications);
 
         symptomPicker = findViewById(R.id.saDiagnoseSymptoms);
         symptomPicker.setSuggestions(symptomTable.objectsToFields(symptoms, Symptom::getName));
@@ -109,6 +113,20 @@ public class DiagnoseFormActivity extends AppCompatActivity {
             isValid = false;
         }
         else {
+            treatmentPicker.clearError();
+        }
+
+        List<Long> selectedMedicationIds = treatmentTable.objectFieldsToObjectFields(treatments, treatmentPicker.getSelectedItems(),
+                (treatment) -> treatment.getName(medicationNames),
+                Treatment::getMedicationId
+        );
+        String conflictWarning = Medication.getConflictWarningFromIds(medications, selectedMedicationIds);
+
+        if (!conflictWarning.isEmpty() && !conflictWarning.isBlank()) {
+            isValid = false;
+            inThis.log(conflictWarning);
+            treatmentPicker.setError(conflictWarning);
+        } else {
             treatmentPicker.clearError();
         }
 

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.HealthConnect"
         tools:targetApi="31">
         <activity
+            android:name=".activities.appointment.AppointmentFormActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.diagnose.DiagnoseFormActivity"
             android:exported="false" />
         <activity

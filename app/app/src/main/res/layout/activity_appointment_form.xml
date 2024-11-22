@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            style="@style/AppTheme"
+            android:orientation="vertical">
+
+            <!-- Header -->
+            <LinearLayout style="@style/Header">
+                <TextView
+                    android:id="@+id/btBackToAppointmentList"
+                    style="@style/H1"
+                    android:text="@string/new_appointment_header_text" />
+            </LinearLayout>
+
+            <!-- Patient Selection (Single Selection) -->
+            <com.example.healthconnect.views.SelectableAutocompleteView
+                android:id="@+id/saAppointmentPatient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:allowOneItem="true"
+                app:hintText="@string/select_patient"
+                app:labelText="@string/patient" />
+
+            <TextView
+                android:id="@+id/tvAppointmentDetails"
+                android:text=""
+                android:visibility="gone"
+                style="@style/BodyMultiLineText"/>
+
+            <com.example.healthconnect.views.LabeledInputField
+                android:id="@+id/etAppointmentStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintText="@string/start_date"
+                app:labelText="@string/start_date"
+                app:inputType="date" />
+
+
+
+            <com.example.healthconnect.views.LabeledInputField
+                android:id="@+id/etAppointmentStartTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintText="@string/start_time"
+                app:labelText="@string/start_time"
+                app:inputType="time" />
+
+            <!-- Duration Input -->
+            <com.example.healthconnect.views.LabeledInputField
+                android:id="@+id/etAppointmentDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintText="@string/minutes"
+                app:inputType="number"
+                app:labelText="@string/duration" />
+
+            <!-- Symptoms Selection (Multiple Selection) -->
+            <com.example.healthconnect.views.SelectableAutocompleteView
+                android:id="@+id/saAppointmentSymptoms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:displayDirection="vertical"
+                app:hintText="@string/type_to_search"
+                app:labelText="@string/symptoms" />
+
+            <!-- Diagnoses Selection (Multiple Selection) -->
+            <com.example.healthconnect.views.SelectableAutocompleteView
+                android:id="@+id/saAppointmentDiagnoses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:displayDirection="vertical"
+                app:hintText="@string/type_to_search"
+                app:labelText="@string/diagnoses"
+                android:visibility="gone" />
+
+            <!-- Treatments Selection (Multiple Selection) -->
+            <com.example.healthconnect.views.SelectableAutocompleteView
+                android:id="@+id/saAppointmentTreatments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:displayDirection="vertical"
+                app:hintText="@string/type_to_search"
+                app:labelText="@string/treatments"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvMasterAppointmentError"
+                style="@style/ErrorText"/>
+            <Button
+                android:id="@+id/btSubmitAppointment"
+                style="@style/PrimaryBtn"
+                android:text="@string/add_appointment" />
+
+            <!-- Cancel Button (Initially Hidden) -->
+            <Button
+                android:id="@+id/btCancelAppointment"
+                style="@style/SecondaryBtn"
+                android:text="@string/cancel_appointment"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

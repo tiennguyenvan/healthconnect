@@ -13,17 +13,18 @@ import com.example.healthconnect.MainActivity;
 import com.example.healthconnect.R;
 import com.example.healthconnect.controllers.$;
 import com.example.healthconnect.controllers.DbTable;
-import com.example.healthconnect.models.Medication;
-import com.example.healthconnect.models.Patient;
 import com.example.healthconnect.models.Appointment;
+import com.example.healthconnect.models.Patient;
 import com.example.healthconnect.views.SearchRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentListActivity extends AppCompatActivity {
+    DbTable<Appointment> appointmentDbTable;
+    DbTable<Patient> patientDbTable;
+    private List<Appointment> appointments;
     private $ inThis;
-    private DbTable<Appointment> appointmentTable;
-    private DbTable<Patient> patientTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,28 +36,41 @@ public class AppointmentListActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        inThis = $.in(this);
-        inThis.onClick(R.id.btMedicationListToMain).goToScreen(MainActivity.class);
-        inThis.onClick(R.id.bt_ToAppointmentForm).goToScreen(PatientListForAppointmentActivity.class);
 
         inThis = $.in(this);
-        appointmentTable = DbTable.getInstance(this, Appointment.class);
-        patientTable = DbTable.getInstance(this, Patient.class);
+        appointmentDbTable = DbTable.getInstance(this, Appointment.class);
+        patientDbTable = DbTable.getInstance(this, Patient.class);
 
-        SearchRecyclerView<Appointment> appointmentSearch = findViewById(R.id.rvAppointmentList);
-        appointmentSearch.setItemList(appointmentTable.getAll());
-        appointmentSearch.setItemLayout(R.layout.component_appointment_item);
-        appointmentSearch.setOnBindItem((itemView, appointment) -> {
-            TextView tvAppointmentDetails = itemView.findViewById(R.id.tvAppointmentDetails);
-            Patient patient = patientTable.getById(appointment.getPatient_id());
+        inThis.onClick(R.id.btAppointmentListToPatientList).goToScreen(AppointmentFormActivity.class);
+        inThis.onClick(R.id.btAppointmentListToMain).goToScreen(MainActivity.class);
 
-            String appointmentDetails = patient.getName() + ", " + appointment.getDate() + " | " + appointment.getStartTime() + " - " + appointment.getEndTime();
-            tvAppointmentDetails.setText(appointmentDetails);
+        SearchRecyclerView<Appointment> srvAppointment = findViewById(R.id.srvAppointment);
+        appointments = appointmentDbTable.getAll();
+        appointments.sort(Appointment::sortByStartDateTime);
+        srvAppointment.setItemList(appointments);
+        srvAppointment.setItemLayout(R.layout.component_appointment_item);
+        srvAppointment.setOnBindItem((itemView, appointment) -> {
+            TextView apStat = itemView.findViewById(R.id.tvAppointmentStatus);
+            TextView apPatient = itemView.findViewById(R.id.tvAppointmentPatientName);
+            TextView apStart = itemView.findViewById(R.id.tvAppointmentStartTime);
+            appointment.applyStatusOnTV(itemView, apStat);
+            apPatient.setText(patientDbTable.getById(appointment.getPatient_id()).getName());
+            apStart.setText(appointment.getFormatStartDateTime());
         });
-
-        appointmentSearch.setOnClickItem((appointment -> {
-            inThis.passToScreen(AppointmentUpdateActivity.class, getString(R.string.key_appointment_id), appointment.getId());
+        srvAppointment.setOnClickItem((appointment -> {
+            inThis.passToScreen(AppointmentFormActivity.class, getString(R.string.key_appointment_id), appointment.getId());
         }));
-        appointmentSearch.setOnSearch(query -> appointmentTable.searchBy(Appointment.columnAppointmentName(), query));
+
+        srvAppointment.setOnSearch(query -> {
+
+            List<Patient> matchPatients = patientDbTable.getBy(Patient.columnName(), query);
+            if (matchPatients.isEmpty()) {
+                return new ArrayList<Appointment>();
+            }
+            List<Long> matchPatientIds = patientDbTable.objectsToFields(matchPatients, Patient::getId);
+            List<Appointment> matchedAppointments = appointmentDbTable.searchByColumnInValues(Appointment.columnPatientId(), matchPatientIds);
+            matchedAppointments.sort(Appointment::sortByStartDateTime);
+            return appointments;
+        });
     }
 }

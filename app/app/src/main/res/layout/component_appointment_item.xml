@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/ListItem"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tvAppointmentDetails"
-        style="@style/BodySingleLineText"
-        android:text="@string/appointment_details_format" />
-
-
+    <TextView android:id="@+id/tvAppointmentStatus" style="@style/BodyTextSmall" android:layout_marginEnd="10dp"/>
+    <TextView android:id="@+id/tvAppointmentPatientName" style="@style/H4"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="0"
+        />
+    <TextView android:id="@+id/tvAppointmentStartTime" style="@style/BodyTextSmall"
+        android:layout_width="wrap_content"
+        />
 </LinearLayout>

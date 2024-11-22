@@ -121,7 +121,7 @@
             android:id="@+id/btnAddAppointment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btadd_appointment"
+            android:text="@string/add_appointment"
             android:layout_marginTop="32dp"
             android:backgroundTint="@android:color/holo_red_dark"
             android:textColor="@android:color/white" />

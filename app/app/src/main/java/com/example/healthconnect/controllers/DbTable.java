@@ -451,6 +451,7 @@ public class DbTable<T> extends SQLiteOpenHelper {
             return null; // Return null if the ID can't be accessed
         }
     }
+
     // Method to convert a list of objects to a list of specific field values
     public <R> List<R> objectsToFields(List<T> objects, Function<T, R> fieldExtractor) {
         return objectsToSortedFields(objects, fieldExtractor, null); // Call the overloaded method with no sorting
@@ -488,6 +489,19 @@ public class DbTable<T> extends SQLiteOpenHelper {
                 .map(String::valueOf)      // Convert each ID to a string
                 .collect(Collectors.joining(","));
     }
+
+    public Map<Long, String> objectsToIdsNames(List<T> objects, Function<T, String> nameExtractor) {
+        return objects.stream()
+                .collect(Collectors.toMap(this::objectToId, nameExtractor));
+    }
+
+    // New method: objectsToIdsObjects
+    public Map<Long, T> objectsToIdsObjects(List<T> objects) {
+        return objects.stream()
+                .collect(Collectors.toMap(this::objectToId, Function.identity()));
+    }
+
+
 
     // Helper method to find the ID of the first object that matches the given field value
     private <R> Long findIdByField(List<T> objects, R fieldValue, Function<T, R> fieldExtractor) {

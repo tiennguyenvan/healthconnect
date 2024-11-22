@@ -117,6 +117,10 @@ public class SelectableAutocompleteView extends LinearLayout {
         autoCompleteTextView.setOnClickListener(v -> autoCompleteTextView.showDropDown());
     }
 
+    public String getText() {
+        return autoCompleteTextView.getText().toString();
+    }
+
     public void setError(String errorMessage) {
         if (errorMessage != null && !errorMessage.isEmpty()) {
             tvError.setText(errorMessage);
@@ -130,7 +134,6 @@ public class SelectableAutocompleteView extends LinearLayout {
         tvError.setText("");
         tvError.setVisibility(View.GONE);
     }
-
 
     // Method to set suggestion list
     public void setSuggestions(List<String> suggestions) {

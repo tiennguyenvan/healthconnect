@@ -99,8 +99,6 @@ public class LabeledInputField extends LinearLayout {
         return etInput.getText().toString();
     }
 
-
-
     // Method to set an error message
     public void setError(String error) {
         if (!TextUtils.isEmpty(error)) {
@@ -121,4 +119,7 @@ public class LabeledInputField extends LinearLayout {
     public EditText getEditText() {
         return etInput;
     }
+
+
+
 }

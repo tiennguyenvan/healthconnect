@@ -1,13 +1,15 @@
 <resources>
     <string name="app_name">HealthConnect</string>
     <string name="patients">Patients</string>
-    <string name="appointments">Appointment</string>
+    <string name="appointments">Appointments</string>
     <string name="medications">Medications</string>
     <string name="symptoms">Symptoms</string>
     <string name="new_patient_header_text">‹ \t New Patient</string>
     <string name="new_medication_header_text">‹ \t New Medication</string>
     <string name="new_diagnose_header_text">‹ \t New Medication</string>
     <string name="new_treatment_header_text">‹ \t New Treatment</string>
+    <string name="new_appointment_header_text">‹ \t New Appointment</string>
+    <string name="edit_appointment_header_text">‹ \t Edit Appointment</string>
     <string name="edit_medication_header_text">‹ \t Edit Medication</string>
     <string name="edit_treatment_header_text">‹ \t Edit Treatment</string>
     <string name="edit_diagnose_header_text">‹ \t Edit Diagnose</string>
@@ -15,11 +17,11 @@
     <string name="edit_symptom_header_text">‹ \t New Symptom</string>
     <string name="patient_list_header_text">‹ \t Patients</string>
     <string name="medication_list_header_text">‹ \t Medications</string>
+    <string name="appointment_list_header_text">‹ \t Appointments</string>
     <string name="symptom_list_header_text">‹ \t Symptoms</string>
     <string name="treatment_list_header_text">‹ \t Treatments</string>
     <string name="diagnose_list_header_text">‹ \t Diagnose</string>
 
-    <string name="appointments_list_header_text">‹ \t Appointments</string>
     <string name="edit_appointments_header_text">‹ \t Appointments</string>
     <string name="name">Name</string>
     <string name="height">Height</string>
@@ -46,6 +48,8 @@
     <string name="warning_invalid_medication">Invalid medication</string>
     <string name="warning_invalid_symptoms">Invalid Symptoms</string>
     <string name="warning_invalid_treatments">Invalid Treatments</string>
+    <string name="warning_invalid_duration">Invalid Duration</string>
+    <string name="warning_overlapping_appointment">Overlapping Appointment</string>
     <string name="back_with_patient_name">‹ \t %1$s</string>
     <string name="patient_details_format">%1$.0fcm, %2$.0fkg\n%3$s\n%4$s</string>
 
@@ -74,7 +78,6 @@
     <string name="noti_diagnose_updated">Diagnose Updated with ID: %1$s</string>
 
 
-
     <!--New Appointment-->
     <string name="appointmentNew">‹ \t New Appointment</string>
     <string name="appointment_details_format">%1$s, %2$s \t | %3$s </string>
@@ -93,7 +96,7 @@
     <string name="duration">Duration</string>
     <string name="update_appointment">Update Appointment</string>
     <string name="hours">hours</string>
-    <string name="btadd_appointment">Add Appointment</string>
+    <string name="add_appointment">Add Appointment</string>
     <string name="appointment_patient_name">%1$s</string>
 
     <string name="full_medication_name">Full medication name</string>
@@ -133,6 +136,22 @@
     <string name="after_meals">After meals</string>
     <string name="label">Label</string>
     <string name="key_diagnose_id">DIAGNOSE_ID</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="consulting">Consulting</string>
+    <string name="finished">Finished</string>
+    <string name="select_patient">Select Patient</string>
+    <string name="patient">Patient</string>
+    <string name="start_date_time">Date Time</string>
+    <string name="minutes">Minutes</string>
+    <string name="start_date">Start Date</string>
+    <string name="date">Date</string>
+    <string name="start_time">Start Time</string>
+    <string name="time">Time</string>
+    <string name="warning_invalid_patient">Invalid Patient</string>
+    <string name="invalid_start_date">Invalid Start Date</string>
+    <string name="invalid_start_time">Invalid Start Time</string>
+    <string name="warning_invalid_date_time_format">Invalid Date Time Format</string>
+    <string name="warning_start_date_time_is_from_the_past">Start Date Time is from the past</string>
 
 
 </resources>

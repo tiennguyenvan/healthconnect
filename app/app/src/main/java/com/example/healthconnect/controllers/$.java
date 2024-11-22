@@ -2,6 +2,7 @@ package com.example.healthconnect.controllers;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -155,23 +156,31 @@ public class $ {
     }
 
     public void pickPastDate() {
-        pickDate(false);
+        pickDate(-1);
+    }
+    public void pickFutureDate() {
+        pickDate(1);
     }
 
-    public void pickDate(boolean pastDateOnly) {
+    /**
+     *
+     * @param nowOffset -1 past, 0 any, +1 future
+     */
+    public void pickDate(int nowOffset) {
         View localView = activity.findViewById(viewId);
         Runnable action = () -> {
             if (!(localView instanceof EditText)) {
                 return;
             }
 
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance(); // For initial date in DatePicker
             String currentDateText = ((EditText) localView).getText().toString().trim();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
             if (!currentDateText.isEmpty()) {
                 try {
-                    calendar.setTime(dateFormat.parse(currentDateText));
+                    Date date = dateFormat.parse(currentDateText);
+                    calendar.setTime(date);
                 } catch (ParseException e) {
                     // If parsing fails, the calendar remains set to the current date
                 }
@@ -180,18 +189,59 @@ public class $ {
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
-
             DatePickerDialog datePickerDialog = new DatePickerDialog(activity, (view, selectedYear, selectedMonth, selectedDay) -> {
-                String date = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay;
+                String date = String.format(Locale.getDefault(), "%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay);
                 ((EditText) localView).setText(date);
             }, year, month, day);
-            if (pastDateOnly) {
-                datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+
+            Calendar now = Calendar.getInstance(); // For min/max date
+            if (nowOffset < 0) {
+                // Allow past dates only
+                datePickerDialog.getDatePicker().setMaxDate(now.getTimeInMillis());
+            } else if (nowOffset > 0) {
+                // Allow future dates only
+                datePickerDialog.getDatePicker().setMinDate(now.getTimeInMillis());
             }
+            // else nowOffset == 0, allow any date
+
             datePickerDialog.show();
         };
         registerEvent(action);
     }
+
+    public void pickTime() {
+        View localView = activity.findViewById(viewId);
+        Runnable action = () -> {
+            if (!(localView instanceof EditText)) {
+                return;
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            String currentTimeText = ((EditText) localView).getText().toString().trim();
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+            if (!currentTimeText.isEmpty()) {
+                try {
+                    Date time = timeFormat.parse(currentTimeText);
+                    calendar.setTime(time);
+                } catch (ParseException e) {
+                    // If parsing fails, the calendar remains set to the current time
+                }
+            }
+
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+
+            TimePickerDialog timePickerDialog = new TimePickerDialog(activity, (view, selectedHour, selectedMinute) -> {
+                String time = String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute);
+                ((EditText) localView).setText(time);
+            }, hour, minute, true);
+
+            timePickerDialog.show();
+        };
+        registerEvent(action);
+    }
+
 
     public void showToast(String message) {
         Runnable action = () -> {

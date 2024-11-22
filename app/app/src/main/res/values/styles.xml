@@ -162,7 +162,12 @@
         <item name="android:layout_marginTop">@dimen/gap_mid</item>
         <item name="android:strokeWidth">0</item>
     </style>
-
+    <style name="SecondaryBtn" parent="PrimaryBtn">
+        <item name="android:backgroundTint">@color/cardBg</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:strokeColor">@color/primary</item>
+        <item name="android:strokeWidth">1</item>
+    </style>
     <!-- Card Styles -->
     <style name="Card">
         <item name="android:layout_width">match_parent</item>

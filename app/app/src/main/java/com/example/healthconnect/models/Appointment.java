@@ -1,44 +1,48 @@
 package com.example.healthconnect.models;
 
+import android.view.View;
+import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+
+import com.example.healthconnect.R;
+
+import org.w3c.dom.Text;
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Appointment implements Serializable {
     private long id;
-    public static String columnAppointmentName() { return "appointmentName";}
+
+    public static String columnPatientId() {
+        return "patient_id";
+    }
+
     private long patient_id;
-    private String date;
-    private String startTime;
-    private String endTime;
-    private String diagnosis;
-    private String symptoms;
-    private String prescriptionDetail;
+    private String startDateTime; // Combines date and startTime
+    private String endDateTime;   // Combines date and endTime
+    private String diagnoses;     // IDs of diagnoses in string
+    private String symptoms;      // IDs of symptoms in string
+    private String treatments;    // IDs of treatments in string
 
-    public Appointment(){}
-
-    public Appointment(long patient_id, String date, String startTime, String endTime)
-    {
-        this.patient_id = patient_id;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public Appointment() {
     }
 
-    public Appointment(long id, long patient_id, String date, String startTime, String endTime) {
-        this(patient_id, date, startTime, endTime);
+    public Appointment(long id, long patient_id, String startDateTime, String endDateTime, String diagnoses, String symptoms, String treatments) {
         this.id = id;
-    }
-
-    public Appointment(long id, long patient_id, String date, String startTime, String endTime, String diagnosis, String symptoms, String prescriptionDetail)
-    {
-        this(id, patient_id, date, startTime, endTime);
-        this.diagnosis = diagnosis;
+        this.patient_id = patient_id;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.diagnoses = diagnoses;
         this.symptoms = symptoms;
-        this.prescriptionDetail = prescriptionDetail;
+        this.treatments = treatments;
     }
 
+    // Getters and Setters
     public long getId() {
         return id;
     }
@@ -55,36 +59,28 @@ public class Appointment implements Serializable {
         this.patient_id = patient_id;
     }
 
-    public String getDate() {
-        return date;
+    public String getStartDateTime() {
+        return startDateTime;
     }
 
-    public void setDate(String startDate) {
-        this.date = startDate;
+    public void setStartDateTime(String startDateTime) {
+        this.startDateTime = startDateTime;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public String getEndDateTime() {
+        return endDateTime;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setEndDateTime(String endDateTime) {
+        this.endDateTime = endDateTime;
     }
 
-    public String getEndTime() {
-        return endTime;
+    public String getDiagnoses() {
+        return diagnoses;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
-    public String getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
+    public void setDiagnoses(String diagnoses) {
+        this.diagnoses = diagnoses;
     }
 
     public String getSymptoms() {
@@ -95,20 +91,107 @@ public class Appointment implements Serializable {
         this.symptoms = symptoms;
     }
 
-    public String getPrescriptionDetail() {
-        return prescriptionDetail;
+    public String getTreatments() {
+        return treatments;
     }
 
-    public void setPrescriptionDetail(String prescriptionDetail) {
-        this.prescriptionDetail = prescriptionDetail;
+    public void setTreatments(String treatments) {
+        this.treatments = treatments;
     }
 
+    public AppointmentStatus getStatus(LocalDateTime now) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime start = LocalDateTime.parse(this.startDateTime, formatter);
+        LocalDateTime end = LocalDateTime.parse(this.endDateTime, formatter);
+
+        if (now.isBefore(start)) {
+            return AppointmentStatus.UPCOMING;
+        } else if (now.isAfter(start) && now.isBefore(end)) {
+            return AppointmentStatus.CONSULTING;
+        } else {
+            return AppointmentStatus.FINISHED;
+        }
+    }
+
+    public static int sortByStartDateTime(Appointment a1, Appointment a2) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime start1 = LocalDateTime.parse(a1.getStartDateTime(), formatter);
+        LocalDateTime end1 = LocalDateTime.parse(a1.getEndDateTime(), formatter);
+        LocalDateTime start2 = LocalDateTime.parse(a2.getStartDateTime(), formatter);
+        LocalDateTime end2 = LocalDateTime.parse(a2.getEndDateTime(), formatter);
+
+        AppointmentStatus status1 = a1.getStatus(now);
+        AppointmentStatus status2 = a2.getStatus(now);
+
+        int statusComparison = status1.compareTo(status2);
+        if (statusComparison != 0) {
+            return statusComparison;
+        }
+
+        if (status1 == AppointmentStatus.UPCOMING || status1 == AppointmentStatus.CONSULTING) { // For Upcoming and Consulting
+            return start1.compareTo(start2);
+        } else {
+            return end2.compareTo(end1);
+        }
+    }
+
+    public void applyStatusOnTV(View parent, TextView tv) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        LocalDateTime startDateTime = LocalDateTime.parse(this.startDateTime, formatter);
+        LocalDateTime endDateTime = LocalDateTime.parse(this.endDateTime, formatter);
+        LocalDateTime now = LocalDateTime.now();
+
+        if (now.isBefore(startDateTime)) {
+            tv.setText(R.string.upcoming);
+            tv.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.primary));
+        } else if (now.isAfter(startDateTime) && now.isBefore(endDateTime)) {
+            tv.setText(R.string.consulting);
+            tv.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.text));
+        } else {
+            tv.setText(R.string.finished);
+            tv.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.lighterText));
+        }
+    }
+
+    public String getFormatStartDateTime() {
+        return getFormatDate(startDateTime);
+    }
+
+    public String getFormatEndDateTime() {
+        return getFormatDate(endDateTime);
+    }
+
+    private static String getFormatDate(String isoDateTime) {
+        // Define the formatter for the ISO_LOCAL_DATE_TIME format
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+        // Define the desired output format
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm - MMM dd, yy");
+
+        // Parse the input string into a LocalDateTime object
+        LocalDateTime dateTime = LocalDateTime.parse(isoDateTime, inputFormatter);
+
+        // Format the LocalDateTime into the desired format
+        return dateTime.format(outputFormatter);
+    }
+
+    // Demo Data
     public static List<Appointment> demoData() {
         List<Appointment> demoData = new ArrayList<>();
 
-        demoData.add(new Appointment(1, 1, "2024-09-10", "09:00", "10:00", "Flu", "1,2", "Rest and hydration"));
-        demoData.add(new Appointment(2, 2, "2024-09-11", "11:00", "12:00", "Cold", "2,3", "Vitamin C and rest"));
-        demoData.add(new Appointment(3, 3, "2024-10-11", "14:00", "15:00", "Headache", "4", "Pain relievers"));
+        // Fully detailed appointments
+        demoData.add(new Appointment(1, 1, "2024-10-22T09:00", "2024-10-22T10:00", "1,2", "1,3,9", "2,4"));
+        demoData.add(new Appointment(2, 2, "2024-10-23T11:00", "2024-10-23T12:00", "3", "2,5", "3"));
+
+        // Appointments with some details missing
+        demoData.add(new Appointment(3, 3, "2024-11-24T14:00", "2024-11-24T15:00", "", "4,7", "6,10")); // Missing diagnoses
+        demoData.add(new Appointment(4, 2, "2024-10-25T16:00", "2024-10-25T17:00", "4", "", "1,8"));    // Missing symptoms
+
+        // Upcoming or incomplete appointments with empty lists
+        demoData.add(new Appointment(5, 3, "2024-11-26T08:00", "2024-11-26T09:00", "", "", ""));
+        demoData.add(new Appointment(6, 3, "2024-11-27T10:00", "2024-11-27T11:00", "", "", ""));
 
         return demoData;
     }

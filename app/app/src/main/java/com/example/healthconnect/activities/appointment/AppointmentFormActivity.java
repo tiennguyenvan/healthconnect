@@ -27,6 +27,7 @@ import com.example.healthconnect.views.SelectableAutocompleteView;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -110,9 +111,9 @@ public class AppointmentFormActivity extends AppCompatActivity {
         btCancel = findViewById(R.id.btCancelAppointment);
 
         patientPicker.setAllowOneItem(true);
-        patientPicker.setSuggestions((List<String>) patientIdsNames.values());
-        diagnosisPicker.setSuggestions((List<String>) diagnoseIdsNames.values());
-        symptomPicker.setSuggestions((List<String>) symptomIdsNames.values());
+        patientPicker.setSuggestions(new ArrayList<>(patientIdsNames.values()));
+        diagnosisPicker.setSuggestions(new ArrayList<>(diagnoseIdsNames.values()));
+        symptomPicker.setSuggestions(new ArrayList<>(symptomIdsNames.values()));
         treatmentPicker.setSuggestions(treatmentTable.objectsToFields(treatments, t -> t.getName(medicationIdsNames)));
 
         appointmentId = getIntent().getLongExtra(getString(R.string.key_appointment_id), -1);
@@ -227,7 +228,6 @@ public class AppointmentFormActivity extends AppCompatActivity {
             appointment = new Appointment();
         }
 
-
         tvMasterError.setText("");
         patientPicker.clearError();
         etStartDate.clearError();
@@ -250,6 +250,7 @@ public class AppointmentFormActivity extends AppCompatActivity {
 
             if (patientId == null) {
                 patientPicker.setError(getString(R.string.warning_invalid_patient));
+                isValid = false;
             } else {
                 appointment.setPatient_id(patientId);
             }
@@ -283,6 +284,7 @@ public class AppointmentFormActivity extends AppCompatActivity {
             if (appointmentId == -1 && startDateTime.isBefore(LocalDateTime.now())) {
                 startDateTime = null;
                 tvMasterError.setText(R.string.warning_start_date_time_is_from_the_past);
+                isValid = false;
             } else {
                 appointment.setStartDateTime(startDateTime.toLocalDate().toString());
             }

@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 app:hintText="@string/start_date"
                 app:labelText="@string/start_date"
-                app:inputType="date" />
+                app:inputType="futureDate" />
 
 
 

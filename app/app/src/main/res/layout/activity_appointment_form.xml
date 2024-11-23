@@ -31,7 +31,6 @@
                 android:id="@+id/saAppointmentPatient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:allowOneItem="true"
                 app:hintText="@string/select_patient"
                 app:labelText="@string/patient" />
 

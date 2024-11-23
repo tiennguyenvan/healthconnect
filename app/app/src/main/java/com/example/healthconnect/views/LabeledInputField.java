@@ -51,7 +51,7 @@ public class LabeledInputField extends LinearLayout {
             try {
                 String labelText = a.getString(R.styleable.InputAttrs_labelText);
                 String hintText = a.getString(R.styleable.InputAttrs_hintText);
-                int inputType = a.getInt(R.styleable.InputAttrs_android_inputType, -1);
+                int inputType = a.getInt(R.styleable.InputAttrs_inputType, -1);
 
                 if (!TextUtils.isEmpty(labelText)) {
                     tvLabel.setText(labelText);

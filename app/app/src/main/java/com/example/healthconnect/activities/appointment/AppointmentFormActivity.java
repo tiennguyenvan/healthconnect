@@ -145,7 +145,7 @@ public class AppointmentFormActivity extends AppCompatActivity {
         });
 
         // Handle treatment suggestions based on selected diagnoses
-        diagnosisPicker.setOnItemClickListener((name) -> updateTreatmentSuggestions());
+        diagnosisPicker.setOnChange(this::autoUpdateTreatments);
 
         // Show or hide cancel button based on appointment status
         if (appointmentId != -1) {
@@ -164,16 +164,16 @@ public class AppointmentFormActivity extends AppCompatActivity {
         }
 
         // Check for treatment conflicts
-        treatmentPicker.setOnItemClickListener((name) -> checkTreatmentConflicts());
+        treatmentPicker.setOnChange(this::checkTreatmentConflicts);
     }
 
-    private void updateTreatmentSuggestions() {
+    private void autoUpdateTreatments(List<String> selectedDiagnoses) {
+        List<String> selectedTreatments = treatmentPicker.getSelectedItems();
         // Get selected diagnoses
-        List<String> selectedDiagnoses = diagnosisPicker.getSelectedItems();
         List<Long> selectedDiagnoseIds = diagnoseTable.objectFieldsToObjectFields(diagnoses, selectedDiagnoses, Diagnose::getName, Diagnose::getId);
 
         // Get treatments associated with selected diagnoses
-        Set<String> uniqueTreatmentNames = new HashSet<>();
+        Set<String> uniqueTreatmentNames = new HashSet<>(selectedTreatments);
         for (Long diagnoseId : selectedDiagnoseIds) {
             Diagnose diagnose = diagnoseIdsObjects.get(diagnoseId);
             if (diagnose == null) continue;
@@ -184,8 +184,8 @@ public class AppointmentFormActivity extends AppCompatActivity {
         treatmentPicker.setSuggestions(uniqueTreatmentNames.stream().toList());
     }
 
-    private void checkTreatmentConflicts() {
-        List<String> selectedTreatmentNames = treatmentPicker.getSelectedItems();
+    private void checkTreatmentConflicts(List<String> selectedTreatmentNames) {
+
         List<Long> selectedMedicationIds = treatmentTable.objectFieldsToObjectFields(treatments, selectedTreatmentNames, t -> t.getName(medicationIdsNames), Treatment::getMedicationId);
 
         String conflictWarning = Medication.getConflictWarningFromIds(medications, selectedMedicationIds);
@@ -331,7 +331,7 @@ public class AppointmentFormActivity extends AppCompatActivity {
 
 
             // Validate treatments for conflicts
-            checkTreatmentConflicts();
+//            checkTreatmentConflicts(treatmentPicker.getSelectedItems());
         }
 
 

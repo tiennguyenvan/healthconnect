@@ -286,8 +286,11 @@ public class AppointmentFormActivity extends AppCompatActivity {
                 tvMasterError.setText(R.string.warning_start_date_time_is_from_the_past);
                 isValid = false;
             } else {
-                appointment.setStartDateTime(startDateTime.toLocalDate().toString());
+                appointment.setStartDateTime(startDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             }
+        } else {
+            tvMasterError.setText(R.string.warning_cannot_compute_start_date_time_invalid);
+            isValid = false;
         }
 
         // Validate duration
@@ -299,8 +302,13 @@ public class AppointmentFormActivity extends AppCompatActivity {
             isValid = false;
         }
         LocalDateTime endDateTime = null;
-        if (startDateTime != null && durationMinutes > 0) {
-            endDateTime = startDateTime.plusMinutes(durationMinutes);
+        if (startDateTime != null) {
+            if (durationMinutes > 0) {
+                endDateTime = startDateTime.plusMinutes(durationMinutes);
+            } else {
+                etDuration.setError(getString(R.string.warning_invalid_duration));
+                isValid = false;
+            }
         }
 
         if (endDateTime != null) {
@@ -308,9 +316,18 @@ public class AppointmentFormActivity extends AppCompatActivity {
                 tvMasterError.setError(getString(R.string.warning_overlapping_appointment));
                 isValid = false;
             } else {
-                appointment.setStartDateTime(startDateTime.toLocalDate().toString());
+                appointment.setEndDateTime(endDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             }
+        } else {
+            tvMasterError.setError(getString(R.string.warning_cannot_compute_end_date_time_invalid));
+            isValid = false;
         }
+
+        // check symptoms
+//        List<String> selectedSymptoms = symptomPicker.getSelectedItems();
+//        if (selectedSymptoms.isEmpty()) {
+//            symptomPicker.setError("Cannot Empty Symptom");
+//        }
 
         if (appointmentId != -1) {
 
@@ -335,9 +352,13 @@ public class AppointmentFormActivity extends AppCompatActivity {
             // Validate treatments for conflicts
 //            checkTreatmentConflicts(treatmentPicker.getSelectedItems());
         }
+        if (!isValid) {
+            tvMasterError.setVisibility(View.VISIBLE);
+        } else {
+            tvMasterError.setVisibility(View.GONE);
+        }
 
-
-        return (isValid ? appointment : null);
+        return isValid ? appointment : null;
     }
 
     private void populateFormForEditing(long appointmentId) {

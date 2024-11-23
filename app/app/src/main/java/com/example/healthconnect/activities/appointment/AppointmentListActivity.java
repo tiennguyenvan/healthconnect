@@ -37,6 +37,7 @@ public class AppointmentListActivity extends AppCompatActivity {
             return insets;
         });
 
+
         inThis = $.in(this);
         appointmentDbTable = DbTable.getInstance(this, Appointment.class);
         patientDbTable = DbTable.getInstance(this, Patient.class);
@@ -46,20 +47,26 @@ public class AppointmentListActivity extends AppCompatActivity {
 
         SearchRecyclerView<Appointment> srvAppointment = findViewById(R.id.rvAppointmentList);
         appointments = appointmentDbTable.getAll();
+
+
         appointments.sort(Appointment::sortByStartDateTime);
         srvAppointment.setItemList(appointments);
+
         srvAppointment.setItemLayout(R.layout.component_appointment_item);
+
         srvAppointment.setOnBindItem((itemView, appointment) -> {
             TextView apStat = itemView.findViewById(R.id.tvAppointmentStatus);
             TextView apPatient = itemView.findViewById(R.id.tvAppointmentPatientName);
             TextView apStart = itemView.findViewById(R.id.tvAppointmentStartTime);
-            appointment.applyStatusOnTV(itemView, apStat);
             apPatient.setText(patientDbTable.getById(appointment.getPatient_id()).getName());
             apStart.setText(appointment.getFormatStartDateTime());
+            appointment.applyStatusOnTV(itemView, apStat);
         });
+
         srvAppointment.setOnClickItem((appointment -> {
             inThis.passToScreen(AppointmentFormActivity.class, getString(R.string.key_appointment_id), appointment.getId());
         }));
+
 
         srvAppointment.setOnSearch(query -> {
 

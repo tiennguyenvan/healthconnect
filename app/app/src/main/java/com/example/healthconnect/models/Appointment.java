@@ -1,5 +1,6 @@
 package com.example.healthconnect.models;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Appointment implements Serializable {
+//    private long resetTable; // enable, run, disable, run to reset this table
     private long id;
 
     public static String columnPatientId() {
@@ -30,6 +32,9 @@ public class Appointment implements Serializable {
     private String treatments;    // IDs of treatments in string
 
     public Appointment() {
+        this.diagnoses = "";
+        this.symptoms = "";
+        this.treatments = "";
     }
 
     public Appointment(long id, long patient_id, String startDateTime, String endDateTime, String diagnoses, String symptoms, String treatments) {
@@ -114,44 +119,64 @@ public class Appointment implements Serializable {
     }
 
     public static int sortByStartDateTime(Appointment a1, Appointment a2) {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime start1 = LocalDateTime.parse(a1.getStartDateTime(), formatter);
-        LocalDateTime end1 = LocalDateTime.parse(a1.getEndDateTime(), formatter);
-        LocalDateTime start2 = LocalDateTime.parse(a2.getStartDateTime(), formatter);
-        LocalDateTime end2 = LocalDateTime.parse(a2.getEndDateTime(), formatter);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+            LocalDateTime start1 = a1.getStartDateTime() != null ? LocalDateTime.parse(a1.getStartDateTime(), formatter) : null;
+            LocalDateTime end1 = a1.getEndDateTime() != null ? LocalDateTime.parse(a1.getEndDateTime(), formatter) : null;
+            LocalDateTime start2 = a2.getStartDateTime() != null ? LocalDateTime.parse(a2.getStartDateTime(), formatter) : null;
+            LocalDateTime end2 = a2.getEndDateTime() != null ? LocalDateTime.parse(a2.getEndDateTime(), formatter) : null;
 
-        AppointmentStatus status1 = a1.getStatus(now);
-        AppointmentStatus status2 = a2.getStatus(now);
+            if (start1 == null && start2 == null) {
+                Log.d("APPOINTMENT 12", "sortByStartDateTime: " + a1.getId() + " :: " + a2.getId());
+                return 0;
+            }
+            if (start1 == null) {
+                Log.d("APPOINTMENT 11", "sortByStartDateTime: " + a1.getId() + " :: " + a2.getId());
+                return 1;
+            }
+            if (start2 == null) {
+                Log.d("APPOINTMENT 22", "sortByStartDateTime: " + a1.getId() + " :: " + a2.getId());
+                return -1;
+            }
 
-        int statusComparison = status1.compareTo(status2);
-        if (statusComparison != 0) {
-            return statusComparison;
-        }
+            LocalDateTime now = LocalDateTime.now();
+            AppointmentStatus status1 = a1.getStatus(now);
+            AppointmentStatus status2 = a2.getStatus(now);
 
-        if (status1 == AppointmentStatus.UPCOMING || status1 == AppointmentStatus.CONSULTING) { // For Upcoming and Consulting
-            return start1.compareTo(start2);
-        } else {
-            return end2.compareTo(end1);
+            int statusComparison = status1.compareTo(status2);
+            if (statusComparison != 0) {
+                return statusComparison;
+            }
+
+            if (status1 == AppointmentStatus.UPCOMING || status1 == AppointmentStatus.CONSULTING) { // For Upcoming and Consulting
+                return start1.compareTo(start2);
+            } else {
+                return end2.compareTo(end1);
+            }
+        } catch (Exception e) {
+            return 0; // If parsing fails, treat as equal
         }
     }
 
     public void applyStatusOnTV(View parent, TextView tv) {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        LocalDateTime startDateTime = LocalDateTime.parse(this.startDateTime, formatter);
-        LocalDateTime endDateTime = LocalDateTime.parse(this.endDateTime, formatter);
-        LocalDateTime now = LocalDateTime.now();
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+            LocalDateTime startDateTime = LocalDateTime.parse(this.startDateTime, formatter);
+            LocalDateTime endDateTime = LocalDateTime.parse(this.endDateTime, formatter);
+            LocalDateTime now = LocalDateTime.now();
 
-        if (now.isBefore(startDateTime)) {
-            tv.setText(R.string.upcoming);
-            tv.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.primary));
-        } else if (now.isAfter(startDateTime) && now.isBefore(endDateTime)) {
-            tv.setText(R.string.consulting);
-            tv.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.text));
-        } else {
-            tv.setText(R.string.finished);
-            tv.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.lighterText));
+            if (now.isBefore(startDateTime)) {
+                tv.setText(R.string.upcoming);
+                tv.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.primary));
+            } else if (now.isAfter(startDateTime) && now.isBefore(endDateTime)) {
+                tv.setText(R.string.consulting);
+                tv.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.text));
+            } else {
+                tv.setText(R.string.finished);
+                tv.setTextColor(ContextCompat.getColor(parent.getContext(), R.color.lighterText));
+            }
+        } catch (Exception e) {
+            tv.setText("!" + this.getId());
         }
     }
 
@@ -163,18 +188,22 @@ public class Appointment implements Serializable {
         return getFormatDate(endDateTime);
     }
 
-    private static String getFormatDate(String isoDateTime) {
-        // Define the formatter for the ISO_LOCAL_DATE_TIME format
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private String getFormatDate(String isoDateTime) {
+        try {
+            // Define the formatter for the ISO_LOCAL_DATE_TIME format
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
-        // Define the desired output format
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm - MMM dd, yy");
+            // Define the desired output format
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm - MMM dd, yy");
 
-        // Parse the input string into a LocalDateTime object
-        LocalDateTime dateTime = LocalDateTime.parse(isoDateTime, inputFormatter);
+            // Parse the input string into a LocalDateTime object
+            LocalDateTime dateTime = LocalDateTime.parse(isoDateTime, inputFormatter);
 
-        // Format the LocalDateTime into the desired format
-        return dateTime.format(outputFormatter);
+            // Format the LocalDateTime into the desired format
+            return dateTime.format(outputFormatter);
+        } catch (Exception e) {
+            return "!" + this.getId();
+        }
     }
 
     // Demo Data

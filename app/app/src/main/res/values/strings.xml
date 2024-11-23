@@ -152,6 +152,8 @@
     <string name="invalid_start_time">Invalid Start Time</string>
     <string name="warning_invalid_date_time_format">Invalid Date Time Format</string>
     <string name="warning_start_date_time_is_from_the_past">Start Date Time is from the past</string>
+    <string name="warning_cannot_compute_start_date_time_invalid">Cannot Compute Start Date Time</string>
+    <string name="warning_cannot_compute_end_date_time_invalid">Cannot Compute End Date Time</string>
 
 
 </resources>

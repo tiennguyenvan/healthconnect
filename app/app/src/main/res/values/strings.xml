@@ -21,7 +21,7 @@
     <string name="symptom_list_header_text">‹ \t Symptoms</string>
     <string name="treatment_list_header_text">‹ \t Treatments</string>
     <string name="diagnose_list_header_text">‹ \t Diagnose</string>
-
+    <string name="appointments_list_header_text">‹ \t Appointments</string>
     <string name="edit_appointments_header_text">‹ \t Appointments</string>
     <string name="name">Name</string>
     <string name="height">Height</string>

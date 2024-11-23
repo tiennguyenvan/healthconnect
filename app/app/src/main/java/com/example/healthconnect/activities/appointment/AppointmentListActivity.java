@@ -41,10 +41,10 @@ public class AppointmentListActivity extends AppCompatActivity {
         appointmentDbTable = DbTable.getInstance(this, Appointment.class);
         patientDbTable = DbTable.getInstance(this, Patient.class);
 
-        inThis.onClick(R.id.btAppointmentListToPatientList).goToScreen(AppointmentFormActivity.class);
+        inThis.onClick(R.id.btAppointmentListToAppointmentForm).goToScreen(AppointmentFormActivity.class);
         inThis.onClick(R.id.btAppointmentListToMain).goToScreen(MainActivity.class);
 
-        SearchRecyclerView<Appointment> srvAppointment = findViewById(R.id.srvAppointment);
+        SearchRecyclerView<Appointment> srvAppointment = findViewById(R.id.rvAppointmentList);
         appointments = appointmentDbTable.getAll();
         appointments.sort(Appointment::sortByStartDateTime);
         srvAppointment.setItemList(appointments);

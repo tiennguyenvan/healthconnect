@@ -64,8 +64,8 @@ public class Treatment {
         this.note = note;
     }
 
-    public String getName(Map<Long, String> medicationNames) {
-        String treatmentName = medicationNames.getOrDefault(this.getMedicationId(), "Undefined");
+    public String getName(Map<Long, String> medicationIsNames) {
+        String treatmentName = medicationIsNames.getOrDefault(this.getMedicationId(), "Undefined");
         treatmentName += ", " + this.getDose();
         treatmentName += ", " + this.getDuration();
         treatmentName += ", " + this.getNote();

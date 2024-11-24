@@ -154,6 +154,10 @@
     <string name="warning_start_date_time_is_from_the_past">Start Date Time is from the past</string>
     <string name="warning_cannot_compute_start_date_time_invalid">Cannot Compute Start Date Time</string>
     <string name="warning_cannot_compute_end_date_time_invalid">Cannot Compute End Date Time</string>
+    <string name="consultation_date_time">Consultation Date Time</string>
+    <string name="consultation_symptoms">Consultation Symptoms</string>
+    <string name="consultation_diagnoses">Consultation Diagnoses</string>
+    <string name="consultation_treatments">Consultation Treatments</string>
 
 
 </resources>

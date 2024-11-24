@@ -25,14 +25,13 @@
 
         <LinearLayout style="@style/SubHeader">
             <TextView style="@style/H2" android:text="@string/consultations"/>
-            <TextView android:id="@+id/btToAppointmentsForm"
+            <TextView android:id="@+id/btFormPatientProfileToAppointmentsForm"
                 style="@style/PrimaryTextMedium" android:text="@string/add_new"
                 />
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvPatientConsultations"
+        <com.example.healthconnect.views.SearchRecyclerView
+            android:id="@+id/srPatientConsultations"
             style="@style/ListItems"
             />
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

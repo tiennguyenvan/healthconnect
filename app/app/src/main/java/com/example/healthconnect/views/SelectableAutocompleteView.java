@@ -29,6 +29,7 @@ public class SelectableAutocompleteView extends LinearLayout {
     private Boolean allowOneItem = false;
     private TextView tvError;
     private OnChangeListener onChange = null;
+    private Boolean isEnabled = true;
 
 
     public interface OnItemClickListener {
@@ -188,6 +189,9 @@ public class SelectableAutocompleteView extends LinearLayout {
 
     // Method to remove a selected item and update the display
     private void removeSelectedItem(String item) {
+        if (!isEnabled) {
+            return;
+        }
         if (allowOneItem) {
             selectedItems.clear();
             updateSelectedItemsDisplay();
@@ -214,5 +218,14 @@ public class SelectableAutocompleteView extends LinearLayout {
     // Method to get all selected items
     public List<String> getSelectedItems() {
         return new ArrayList<>(selectedItems);
+    }
+
+    public void setInputEnable(boolean enabled) {
+        autoCompleteTextView.setEnabled(enabled);
+        autoCompleteTextView.setFocusable(enabled);
+        autoCompleteTextView.setFocusableInTouchMode(enabled);
+//        autoCompleteTextView.setAlpha(enabled ? 1.0f : 0.5f);
+        autoCompleteTextView.setVisibility(enabled ? View.VISIBLE : View.GONE);
+        isEnabled = enabled;
     }
 }

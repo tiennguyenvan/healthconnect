@@ -154,12 +154,23 @@ public class AppointmentFormActivity extends AppCompatActivity {
             if (appointment != null) {
                 AppointmentStatus status = appointment.getStatus(LocalDateTime.now());
                 if (status == AppointmentStatus.UPCOMING) {
+                    patientPicker.setInputEnable(true);
+                    etStartDate.setInputEnable(true);
+                    etStartTime.setInputEnable(true);
+                    etDuration.setInputEnable(true);
                     btCancel.setVisibility(View.VISIBLE);
+
                     btCancel.setOnClickListener(v -> {
                         appointmentTable.delete(appointmentId);
                         inThis.showToast(getString(R.string.noti_appointment_deleted, String.valueOf(appointmentId)));
                         inThis.goToScreen(AppointmentListActivity.class);
                     });
+                } else {
+                    patientPicker.setInputEnable(false);
+                    etStartDate.setInputEnable(false);
+                    etStartTime.setInputEnable(false);
+                    etDuration.setInputEnable(false);
+                    btCancel.setVisibility(View.GONE);
                 }
             }
         }
@@ -169,6 +180,7 @@ public class AppointmentFormActivity extends AppCompatActivity {
     }
 
     private void autoUpdateTreatments(List<String> selectedDiagnoses) {
+        inThis.log("On Changed");
         List<String> selectedTreatments = treatmentPicker.getSelectedItems();
         // Get selected diagnoses
         List<Long> selectedDiagnoseIds = diagnoseTable.objectFieldsToObjectFields(diagnoses, selectedDiagnoses, Diagnose::getName, Diagnose::getId);
@@ -182,7 +194,9 @@ public class AppointmentFormActivity extends AppCompatActivity {
             uniqueTreatmentNames.addAll(treatmentNames);
         }
 
-        treatmentPicker.setSuggestions(uniqueTreatmentNames.stream().toList());
+        inThis.log(uniqueTreatmentNames.toString());
+
+        treatmentPicker.setSelectedItems(uniqueTreatmentNames.stream().toList());
     }
 
     private void checkTreatmentConflicts(List<String> selectedTreatmentNames) {

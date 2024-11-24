@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class LabeledInputField extends LinearLayout {
     private EditText etInput;
     private TextView tvError;
     private int inputType;
+    private boolean isEnabled = true;
 
     public LabeledInputField(Context context) {
         super(context);
@@ -179,6 +181,11 @@ public class LabeledInputField extends LinearLayout {
         return etInput;
     }
 
-
-
+    public void setInputEnable(boolean enabled) {
+        etInput.setEnabled(enabled);
+        etInput.setFocusable(enabled);
+        etInput.setFocusableInTouchMode(enabled);
+//        etInput.setAlpha(enabled ? 1.0f : 0.5f);
+        isEnabled = enabled;
+    }
 }

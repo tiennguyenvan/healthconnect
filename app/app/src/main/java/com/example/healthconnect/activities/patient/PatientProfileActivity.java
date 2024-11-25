@@ -1,6 +1,7 @@
 package com.example.healthconnect.activities.patient;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -92,13 +93,7 @@ public class PatientProfileActivity extends AppCompatActivity {
 
     private void showPatientDetails(Patient patient) {
         inThis.on(R.id.btMedicationListToMain).setText(getString(R.string.back_with_patient_name, patient.getName()));
-        String patientDetails = getString(
-                R.string.patient_details_format,
-                patient.getHeight(),
-                patient.getWeight(),
-                inThis.formatDateOfBirth(patient.getDateOfBirth()),
-                inThis.formatPhoneNumber(patient.getContactNumber())
-        );
+        String patientDetails = getString(R.string.patient_details_format, patient.getHeight(), patient.getWeight(), inThis.formatDateOfBirth(patient.getDateOfBirth()), inThis.formatPhoneNumber(patient.getContactNumber()));
         inThis.on(R.id.tvPatientDetails).setText(patientDetails);
     }
 
@@ -108,6 +103,7 @@ public class PatientProfileActivity extends AppCompatActivity {
 
         // Bind consultations to the RecyclerView
         SearchRecyclerView<Appointment> rvConsultations = findViewById(R.id.srPatientConsultations);
+        rvConsultations.setInputEnable(false);
         rvConsultations.setItemList(consultations);
         rvConsultations.setItemLayout(R.layout.component_consultation_item); // Bind to the consultation item layout
 
@@ -121,44 +117,36 @@ public class PatientProfileActivity extends AppCompatActivity {
             // Bind consultation date and time
             tvDateTime.setText(appointment.getFormatStartDateTime());
 
+
+            // Bind diagnoses
+            if (appointment.getDiagnoses().isEmpty()) {
+//                tvDiagnoses.setVisibility(View.GONE);
+                tvDiagnoses.setText(R.string.waiting_diagnoses);
+            } else {
+//                tvDiagnoses.setVisibility(View.VISIBLE);
+                tvDiagnoses.setText(TextUtils.join(", ", diagnoseTable.idsStringToObjectFields(appointment.getDiagnoses(), Diagnose::getName)));
+            }
+
+
             // Bind symptoms
             if (appointment.getSymptoms().isEmpty()) {
                 tvSymptoms.setVisibility(View.GONE);
             } else {
                 tvSymptoms.setVisibility(View.VISIBLE);
-                tvSymptoms.setText(
-                        symptomTable.idsStringToObjectFields(
-                                appointment.getSymptoms(),
-                                Symptom::getName
-                        ).toString()
-                );
+                tvSymptoms.setText(TextUtils.join(", ", symptomTable.idsStringToObjectFields(appointment.getSymptoms(), Symptom::getName)));
             }
 
-
-            // Bind diagnoses
-            if (appointment.getDiagnoses().isEmpty()) {
-                tvDiagnoses.setVisibility(View.GONE);
-            } else {
-                tvDiagnoses.setVisibility(View.VISIBLE);
-                tvDiagnoses.setText(
-                        diagnoseTable.idsStringToObjectFields(
-                                appointment.getDiagnoses(),
-                                Diagnose::getName
-                        ).toString()
-                );
-            }
 
             // Bind treatments
             if (appointment.getTreatments().isEmpty()) {
                 tvTreatments.setVisibility(View.GONE);
             } else {
                 tvTreatments.setVisibility(View.VISIBLE);
-                tvTreatments.setText(
-                        treatmentTable.idsStringToObjectFields(
-                                appointment.getTreatments(),
-                                t -> t.getName(medicationIdsNames)
-                        ).toString()
-                );
+                String treatmentSelectedNames = TextUtils.join("\n- ", treatmentTable.idsStringToObjectFields(appointment.getTreatments(), t -> t.getName(medicationIdsNames)));
+                if (!treatmentSelectedNames.isEmpty()) {
+                    treatmentSelectedNames = "- " + treatmentSelectedNames;
+                }
+                tvTreatments.setText(treatmentSelectedNames);
             }
         });
 

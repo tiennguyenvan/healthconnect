@@ -158,6 +158,7 @@
     <string name="consultation_symptoms">Consultation Symptoms</string>
     <string name="consultation_diagnoses">Consultation Diagnoses</string>
     <string name="consultation_treatments">Consultation Treatments</string>
+    <string name="waiting_diagnoses">Waiting Diagnoses</string>
 
 
 </resources>

@@ -24,12 +24,14 @@
             style="@style/BodyMultiLineText"/>
 
         <LinearLayout style="@style/SubHeader">
-            <TextView style="@style/H2" android:text="@string/consultations"/>
+            <TextView style="@style/H2" android:text="@string/consultations"
+                />
             <TextView android:id="@+id/btFormPatientProfileToAppointmentsForm"
                 style="@style/PrimaryTextMedium" android:text="@string/add_new"
                 />
         </LinearLayout>
         <com.example.healthconnect.views.SearchRecyclerView
+            android:layout_marginTop="0dp"
             android:id="@+id/srPatientConsultations"
             style="@style/ListItems"
             />

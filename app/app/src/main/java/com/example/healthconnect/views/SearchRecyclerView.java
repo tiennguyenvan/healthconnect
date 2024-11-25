@@ -28,7 +28,7 @@ public class SearchRecyclerView<T> extends LinearLayout {
     private OnBindItemListener<T> onBindItemListener;
     private OnItemClickListener<T> onItemClickListener;
     private OnSearchListener<T> onSearchListener;
-
+    private Boolean isEnabled = true;
     public SearchRecyclerView(Context context) {
         super(context);
         initialize(context);
@@ -192,5 +192,14 @@ public class SearchRecyclerView<T> extends LinearLayout {
     // Listener interface for custom search logic
     public interface OnSearchListener<T> {
         List<T> onSearch(String query);
+    }
+
+    public void setInputEnable(boolean enabled) {
+        isEnabled = enabled;
+        searchView.setEnabled(enabled);
+        searchView.setFocusable(enabled);
+        searchView.setFocusableInTouchMode(enabled);
+        searchView.setVisibility(enabled ? View.VISIBLE : View.GONE);
+        isEnabled = enabled;
     }
 }

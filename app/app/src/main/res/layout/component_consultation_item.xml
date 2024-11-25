@@ -9,28 +9,32 @@
         <TextView style="@style/CardRibbon"
             android:id="@+id/tvConsultationDateTime"
             android:text="@string/consultation_date_time"
-            />
-        <TextView style="@style/CardRibbon"
-            android:id="@+id/tvConsultationSymptoms"
-            android:text="@string/consultation_symptoms"
+            android:layout_marginBottom="@dimen/gap_x_small"
             />
         <LinearLayout
             style="@style/CardHeader">
             <TextView
                 android:id="@+id/tvConsultationDiagnoses"
                 android:text="@string/consultation_diagnoses"
-                style="@style/H3"/>
+                style="@style/H4"
+                />
+
             <TextView style="@style/PrimaryTextSmall"
                 android:text="@string/edit"
                 android:visibility="gone"
                 />
 
         </LinearLayout>
+        <TextView style="@style/BodyTextSmall"
+            android:layout_marginTop="@dimen/gap_x_small"
+            android:id="@+id/tvConsultationSymptoms"
+            android:text="@string/consultation_symptoms"
+            />
         <TextView
+            android:layout_marginTop="@dimen/gap_x_small"
             android:id="@+id/tvConsultationTreatments"
             android:text="@string/consultation_treatments"
-            android:layout_marginTop="@dimen/gap_small"
-            style="@style/CardBody"
+            style="@style/BodyTextSmall"
             />
     </LinearLayout>
 

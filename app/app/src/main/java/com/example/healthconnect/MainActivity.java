@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         inThis = $.in(this);
+
         inThis.onClick(R.id.btPatients).goToScreen(PatientListActivity.class);
         patientTable = DbTable.getInstance(this, Patient.class);
         medicationTable = DbTable.getInstance(this, Medication.class);
@@ -118,7 +121,13 @@ public class MainActivity extends AppCompatActivity {
         }
         createNotificationChannel();
         showNotification();
+
+        // logo animation
         startHeartbeatAnimation();
+
+        // healthnews
+        inThis.onClick(R.id.llAppLogoHeader).goToScreen(HealthNewsActivity.class);
+
     }
 
     @Override
@@ -285,8 +294,8 @@ public class MainActivity extends AppCompatActivity {
                 .orElse(null); // Return null if no appointment found
     }
 
-    ///////////
-    // Animation
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // ANIMATION
     private void startHeartbeatAnimation() {
         ImageView logo = findViewById(R.id.ivHeathConnectLogo);
 
@@ -326,5 +335,10 @@ public class MainActivity extends AppCompatActivity {
         // Start the animation
         heartbeatAnimator.start();
     }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // NEWS
+
 
 }

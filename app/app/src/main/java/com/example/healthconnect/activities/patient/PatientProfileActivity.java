@@ -12,6 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.R;
+import com.example.healthconnect.activities.appointment.AppointmentFormActivity;
+import com.example.healthconnect.activities.appointment.AppointmentListActivity;
 import com.example.healthconnect.controllers.DbTable;
 import com.example.healthconnect.controllers.$;
 import com.example.healthconnect.models.Appointment;
@@ -36,7 +38,8 @@ public class PatientProfileActivity extends AppCompatActivity {
     private DbTable<Medication> medicationTable;
     private List<Medication> medications;
     private Map<Long, String> medicationIdsNames;
-    private long patientId;
+    private long patientId = -1;
+    private long appointmentId = -1;
     private Patient patient;
 
     @Override
@@ -52,6 +55,7 @@ public class PatientProfileActivity extends AppCompatActivity {
 
         inThis = $.in(this);
         patientId = getIntent().getLongExtra(getString(R.string.key_patient_id), -1);
+        appointmentId = getIntent().getLongExtra(getString(R.string.key_appointment_id), -1);
         if (patientId == -1) {
             finish(); // Fixme: Close the activity if no patient ID is provided
             return;
@@ -73,10 +77,22 @@ public class PatientProfileActivity extends AppCompatActivity {
         }
 
         inThis.on(R.id.btMedicationListToMain).setText(getString(R.string.back_with_patient_name, patient.getName()));
-        inThis.onClick(R.id.btMedicationListToMain).goToScreen(PatientListActivity.class);
-        inThis.onClick(R.id.btToPatientForm).doAction(() -> {
-            inThis.passToScreen(PatientFormActivity.class, R.string.key_patient_id, patientId);
+        inThis.onClick(R.id.btMedicationListToMain).doAction(() -> {
+            if (appointmentId != -1) {
+                inThis.goToScreen(AppointmentListActivity.class);
+            } else {
+                inThis.goToScreen(PatientListActivity.class);
+            }
+
         });
+        inThis.onClick(R.id.btToPatientForm).doAction(() -> {
+            inThis.passToScreen(PatientFormActivity.class, R.string.key_patient_id, patientId, R.string.key_appointment_id, appointmentId);
+        });
+
+        inThis.onClick(R.id.btFormPatientProfileToAppointmentsForm).passToScreen(
+                AppointmentFormActivity.class,
+                R.string.key_patient_id, patientId
+        );
 
         showPatientDetails(patient);
         loadConsultations();
@@ -106,6 +122,13 @@ public class PatientProfileActivity extends AppCompatActivity {
         rvConsultations.setInputEnable(false);
         rvConsultations.setItemList(consultations);
         rvConsultations.setItemLayout(R.layout.component_consultation_item); // Bind to the consultation item layout
+        rvConsultations.setOnClickItem(appointment -> {
+            inThis.passToScreen(
+                    AppointmentFormActivity.class,
+                    R.string.key_patient_id, appointment.getPatient_id(),
+                    R.string.key_appointment_id, appointment.getId()
+            );
+        });
 
         // Populate each item in the RecyclerView
         rvConsultations.setOnBindItem((itemView, appointment) -> {

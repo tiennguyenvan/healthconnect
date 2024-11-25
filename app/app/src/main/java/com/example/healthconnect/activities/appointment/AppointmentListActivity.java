@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.MainActivity;
 import com.example.healthconnect.R;
+import com.example.healthconnect.activities.patient.PatientProfileActivity;
 import com.example.healthconnect.controllers.$;
 import com.example.healthconnect.controllers.DbTable;
 import com.example.healthconnect.models.Appointment;
@@ -48,7 +49,6 @@ public class AppointmentListActivity extends AppCompatActivity {
         SearchRecyclerView<Appointment> srvAppointment = findViewById(R.id.rvAppointmentList);
         appointments = appointmentDbTable.getAll();
 
-
         appointments.sort(Appointment::sortByStartDateTime);
         srvAppointment.setItemList(appointments);
 
@@ -64,7 +64,8 @@ public class AppointmentListActivity extends AppCompatActivity {
         });
 
         srvAppointment.setOnClickItem((appointment -> {
-            inThis.passToScreen(AppointmentFormActivity.class, getString(R.string.key_appointment_id), appointment.getId());
+//            inThis.passToScreen(AppointmentFormActivity.class, getString(R.string.key_appointment_id), appointment.getId());
+            inThis.passToScreen(PatientProfileActivity.class, R.string.key_appointment_id, appointment.getId(), R.string.key_patient_id, appointment.getPatient_id());
         }));
 
 

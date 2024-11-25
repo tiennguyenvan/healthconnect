@@ -21,6 +21,7 @@ import com.example.healthconnect.views.SearchRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class AppointmentListActivity extends AppCompatActivity {
     DbTable<Appointment> appointmentDbTable;
     DbTable<Patient> patientDbTable;
@@ -64,8 +65,8 @@ public class AppointmentListActivity extends AppCompatActivity {
         });
 
         srvAppointment.setOnClickItem((appointment -> {
-//            inThis.passToScreen(AppointmentFormActivity.class, getString(R.string.key_appointment_id), appointment.getId());
-            inThis.passToScreen(PatientProfileActivity.class, R.string.key_appointment_id, appointment.getId(), R.string.key_patient_id, appointment.getPatient_id());
+            inThis.passToScreen(AppointmentFormActivity.class, getString(R.string.key_appointment_id), appointment.getId());
+//            inThis.passToScreen(PatientProfileActivity.class, R.string.key_appointment_id, appointment.getId(), R.string.key_patient_id, appointment.getPatient_id());
         }));
 
 

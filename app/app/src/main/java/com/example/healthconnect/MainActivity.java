@@ -1,6 +1,10 @@
 package com.example.healthconnect;
 
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,10 +29,29 @@ import com.example.healthconnect.models.Patient;
 import com.example.healthconnect.models.Symptom;
 import com.example.healthconnect.models.Treatment;
 
-import java.util.Comparator;
 import java.util.List;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
+import android.app.AlertDialog;
+import androidx.core.app.NotificationManagerCompat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class MainActivity extends AppCompatActivity {
+    private final String NOTIFIER_APPOINTMENT_CHANNEL_ID = "NOTIFIER_APPOINTMENT_CHANNEL_ID";
+    private final CharSequence NOTIFIER_APPOINTMENT_CHANNEL_NAME = "HealthConnect Appointment";
+    private final String NOTIFIER_APPOINTMENT_CHANNEL_DESCRIPTION = "Upcoming appointments booked in the HealthConnect app";
+    private final int NOTIFIER_APPOINTMENT_NOTIFICATION_ID = 1;
+
+
+    private NotificationManager notificationManager;
+
     private DbTable<Patient> patientTable;
     private DbTable<Medication> medicationTable;
     private DbTable<Appointment> appointmentTable;
@@ -72,8 +95,24 @@ public class MainActivity extends AppCompatActivity {
         inThis.onClick(R.id.btTreatments).goToScreen(TreatmentListActivity.class);
         inThis.onClick(R.id.btDiagnoses).goToScreen(DiagnoseListActivity.class);
 
+
         updateLatestAppointment();
         updateMedicationClosestToEmpty();
+
+
+        // notification
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+//        if (notificationManager == null) {
+//            System.out.println("Notification Manager is null");
+//        } else {
+//            System.out.println("Notification Manager initialized");
+//        }
+        if (!areNotificationsEnabled()) {
+            promptEnableNotifications();
+        }
+        createNotificationChannel();
+        showNotification();
     }
 
     @Override
@@ -127,4 +166,117 @@ public class MainActivity extends AppCompatActivity {
         inThis.on(R.id.tvMedicationEmpty).setVisibility(View.VISIBLE);
     }
 
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // NOTIFICATION
+    private void createNotificationChannel() {
+//        Log.d("Build.VERSION.SDK_INT", "createNotificationChannel: " + Build.VERSION.SDK_INT);
+//        Log.d("Build.VERSION_CODES.O", "createNotificationChannel: " + Build.VERSION_CODES.O);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    NOTIFIER_APPOINTMENT_CHANNEL_ID,
+                    NOTIFIER_APPOINTMENT_CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel.setDescription(NOTIFIER_APPOINTMENT_CHANNEL_DESCRIPTION);
+
+            // Register the channel with the NotificationManager
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+//                System.out.println("Notification channel created");
+            } else {
+//                System.out.println("Notification Manager is null");
+            }
+        }
+    }
+
+
+    public void showNotification() {
+        // Get the soonest upcoming appointment in the next 30 minutes
+        Appointment soonestAppointment = getSoonestUpcomingAppointment();
+
+        if (soonestAppointment == null) {
+//            System.out.println("No appointments within the next 30 minutes");
+            return;
+        }
+
+        // Fetch patient details (if needed)
+        Patient patient = patientTable.getById(soonestAppointment.getPatient_id());
+        String patientName = (patient != null) ? patient.getName() : "Unknown";
+
+        // Format the notification content
+        String title = "Upcoming Appointment";
+        String content = String.format(
+                "Appointment with %s at %s",
+                patientName,
+                soonestAppointment.getFormatStartDateTime() // Format time (e.g., "10:00 AM - Nov 24")
+        );
+
+        // Create PendingIntent
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this,
+                0,
+                new Intent(this, MainActivity.class),
+                PendingIntent.FLAG_IMMUTABLE
+        );
+
+        // Build the notification
+        Notification.Builder builder = new Notification.Builder(this, NOTIFIER_APPOINTMENT_CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher) // Replace with your icon
+                .setContentTitle(title)
+                .setContentText(content)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        // Show the notification
+        notificationManager.notify(1, builder.build());
+    }
+
+
+    public void openNotificationSettings() {
+        Intent intent = new Intent();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // For Android 8.0 and above
+            intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+        } else { // For older Android versions
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+        }
+        startActivity(intent);
+    }
+
+
+    public void promptEnableNotifications() {
+        new AlertDialog.Builder(this)
+                .setTitle("Enable Notifications")
+                .setMessage("HealthConnect uses notifications to remind you of upcoming appointments and updates. Please enable notifications in your app settings.")
+                .setPositiveButton("Go to Settings", (dialog, which) -> openNotificationSettings())
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    public boolean areNotificationsEnabled() {
+        return NotificationManagerCompat.from(this).areNotificationsEnabled();
+    }
+
+    private Appointment getSoonestUpcomingAppointment() {
+        List<Appointment> appointments = appointmentTable.getAll(); // Fetch all appointments
+        LocalDateTime now = LocalDateTime.now(); // Current time
+        LocalDateTime thirtyMinutesFromNow = now.plusMinutes(30);
+
+        // Filter for appointments that start within the next 30 minutes
+        return appointments.stream()
+                .filter(a -> {
+                    LocalDateTime startDateTime = LocalDateTime.parse(a.getStartDateTime(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                    return startDateTime.isAfter(now) && startDateTime.isBefore(thirtyMinutesFromNow);
+                })
+                .min((a1, a2) -> { // Find the soonest one
+                    LocalDateTime start1 = LocalDateTime.parse(a1.getStartDateTime(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                    LocalDateTime start2 = LocalDateTime.parse(a2.getStartDateTime(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                    return start1.compareTo(start2);
+                })
+                .orElse(null); // Return null if no appointment found
+    }
 }

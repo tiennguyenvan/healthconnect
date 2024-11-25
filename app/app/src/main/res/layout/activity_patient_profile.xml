@@ -14,25 +14,26 @@
         >
 
         <LinearLayout style="@style/Header">
-            <TextView android:id="@+id/btBackToMain" style="@style/H1" android:text="‹ \t Tim Nguyen" />
-            <TextView android:id="@+id/btToPatientForm" style="@style/LinkText" android:text="@string/edit" />
+            <TextView android:id="@+id/btMedicationListToMain" style="@style/H1" android:text="" />
+            <TextView android:id="@+id/btToPatientForm" style="@style/PrimaryTextMedium" android:text="@string/edit" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvPatientDetails"
-            android:text="174cm, 68kg\nJuly 01, 1986\n236-660-8650"
+            android:text=""
             style="@style/BodyMultiLineText"/>
 
         <LinearLayout style="@style/SubHeader">
-            <TextView style="@style/H2" android:text="@string/consultations"/>
-            <TextView android:id="@+id/btToAppointmentsForm"
-                style="@style/LinkText" android:text="@string/add_new"
+            <TextView style="@style/H2" android:text="@string/consultations"
+                />
+            <TextView android:id="@+id/btFormPatientProfileToAppointmentsForm"
+                style="@style/PrimaryTextMedium" android:text="@string/add_new"
                 />
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvPatientConsultations"
+        <com.example.healthconnect.views.SearchRecyclerView
+            android:layout_marginTop="0dp"
+            android:id="@+id/srPatientConsultations"
             style="@style/ListItems"
             />
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

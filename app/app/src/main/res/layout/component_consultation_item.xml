@@ -7,22 +7,34 @@
     <LinearLayout
         style="@style/CardInner">
         <TextView style="@style/CardRibbon"
-            android:text="Consultation Time"
+            android:id="@+id/tvConsultationDateTime"
+            android:text="@string/consultation_date_time"
+            android:layout_marginBottom="@dimen/gap_x_small"
             />
         <LinearLayout
             style="@style/CardHeader">
             <TextView
-                android:text="Consultation Name"
-                style="@style/H3"/>
-            <TextView style="@style/LinkTextSmall"
-                android:text="Edit If Incomming"
+                android:id="@+id/tvConsultationDiagnoses"
+                android:text="@string/consultation_diagnoses"
+                style="@style/H4"
+                />
+
+            <TextView style="@style/PrimaryTextSmall"
+                android:text="@string/edit"
+                android:visibility="gone"
                 />
 
         </LinearLayout>
+        <TextView style="@style/BodyTextSmall"
+            android:layout_marginTop="@dimen/gap_x_small"
+            android:id="@+id/tvConsultationSymptoms"
+            android:text="@string/consultation_symptoms"
+            />
         <TextView
-            android:text="Consultation Detail"
-            android:layout_marginTop="@dimen/gap_small"
-            style="@style/CardBody"
+            android:layout_marginTop="@dimen/gap_x_small"
+            android:id="@+id/tvConsultationTreatments"
+            android:text="@string/consultation_treatments"
+            style="@style/BodyTextSmall"
             />
     </LinearLayout>
 

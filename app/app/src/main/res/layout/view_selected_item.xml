@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <!-- Red "✕" ✖ for removing the item -->
+    <TextView
+        android:id="@+id/tvRemoveIcon"
+        android:text="@string/close_icon"
+        style="@style/PrimaryTextSmall"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="@dimen/gap_x_small"
+        />
+
+    <!-- Item text -->
+    <TextView
+        android:id="@+id/tvItemText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black" />
+</LinearLayout>

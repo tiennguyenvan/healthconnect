@@ -1,13 +1,18 @@
-package com.example.healthconnect;
+package com.example.healthconnect.controllers;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.healthconnect.R;
+import com.example.healthconnect.views.LabeledInputField;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -84,6 +89,7 @@ public class $ {
         eventType = EventType.NONE;
         return this;
     }
+
     public $ onClick(int viewId) {
         this.viewId = viewId;
         eventType = EventType.CLICK;
@@ -149,20 +155,32 @@ public class $ {
         registerEvent(action);
     }
 
-    public void pickDate() {
+    public void pickPastDate() {
+        pickDate(-1);
+    }
+    public void pickFutureDate() {
+        pickDate(1);
+    }
+
+    /**
+     *
+     * @param nowOffset -1 past, 0 any, +1 future
+     */
+    public void pickDate(int nowOffset) {
         View localView = activity.findViewById(viewId);
         Runnable action = () -> {
             if (!(localView instanceof EditText)) {
                 return;
             }
 
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance(); // For initial date in DatePicker
             String currentDateText = ((EditText) localView).getText().toString().trim();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
             if (!currentDateText.isEmpty()) {
                 try {
-                    calendar.setTime(dateFormat.parse(currentDateText));
+                    Date date = dateFormat.parse(currentDateText);
+                    calendar.setTime(date);
                 } catch (ParseException e) {
                     // If parsing fails, the calendar remains set to the current date
                 }
@@ -171,16 +189,59 @@ public class $ {
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
-
             DatePickerDialog datePickerDialog = new DatePickerDialog(activity, (view, selectedYear, selectedMonth, selectedDay) -> {
-                String date = selectedYear + "-" + (selectedMonth + 1) + "-" + selectedDay;
+                String date = String.format(Locale.getDefault(), "%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay);
                 ((EditText) localView).setText(date);
             }, year, month, day);
+
+            Calendar now = Calendar.getInstance(); // For min/max date
+            if (nowOffset < 0) {
+                // Allow past dates only
+                datePickerDialog.getDatePicker().setMaxDate(now.getTimeInMillis());
+            } else if (nowOffset > 0) {
+                // Allow future dates only
+                datePickerDialog.getDatePicker().setMinDate(now.getTimeInMillis());
+            }
+            // else nowOffset == 0, allow any date
 
             datePickerDialog.show();
         };
         registerEvent(action);
     }
+
+    public void pickTime() {
+        View localView = activity.findViewById(viewId);
+        Runnable action = () -> {
+            if (!(localView instanceof EditText)) {
+                return;
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            String currentTimeText = ((EditText) localView).getText().toString().trim();
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+            if (!currentTimeText.isEmpty()) {
+                try {
+                    Date time = timeFormat.parse(currentTimeText);
+                    calendar.setTime(time);
+                } catch (ParseException e) {
+                    // If parsing fails, the calendar remains set to the current time
+                }
+            }
+
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+
+            TimePickerDialog timePickerDialog = new TimePickerDialog(activity, (view, selectedHour, selectedMinute) -> {
+                String time = String.format(Locale.getDefault(), "%02d:%02d", selectedHour, selectedMinute);
+                ((EditText) localView).setText(time);
+            }, hour, minute, true);
+
+            timePickerDialog.show();
+        };
+        registerEvent(action);
+    }
+
 
     public void showToast(String message) {
         Runnable action = () -> {
@@ -191,16 +252,33 @@ public class $ {
 
     // Utilities
     public String getTextFrom(int viewId) {
-        EditText et = activity.findViewById(viewId);
-        return et.getText().toString().trim();
+        View et = activity.findViewById(viewId);
+        String ret = "";
+        if (et instanceof EditText) {
+            ret = ((EditText) et).getText().toString();
+        } else if (et instanceof LabeledInputField) {
+            ret = ((LabeledInputField) et).getText();
+        }
+        return ret.trim();
     }
+
     public void setText(String text) {
         View view = activity.findViewById(viewId);
         if (view instanceof TextView) {
             ((TextView) view).setText(text);
+        } else if (view instanceof LabeledInputField) {
+            ((LabeledInputField) view).setText(text);
+        } else {
+            Log.w(LogTag, "Unexpected view type: " + view.getClass().getSimpleName());
         }
         resetEvent();
     }
+
+    public void setText(int textId) {
+        String text = activity.getString(textId);
+        setText(text);
+    }
+
     public void setTextTo(int viewId, String text) {
         View view = activity.findViewById(viewId);
         if (view instanceof TextView) {
@@ -216,9 +294,11 @@ public class $ {
             return 0;
         }
     }
+
     public void log(String msg) {
         Log.d(LogTag, msg);
     }
+
     public String formatDateOfBirth(String dateOfBirth) {
         SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         SimpleDateFormat targetFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault());
@@ -262,10 +342,77 @@ public class $ {
         if (errorView != null) errorView.setVisibility(View.GONE);
     }
 
+    public boolean validateLabeledInput(int inputViewId) {
+        return validateLabeledInput(inputViewId, null);
+    }
+
+
+    public boolean validateLabeledInput(int inputViewId, String regex) {
+        LabeledInputField inputView = activity.findViewById(inputViewId);
+        String inputText = inputView.getText().trim();
+        int inputType = inputView.getInputType();
+
+        // Check if the input is empty
+        if (inputText.isEmpty()) {
+            inputView.setError(activity.getString(R.string.warning_field_required));
+            return false;
+        } else {
+            inputView.clearError();
+        }
+
+        // Detect the input type based on inputType attribute
+        switch (inputType) {
+            case android.text.InputType.TYPE_CLASS_NUMBER:
+            case android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL:
+                try {
+                    Double.parseDouble(inputText);
+                    inputView.clearError();
+                } catch (NumberFormatException e) {
+                    inputView.setError(activity.getString(R.string.warning_invalid_number));
+                    return false;
+                }
+                break;
+
+            case android.text.InputType.TYPE_CLASS_PHONE:
+                if (!inputText.matches("\\d{3}-?\\d{3}-?\\d{4}")) {
+                    inputView.setError(activity.getString(R.string.warning_invalid_phone));
+                    return false;
+                } else {
+                    inputView.clearError();
+                }
+                break;
+
+            case android.text.InputType.TYPE_CLASS_DATETIME:
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                try {
+                    dateFormat.parse(inputText);
+                    inputView.clearError();
+                } catch (ParseException e) {
+                    inputView.setError(activity.getString(R.string.warning_invalid_date));
+                    return false;
+                }
+                break;
+
+            // string
+            default:
+                if (regex != null && !inputText.matches(regex)) {
+                    inputView.setError(activity.getString(R.string.warning_invalid_format));
+                    return false;
+                }
+
+                inputView.clearError();
+                break;
+        }
+
+
+        return true;
+    }
+
     public boolean validateInput(int inputViewId, int errorViewId) {
         EditText inputView = activity.findViewById(inputViewId);
         TextView errorView = errorViewId != 0 ? activity.findViewById(errorViewId) : null;
         String inputText = inputView.getText().toString().trim();
+        int inputType = inputView.getInputType();
 
         // Check if the input is empty
         if (inputText.isEmpty()) {
@@ -276,7 +423,6 @@ public class $ {
         }
 
         // Detect the input type based on inputType attribute
-        int inputType = inputView.getInputType();
         switch (inputType) {
             case android.text.InputType.TYPE_CLASS_NUMBER:
             case android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL:

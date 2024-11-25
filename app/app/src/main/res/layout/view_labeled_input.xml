@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout style="@style/Field">
+    <TextView
+        android:id="@+id/tvLabel"
+        style="@style/FieldLabel"
+        android:text="Label" />
+
+    <!-- Input EditText -->
+    <EditText
+        android:id="@+id/etInput"
+        style="@style/FieldInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hint" />
+    </LinearLayout>
+
+    <!-- Error TextView (optional) -->
+    <TextView
+        android:id="@+id/tvError"
+        style="@style/ErrorText"
+        android:visibility="gone" />
+</LinearLayout>

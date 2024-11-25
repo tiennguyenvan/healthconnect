@@ -1,4 +1,4 @@
-package com.example.healthconnect;
+package com.example.healthconnect.activities.patient;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,16 +8,19 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PatientAdapter extends RecyclerView.Adapter<PatientAdapter.PatientViewHolder> {
+import com.example.healthconnect.R;
+import com.example.healthconnect.models.Patient;
+
+public class PatientListRvAdapter extends RecyclerView.Adapter<PatientListRvAdapter.PatientViewHolder> {
 
     private List<Patient> patientList;
-    private OnItemClickListener listener;
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Patient patient);
     }
 
-    public PatientAdapter(List<Patient> patientList, OnItemClickListener listener) {
+    public PatientListRvAdapter(List<Patient> patientList, OnItemClickListener listener) {
         this.patientList = patientList;
         this.listener = listener;
     }

@@ -2,44 +2,72 @@
 <resources>
 
     <!-- App Theme -->
-
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:padding">@dimen/gap_big</item>
+        <item name="android:padding">@dimen/large</item>
         <item name="android:background">@color/base</item>
         <item name="android:textColor">@color/text</item>
     </style>
 
-    <style name="LinkText">
+
+    <!-- Texts -->
+    <style name="BodyText">
         <item name="android:fontFamily">@font/lexend_regular</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/text</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="LinkTextSmall" parent="LinkText">
+
+    <style name="BodyTextSmall" parent="BodyText">
         <item name="android:textSize">12sp</item>
     </style>
-    <style name="ErrorText" parent="LinkText">
-        <item name="android:textSize">12sp</item>
+
+    <style name="BodyTextMedium" parent="BodyText">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BodyTextLarge" parent="BodyText">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="PrimaryText" parent="BodyText">
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="PrimaryTextMedium" parent="BodyTextMedium">
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="PrimaryTextSmall" parent="BodyTextSmall">
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="PrimaryTextMediumBold" parent="PrimaryTextMedium">
+        <item name="android:fontFamily">@font/lexend_bold</item>
+    </style>
+
+    <style name="PrimaryTextBold" parent="PrimaryText">
+        <item name="android:fontFamily">@font/lexend_bold</item>
+    </style>
+
+    <style name="ErrorText" parent="PrimaryTextSmall">
         <item name="android:visibility">gone</item>
     </style>
 
-    <style name="BodyParagraph" >
-        <item name="android:fontFamily">@font/lexend_regular</item>
-        <item name="android:textSize">18sp</item>
+    <style name="BodyTextParagraph" parent="BodyText">
         <item name="android:lineHeight">24sp</item>
-        <item name="android:textColor">@color/text</item>
         <item name="android:layout_marginTop">@dimen/gap_small</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="BodyMultiLineText" parent="BodyParagraph">
+
+    <style name="BodyMultiLineText" parent="BodyTextParagraph">
         <item name="android:lineHeight">32sp</item>
     </style>
-    <style name="BodySingleLineText" parent="BodyParagraph">
+
+    <style name="BodySingleLineText" parent="BodyTextParagraph">
         <item name="android:lineHeight">18sp</item>
         <item name="android:layout_marginTop">0dp</item>
     </style>
@@ -49,9 +77,11 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/gap_mid</item>
-        <item name="android:layout_marginBottom">@dimen/gap_big</item>
+        <item name="android:layout_marginBottom">@dimen/large</item>
         <item name="android:scrollbars">vertical</item>
+        <item name="android:orientation">vertical</item>
     </style>
+
     <style name="ListItem">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -65,8 +95,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/gap_small</item>
     </style>
+
     <style name="SubHeader" parent="Header">
-        <item name="android:layout_marginTop">@dimen/gap_big</item>
+        <item name="android:layout_marginTop">@dimen/large</item>
         <item name="android:layout_marginBottom">0dp</item>
     </style>
 
@@ -79,16 +110,18 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
     </style>
-    <style name="H2">
+
+    <style name="H2" parent="H1">
         <item name="android:fontFamily">@font/lexend_semibold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/text</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
     </style>
+
     <style name="H3" parent="H2">
         <item name="android:textSize">16sp</item>
+    </style>
+    <style name="H4" parent="H3">
+        <item name="android:textSize">14sp</item>
     </style>
 
     <!-- Form Style -->
@@ -97,6 +130,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/gap_small</item>
     </style>
+
     <style name="FieldLabel">
         <item name="android:fontFamily">@font/lexend_bold</item>
         <item name="android:textSize">14sp</item>
@@ -104,6 +138,7 @@
         <item name="android:layout_width">100sp</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="FieldInput">
         <item name="borderWidth">1dp</item>
         <item name="android:background">@drawable/input_shape</item>
@@ -115,6 +150,7 @@
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
     </style>
+
     <style name="PrimaryBtn">
         <item name="android:backgroundTint">@color/primary</item>
         <item name="android:padding">@dimen/gap_small</item>
@@ -126,17 +162,23 @@
         <item name="android:layout_marginTop">@dimen/gap_mid</item>
         <item name="android:strokeWidth">0</item>
     </style>
-
+    <style name="SecondaryBtn" parent="PrimaryBtn">
+        <item name="android:backgroundTint">@color/cardBg</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:strokeColor">@color/primary</item>
+        <item name="android:strokeWidth">2</item>
+    </style>
     <!-- Card Styles -->
     <style name="Card">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/cardBg</item>
-        <item name="android:elevation">@dimen/gap_small</item><!-- For shadow -->
+        <item name="android:elevation">@dimen/large</item><!-- For shadow -->
         <item name="android:layout_marginTop">@dimen/gap_mid</item>
         <item name="android:strokeColor">@color/btnBorder</item>
         <item name="android:strokeWidth">0</item>
     </style>
+
     <style name="CardInner">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -148,16 +190,22 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="CardBody" parent="BodyParagraph">
+
+    <style name="CardBody" parent="BodyTextParagraph">
         <item name="android:textSize">14sp</item>
         <item name="android:lineHeight">28sp</item>
     </style>
+
     <style name="CardRibbon" parent="CardBody">
         <item name="android:textSize">12sp</item>
         <item name="android:lineHeight">24sp</item>
         <item name="android:textColor">@color/lighterText</item>
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:layout_marginBottom">@dimen/gap_small</item>
+    </style>
+
+    <style name="Widget.Theme.HealthConnect.MyView" parent="">
+        <item name="android:background">@color/gray_400</item>
     </style>
 
 </resources>

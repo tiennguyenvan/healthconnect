@@ -1,15 +1,34 @@
 <resources>
     <string name="app_name">HealthConnect</string>
-    <string name="patientsCardTitle">Patients</string>
-    <string name="appointmentsCardTitle">Appointment</string>
-    <string name="medicationsCardTitle">Medications</string>
+    <string name="patients">Patients</string>
+    <string name="appointments">Appointments</string>
+    <string name="medications">Medications</string>
+    <string name="symptoms">Symptoms</string>
     <string name="new_patient_header_text">‹ \t New Patient</string>
+    <string name="new_medication_header_text">‹ \t New Medication</string>
+    <string name="new_diagnose_header_text">‹ \t New Medication</string>
+    <string name="new_treatment_header_text">‹ \t New Treatment</string>
+    <string name="new_appointment_header_text">‹ \t New Appointment</string>
+    <string name="edit_appointment_header_text">‹ \t Edit Appointment</string>
+    <string name="edit_medication_header_text">‹ \t Edit Medication</string>
+    <string name="edit_treatment_header_text">‹ \t Edit Treatment</string>
+    <string name="edit_diagnose_header_text">‹ \t Edit Diagnose</string>
+    <string name="new_symptom_header_text">‹ \t New Symptom</string>
+    <string name="edit_symptom_header_text">‹ \t New Symptom</string>
     <string name="patient_list_header_text">‹ \t Patients</string>
+    <string name="medication_list_header_text">‹ \t Medications</string>
+    <string name="appointment_list_header_text">‹ \t Appointments</string>
+    <string name="symptom_list_header_text">‹ \t Symptoms</string>
+    <string name="treatment_list_header_text">‹ \t Treatments</string>
+    <string name="diagnose_list_header_text">‹ \t Diagnose</string>
+    <string name="appointments_list_header_text">‹ \t Appointments</string>
+    <string name="edit_appointments_header_text">‹ \t Appointments</string>
     <string name="name">Name</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>
     <string name="dob">DOB</string>
     <string name="full_name">Full Name</string>
+    <string name="full_disease_name">Full Disease Name</string>
     <string name="unit_cm">cm</string>
     <string name="unit_kg">kg</string>
     <string name="dob_format">YYYY-MM-D</string>
@@ -19,13 +38,127 @@
     <string name="add_new">Add New</string>
     <string name="search_placeholder">Search a Name</string>
     <string name="edit">Edit</string>
+
     <string name="consultations">Consultations</string>
     <string name="warning_field_required">This field is required</string>
+    <string name="warning_invalid_format">Invalid format</string>
     <string name="warning_invalid_number">Invalid number</string>
     <string name="warning_invalid_phone">Invalid phone format</string>
     <string name="warning_invalid_date">Invalid date</string>
+    <string name="warning_invalid_medication">Invalid medication</string>
+    <string name="warning_invalid_symptoms">Invalid Symptoms</string>
+    <string name="warning_invalid_treatments">Invalid Treatments</string>
+    <string name="warning_invalid_duration">Invalid Duration</string>
+    <string name="warning_overlapping_appointment">Overlapping Appointment</string>
     <string name="back_with_patient_name">‹ \t %1$s</string>
     <string name="patient_details_format">%1$.0fcm, %2$.0fkg\n%3$s\n%4$s</string>
+
+    <string name="update_patient">Update Patient</string>
+    <string name="noti_patient_added">Patient Added with ID: %1$s</string>
+    <string name="noti_patient_updated">Patient Updated with ID: %1$s</string>
+    <string name="noti_no_patient_found">No patient found with ID: %1$s</string>
+
+    <string name="noti_appointment_added">Appointment Added with ID: %1$s</string>
+    <string name="noti_appointment_updated">Appointment Updated with ID: %1$s</string>
+    <string name="noti_no_appointment_found">No appointment found with ID: %1$s</string>
+    <string name="noti_appointment_deleted">Appointment Deleted with ID: %1$s</string>
+
+    <string name="noti_medication_added">Medication Added with ID: %1$s</string>
+    <string name="noti_medication_updated">Medication Updated with ID: %1$s</string>
+    <string name="noti_no_medication_found">No medication found with ID: %1$s</string>
+    <string name="noti_no_treatment_found">No treatment found with ID: %1$s</string>
+    <string name="noti_no_diagnose_found">No diagnose found with ID: %1$s</string>
+    <string name="noti_no_symptom_found">No symptom found with ID: %1$s</string>
+
+    <string name="noti_symptom_added">Symptom Added with ID: %1$s</string>
+    <string name="noti_symptom_updated">Symptom Updated with ID: %1$s</string>
+    <string name="noti_treatment_added">Treatment Added with ID: %1$s</string>
+    <string name="noti_treatment_updated">Treatment Updated with ID: %1$s</string>
+    <string name="noti_diagnose_added">Diagnose Added with ID: %1$s</string>
+    <string name="noti_diagnose_updated">Diagnose Updated with ID: %1$s</string>
+
+
+    <!--New Appointment-->
+    <string name="appointmentNew">‹ \t New Appointment</string>
+    <string name="appointment_details_format">%1$s, %2$s \t | %3$s </string>
+    <string name="timeFormat">hh:mm</string>
+    <string name="endTime">End Time: </string>
+    <string name="startTime">Start Time: </string>
+    <string name="dateAppointment">Date: </string>
+
+
+    <!--Appointment Update  -->
+    <string name="nameField">Name: </string>
+    <string name="appointmentsUpdate">‹ \t Appointment</string>
+    <string name="cancel_appointment">Cancel Appointment</string>
+    <string name="start">Start</string>
+    <string name="dateFormat">YYYY-MM-DD</string>
+    <string name="duration">Duration</string>
+    <string name="update_appointment">Update Appointment</string>
+    <string name="hours">hours</string>
+    <string name="add_appointment">Add Appointment</string>
+    <string name="appointment_patient_name">%1$s</string>
+
+    <string name="full_medication_name">Full medication name</string>
+    <string name="stock">Stock</string>
+    <string name="number_of_units">Number of Units</string>
+    <string name="max_stock">Max Stock</string>
+    <string name="add_medication">Add Medication</string>
+    <string name="add_symptom">Add Symptom</string>
+    <string name="close_icon">✖</string>
+    <string name="err_max_stock_must_be_larger_than_stock">Max stock must be larger than stock</string>
+    <string name="update_medication">Update Medication</string>
+    <string name="update_treatment">Update Treatment</string>
+    <string name="update_diagnose">Update Diagnose</string>
+    <string name="update_symptom">Update Symptom</string>
+    <string name="full_symptom_name">Full Symptom Name</string>
+
+
     <string name="key_patient_id">PATIENT_ID</string>
+    <string name="key_medication_id">MEDICATION_ID</string>
+    <string name="key_appointment_id">APPOINTMENT_ID</string>
+    <string name="key_symptom_id">SYMPTOM_ID</string>
+    <string name="key_treatment_id">TREATMENT_ID</string>
+    <string name="dose">Dose</string>
+    <string name="note">Note</string>
+    <string name="zero">0</string>
+    <string name="treatments">Treatments</string>
+    <string name="diagnoses">Diagnoses</string>
+    <string name="medication_name">Medication Name</string>
+    <string name="treatment_name">Treatment Name</string>
+    <string name="diagnose_name">Diagnose Name</string>
+    <string name="add_treatment">Add Treatment</string>
+    <string name="add_diagnose">Add Diagnose</string>
+    <string name="type_to_search">Type to search</string>
+    <string name="medication">Medication</string>
+    <string name="_3x_days">3x/days</string>
+    <string name="_3_days">3 days</string>
+    <string name="after_meals">After meals</string>
+    <string name="label">Label</string>
+    <string name="key_diagnose_id">DIAGNOSE_ID</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="consulting">Consulting</string>
+    <string name="finished">Finished</string>
+    <string name="select_patient">Select Patient</string>
+    <string name="patient">Patient</string>
+    <string name="start_date_time">Date Time</string>
+    <string name="minutes">Minutes</string>
+    <string name="start_date">Start Date</string>
+    <string name="date">Date</string>
+    <string name="start_time">Start Time</string>
+    <string name="time">Time</string>
+    <string name="warning_invalid_patient">Invalid Patient</string>
+    <string name="invalid_start_date">Invalid Start Date</string>
+    <string name="invalid_start_time">Invalid Start Time</string>
+    <string name="warning_invalid_date_time_format">Invalid Date Time Format</string>
+    <string name="warning_start_date_time_is_from_the_past">Start Date Time is from the past</string>
+    <string name="warning_cannot_compute_start_date_time_invalid">Cannot Compute Start Date Time</string>
+    <string name="warning_cannot_compute_end_date_time_invalid">Cannot Compute End Date Time</string>
+    <string name="consultation_date_time">Consultation Date Time</string>
+    <string name="consultation_symptoms">Consultation Symptoms</string>
+    <string name="consultation_diagnoses">Consultation Diagnoses</string>
+    <string name="consultation_treatments">Consultation Treatments</string>
+    <string name="waiting_diagnoses">Waiting Diagnoses</string>
+
 
 </resources>

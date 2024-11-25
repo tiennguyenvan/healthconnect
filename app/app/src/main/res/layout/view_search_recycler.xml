@@ -1,0 +1,30 @@
+<!-- res/layout/view_search_recycler.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Container for the SearchView -->
+    <LinearLayout
+        style="@style/Field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            style="@style/FieldInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_placeholder"
+            android:padding="5dp"
+            android:queryHint="@string/search_placeholder" />
+    </LinearLayout>
+
+    <!-- RecyclerView for displaying list items -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        style="@style/AppTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout style="@style/Header">
+
+            <TextView
+                android:id="@+id/btBackToTreatmentList"
+                style="@style/H1"
+                android:text="@string/new_treatment_header_text" />
+        </LinearLayout>
+
+        <com.example.healthconnect.views.SelectableAutocompleteView
+            android:id="@+id/saTreatmentMedicationName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:displayDirection="vertical"
+            app:hintText="@string/type_to_search"
+            app:labelText="@string/medication" />
+
+        <com.example.healthconnect.views.LabeledInputField
+            android:id="@+id/etTreatmentDose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            app:hintText="@string/_3x_days"
+            app:labelText="@string/dose" />
+
+        <com.example.healthconnect.views.LabeledInputField
+            android:id="@+id/etTreatmentDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            app:hintText="@string/_3_days"
+            app:labelText="@string/duration" />
+
+        <com.example.healthconnect.views.LabeledInputField
+            android:id="@+id/etTreatmentNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            app:hintText="@string/after_meals"
+            app:labelText="@string/note" />
+
+
+
+        <Button
+            android:id="@+id/btSubmitTreatment"
+            style="@style/PrimaryBtn"
+            android:text="@string/add_treatment" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

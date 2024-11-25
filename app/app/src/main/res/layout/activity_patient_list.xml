@@ -14,8 +14,8 @@
         >
 
         <LinearLayout style="@style/Header">
-            <TextView android:id="@+id/btBackToMain" style="@style/H1" android:text="@string/patient_list_header_text" />
-            <TextView android:id="@+id/btToPatientForm" style="@style/LinkText" android:text="@string/add_new" />
+            <TextView android:id="@+id/btPatientListToMain" style="@style/H1" android:text="@string/patient_list_header_text" />
+            <TextView android:id="@+id/btPatientListToPatientForm" style="@style/PrimaryTextMedium" android:text="@string/add_new" />
         </LinearLayout>
 
         <LinearLayout style="@style/Field">
@@ -26,11 +26,11 @@
                 android:hint="@string/search_placeholder"
                 android:queryHint="@string/search_placeholder" />
         </LinearLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPatientList"
             style="@style/ListItems"
             android:layout_weight="1" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

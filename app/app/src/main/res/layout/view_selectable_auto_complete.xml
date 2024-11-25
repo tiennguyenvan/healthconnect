@@ -1,0 +1,30 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Field"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/tvLabel"
+        style="@style/FieldLabel"
+        android:text="@string/label" />
+    <TextView
+        android:id="@+id/tvError"
+        style="@style/ErrorText"
+        android:text="" />
+
+    <AutoCompleteTextView
+        android:layout_marginTop="@dimen/gap_x_small"
+        android:id="@+id/autoCompleteTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/type_to_search"
+        android:padding="8dp"
+        style="@style/FieldInput"
+        android:dropDownHeight="wrap_content"
+        android:inputType="text" />
+
+    <LinearLayout
+        android:id="@+id/selectedItemsContainer"
+        style="@style/ListItems"
+        />
+</LinearLayout>

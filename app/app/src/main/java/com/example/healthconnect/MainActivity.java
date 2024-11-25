@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -42,6 +43,10 @@ import android.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 public class MainActivity extends AppCompatActivity {
     private final String NOTIFIER_APPOINTMENT_CHANNEL_ID = "NOTIFIER_APPOINTMENT_CHANNEL_ID";
@@ -113,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         }
         createNotificationChannel();
         showNotification();
+        startHeartbeatAnimation();
     }
 
     @Override
@@ -234,7 +240,6 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.notify(1, builder.build());
     }
 
-
     public void openNotificationSettings() {
         Intent intent = new Intent();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // For Android 8.0 and above
@@ -279,4 +284,47 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .orElse(null); // Return null if no appointment found
     }
+
+    ///////////
+    // Animation
+    private void startHeartbeatAnimation() {
+        ImageView logo = findViewById(R.id.ivHeathConnectLogo);
+
+        // Fade in (heartbeat effect)
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(logo, "alpha", 0.6f, 1f);
+        fadeIn.setDuration(100); // Sudden glow
+//        fadeIn.setInterpolator(new AccelerateInterpolator());
+
+        // Fade out to rest
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(logo, "alpha", 1f, 0.6f);
+        fadeOut.setDuration(300); // Smoothly return to rest
+//        fadeOut.setInterpolator(new DecelerateInterpolator());
+
+        // Rest phase (hold still with no opacity change)
+        ObjectAnimator restPause = ObjectAnimator.ofFloat(logo, "alpha", 0.6f, 0.6f);
+        restPause.setDuration(900); // Pause for 500ms
+
+        // Combine animations into a sequence
+        AnimatorSet heartbeatAnimator = new AnimatorSet();
+        heartbeatAnimator.playSequentially(fadeIn, fadeOut, restPause);
+
+        // Loop the animation indefinitely
+        heartbeatAnimator.addListener(new android.animation.Animator.AnimatorListener() {
+            @Override
+            public void onAnimationEnd(android.animation.Animator animation) {
+                heartbeatAnimator.start(); // Restart animation
+            }
+
+            @Override
+            public void onAnimationStart(android.animation.Animator animation) {}
+            @Override
+            public void onAnimationCancel(android.animation.Animator animation) {}
+            @Override
+            public void onAnimationRepeat(android.animation.Animator animation) {}
+        });
+
+        // Start the animation
+        heartbeatAnimator.start();
+    }
+
 }

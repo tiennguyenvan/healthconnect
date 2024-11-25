@@ -68,8 +68,10 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tvAppointmentLatest"
                         style="@style/CardBody"
-                        android:text="Phyo Thaw 9:30"/>
+                        android:visibility="gone"
+                        />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -92,8 +94,9 @@
                             android:text="@string/zero" />
                     </LinearLayout>
                     <TextView
+                        android:id="@+id/tvMedicationEmpty"
                         style="@style/CardBody"
-                        android:text="Paracetamol 50/500"/>
+                        android:visibility="gone"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

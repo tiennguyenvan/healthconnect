@@ -159,6 +159,7 @@
     <string name="consultation_diagnoses">Consultation Diagnoses</string>
     <string name="consultation_treatments">Consultation Treatments</string>
     <string name="waiting_diagnoses">Waiting Diagnoses</string>
+    <string name="medication_main_page_status">%s %.0f/%.0f</string>
 
 
 </resources>

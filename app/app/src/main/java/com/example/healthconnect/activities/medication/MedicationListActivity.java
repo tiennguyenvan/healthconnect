@@ -16,6 +16,8 @@ import com.example.healthconnect.controllers.DbTable;
 import com.example.healthconnect.models.Medication;
 import com.example.healthconnect.views.SearchRecyclerView;
 
+import java.util.List;
+
 public class MedicationListActivity extends AppCompatActivity {
     DbTable<Medication> medicationDbTable;
     private $ inThis;
@@ -37,11 +39,16 @@ public class MedicationListActivity extends AppCompatActivity {
         inThis.onClick(R.id.btMedicationListToMain).goToScreen(MainActivity.class);
 
         SearchRecyclerView<Medication> medicationSearch = findViewById(R.id.srvMedication);
-        medicationSearch.setItemList(medicationDbTable.getAll());
+        List<Medication> medications = Medication.getSortedClosestToEmpty(medicationDbTable.getAll());
+
+        medicationSearch.setItemList(medications);
         medicationSearch.setItemLayout(R.layout.component_medication_item);
         medicationSearch.setOnBindItem((itemView, medication) -> {
             TextView tvMedicationName = itemView.findViewById(R.id.tvMedicationName);
             tvMedicationName.setText(medication.getMedicationName());
+
+            TextView tvMedicationStockStatus = itemView.findViewById(R.id.tvMedicationStockStatus);
+            tvMedicationStockStatus.setText(medication.getStockStatus());
         });
         medicationSearch.setOnClickItem((medication -> {
             inThis.passToScreen(MedicationFormActivity.class, getString(R.string.key_medication_id), medication.getId());

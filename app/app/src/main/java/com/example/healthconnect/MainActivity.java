@@ -1,6 +1,8 @@
 package com.example.healthconnect;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,9 @@ import com.example.healthconnect.models.Appointment;
 import com.example.healthconnect.models.Patient;
 import com.example.healthconnect.models.Symptom;
 import com.example.healthconnect.models.Treatment;
+
+import java.util.Comparator;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private DbTable<Patient> patientTable;
@@ -66,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         inThis.onClick(R.id.btSymptoms).goToScreen(SymptomListActivity.class);
         inThis.onClick(R.id.btTreatments).goToScreen(TreatmentListActivity.class);
         inThis.onClick(R.id.btDiagnoses).goToScreen(DiagnoseListActivity.class);
+
+        updateLatestAppointment();
+        updateMedicationClosestToEmpty();
     }
 
     @Override
@@ -74,4 +82,49 @@ public class MainActivity extends AppCompatActivity {
         patientTable.closeDatabase();
         appointmentTable.closeDatabase();
     }
+
+    private void updateLatestAppointment() {
+        List<Appointment> appointments = appointmentTable.getAll();
+        TextView latest = findViewById(R.id.tvAppointmentLatest);
+        if (appointments.isEmpty()) {
+            inThis.on(R.id.tvAppointmentLatest).setVisibility(View.GONE);
+            return;
+        }
+
+        // Sort appointments by startDateTime closest to NOW
+        appointments.sort(Appointment::sortByStartDateTime);
+        Appointment latestAppointment = appointments.get(0);
+        Patient patient = patientTable.getById(latestAppointment.getPatient_id());
+        String latestAppointmentText = String.format(
+                "%s  %s",
+                patient != null ? patient.getName() : "Unknown",
+                latestAppointment.getFormatStartDateTime()
+        );
+
+        inThis.on(R.id.tvAppointmentLatest).setText(latestAppointmentText);
+        inThis.on(R.id.tvAppointmentLatest).setVisibility(View.VISIBLE);
+    }
+
+    private void updateMedicationClosestToEmpty() {
+        List<Medication> medications = medicationTable.getAll();
+        if (medications.isEmpty()) {
+            inThis.on(R.id.tvMedicationEmpty).setVisibility(View.GONE);
+            return;
+        }
+
+        // Find medication with lowest stock percentage using Comparator.comparingDouble
+        Medication lowestStockMedication = Medication.getClosetToEmpty(medications);
+
+        // Construct and display the closest-to-empty medication string
+        String medicationEmptyText = String.format(
+                getString(R.string.medication_main_page_status),
+                lowestStockMedication.getMedicationName(),
+                lowestStockMedication.getStock(),
+                lowestStockMedication.getMaxStock()
+        );
+
+        inThis.on(R.id.tvMedicationEmpty).setText(medicationEmptyText);
+        inThis.on(R.id.tvMedicationEmpty).setVisibility(View.VISIBLE);
+    }
+
 }

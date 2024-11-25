@@ -23,6 +23,7 @@
     <string name="diagnose_list_header_text">‹ \t Diagnose</string>
     <string name="appointments_list_header_text">‹ \t Appointments</string>
     <string name="edit_appointments_header_text">‹ \t Appointments</string>
+    <string name="health_news_list_header_text">‹ \t HealthConnect News</string>
     <string name="name">Name</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>
@@ -159,6 +160,7 @@
     <string name="consultation_diagnoses">Consultation Diagnoses</string>
     <string name="consultation_treatments">Consultation Treatments</string>
     <string name="waiting_diagnoses">Waiting Diagnoses</string>
+    <string name="medication_main_page_status">%s %.0f/%.0f</string>
 
 
 </resources>

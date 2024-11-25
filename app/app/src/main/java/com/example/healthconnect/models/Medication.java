@@ -2,9 +2,11 @@ package com.example.healthconnect.models;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -144,6 +146,23 @@ public class Medication {
 
         return String.valueOf(warning);
     }
+
+    public String getStockStatus() {
+        return String.format(Locale.getDefault(), "%.0f/%.0f", stock, maxStock);
+    }
+
+    public static Medication getClosetToEmpty(List<Medication> medications) {
+        return medications.stream()
+                .min(Comparator.comparingDouble(m -> m.getStock() / m.getMaxStock()))
+                .orElse(null);
+    }
+
+    public static List<Medication> getSortedClosestToEmpty(List<Medication> medications) {
+        return medications.stream()
+                .sorted(Comparator.comparingDouble(m -> m.getStock() / m.getMaxStock()))
+                .collect(Collectors.toList());
+    }
+
 
     // Demo data
     public static List<Medication> demoData() {

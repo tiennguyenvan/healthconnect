@@ -278,6 +278,9 @@ public class $ {
         String text = activity.getString(textId);
         setText(text);
     }
+    public void setVisibility(int visibility) {
+        activity.findViewById(viewId).setVisibility(visibility) ;
+    }
 
     public void setTextTo(int viewId, String text) {
         View view = activity.findViewById(viewId);

@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.R;
+import com.example.healthconnect.activities.appointment.AppointmentFormActivity;
 import com.example.healthconnect.controllers.DbTable;
 import com.example.healthconnect.controllers.$;
 import com.example.healthconnect.models.Patient;
@@ -17,6 +18,7 @@ public class PatientFormActivity extends AppCompatActivity {
     private DbTable<Patient> patientTable;
     private $ inThis;
     private long patientId = -1;  // Default to -1 if no patient ID is passed
+    private long appointmentId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class PatientFormActivity extends AppCompatActivity {
 
         // Retrieve PATIENT_ID from intent (if available)
         patientId = getIntent().getLongExtra(getString(R.string.key_patient_id), -1);
+        appointmentId = getIntent().getLongExtra(getString(R.string.key_appointment_id), -1);
         if (patientId != -1) {
             populateFormForEditing(patientId);
         }
@@ -41,10 +44,11 @@ public class PatientFormActivity extends AppCompatActivity {
         inThis.onClick(R.id.etPatientDOB).pickPastDate();
         inThis.onFocus(R.id.etPatientDOB).pickPastDate();
 
+
         // Set up back button to go back to the patient list
         inThis.onClick(R.id.btBackToPatientListOrProfile).doAction(() -> {
             if (patientId != -1) {
-                inThis.passToScreen(PatientProfileActivity.class, R.string.key_patient_id, patientId);
+                inThis.passToScreen(PatientProfileActivity.class, R.string.key_patient_id, patientId, R.string.key_appointment_id, appointmentId);
             } else {
                 inThis.goToScreen(PatientListActivity.class);
             }

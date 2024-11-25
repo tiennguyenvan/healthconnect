@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthconnect.R;
+import com.example.healthconnect.activities.patient.PatientProfileActivity;
 import com.example.healthconnect.controllers.$;
 import com.example.healthconnect.controllers.DbTable;
 import com.example.healthconnect.models.Appointment;
@@ -44,6 +45,7 @@ public class AppointmentFormActivity extends AppCompatActivity {
 
     private $ inThis;
     private long appointmentId = -1;
+    private long patientId = -1;
 
     private SelectableAutocompleteView patientPicker, diagnosisPicker, symptomPicker, treatmentPicker;
     private LabeledInputField etStartDate, etStartTime, etDuration;
@@ -112,17 +114,34 @@ public class AppointmentFormActivity extends AppCompatActivity {
 
         patientPicker.setAllowOneItem(true);
         patientPicker.setSuggestions(new ArrayList<>(patientIdsNames.values()));
+
         diagnosisPicker.setSuggestions(new ArrayList<>(diagnoseIdsNames.values()));
         symptomPicker.setSuggestions(new ArrayList<>(symptomIdsNames.values()));
         treatmentPicker.setSuggestions(treatmentTable.objectsToFields(treatments, t -> t.getName(medicationIdsNames)));
 
         appointmentId = getIntent().getLongExtra(getString(R.string.key_appointment_id), -1);
+        patientId = getIntent().getLongExtra(getString(R.string.key_patient_id), -1);
 
         if (appointmentId != -1) {
             populateFormForEditing(appointmentId);
+        } else if (patientId != -1) {
+            List<String> selectedPatientName = new ArrayList<>();
+            selectedPatientName.add(patientIdsNames.get(patientId));
+            patientPicker.setSelectedItems(selectedPatientName);
         }
 
-        inThis.onClick(R.id.btBackToAppointmentList).goToScreen(AppointmentListActivity.class);
+//        inThis.onClick(R.id.btBackToAppointmentList).goToScreen(AppointmentListActivity.class);
+        inThis.onClick(R.id.btBackToAppointmentList).doAction(() -> {
+            if (patientId != -1) {
+                inThis.passToScreen(
+                        PatientProfileActivity.class,
+                        R.string.key_patient_id, patientId,
+                        R.string.key_appointment_id, appointmentId
+                );
+            } else {
+                inThis.goToScreen(AppointmentListActivity.class);
+            }
+        });
 
         inThis.onClick(R.id.etAppointmentStartDate).pickFutureDate();
         inThis.onClick(R.id.etAppointmentStartTime).pickTime();
@@ -141,8 +160,21 @@ public class AppointmentFormActivity extends AppCompatActivity {
                 appointmentTable.update(appointmentId, appointment);
                 inThis.showToast(getString(R.string.noti_appointment_updated, String.valueOf(appointmentId)));
             }
+//            if (patientId != -1) {
+//                inThis.passToScreen(
+//                        PatientProfileActivity.class,
+//                        R.string.key_patient_id, patientId,
+//                        R.string.key_appointment_id, appointmentId
+//                );
+//            } else  {
+//                inThis.passToScreen(AppointmentListActivity.class, R.string.key_appointment_id, appointmentId);
+//            }
 
-            inThis.passToScreen(AppointmentListActivity.class, R.string.key_appointment_id, appointmentId);
+            inThis.passToScreen(
+                    PatientProfileActivity.class,
+                    R.string.key_patient_id, appointment.getPatient_id(),
+                    R.string.key_appointment_id, appointment.getId()
+            );
         });
 
         // Handle treatment suggestions based on selected diagnoses

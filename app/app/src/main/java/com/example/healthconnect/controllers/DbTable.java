@@ -25,7 +25,7 @@ public class DbTable<T> extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "HealthConnect.db";
     private final Class<T> entityType;
     private final String tableName;
-    private final boolean INCLUDE_DEMO_DATA = false;
+    private final boolean INCLUDE_DEMO_DATA = true;
 
     // Map to hold singleton instances per entity type
     private static Map<Class<?>, DbTable<?>> instances = new HashMap<>();

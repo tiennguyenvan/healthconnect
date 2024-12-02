@@ -78,7 +78,7 @@ public class Treatment {
     public static List<Treatment> demoData() {
         List<Treatment> demoData = new ArrayList<>();
         demoData.add(new Treatment(1, 1, "3x/day", "3 days", "After meals"));
-        demoData.add(new Treatment(2, 3, "2x/day", "5 days", "With water"));
+        demoData.add(new Treatment(2, 2, "2x/day", "5 days", "With water"));
         demoData.add(new Treatment(3, 5, "1x/day", "7 days", "Before bed"));
         demoData.add(new Treatment(4, 8, "2x/day", "10 days", "After breakfast"));
         demoData.add(new Treatment(5, 10, "1x/day", "5 days", "With a full glass of water"));

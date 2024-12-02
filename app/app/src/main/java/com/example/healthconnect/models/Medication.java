@@ -103,6 +103,9 @@ public class Medication {
     }
 
     public List<Long> getConflictIds() {
+        if (conflicts == null || conflicts.trim().isEmpty()) {
+            return new ArrayList<>(); // Return an empty list if `conflicts` is empty or null
+        }
         return Arrays.stream(conflicts.split(",")).map(String::trim).map(Long::parseLong).collect(Collectors.toList());
     }
 

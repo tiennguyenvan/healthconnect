@@ -6,7 +6,7 @@
     <string name="symptoms">Symptoms</string>
     <string name="new_patient_header_text">‹ \t New Patient</string>
     <string name="new_medication_header_text">‹ \t New Medication</string>
-    <string name="new_diagnose_header_text">‹ \t New Medication</string>
+    <string name="new_diagnose_header_text">‹ \t New Diagnose</string>
     <string name="new_treatment_header_text">‹ \t New Treatment</string>
     <string name="new_appointment_header_text">‹ \t New Appointment</string>
     <string name="edit_appointment_header_text">‹ \t Edit Appointment</string>
